@@ -1,9 +1,9 @@
+import { Outlet } from 'react-router-dom';
 import './App.css';
-import Homepage from './views/Homepage';
 
 function App() {
   return (
-    <Homepage/>
+    <Outlet/>
   );
 }
 
