@@ -1,15 +1,16 @@
 {
   "files": {
-    "main.css": "/fashion-shop-fe/static/css/main.f4e56737.css",
-    "main.js": "/fashion-shop-fe/static/js/main.661fd30d.js",
+    "main.css": "/fashion-shop-fe/static/css/main.e1a5e0a1.css",
+    "main.js": "/fashion-shop-fe/static/js/main.89d2c59c.js",
     "static/js/787.01776240.chunk.js": "/fashion-shop-fe/static/js/787.01776240.chunk.js",
+    "static/media/una_mano.jpg": "/fashion-shop-fe/static/media/una_mano.1aec2af3dfb25620ae61.jpg",
     "index.html": "/fashion-shop-fe/index.html",
-    "main.f4e56737.css.map": "/fashion-shop-fe/static/css/main.f4e56737.css.map",
-    "main.661fd30d.js.map": "/fashion-shop-fe/static/js/main.661fd30d.js.map",
+    "main.e1a5e0a1.css.map": "/fashion-shop-fe/static/css/main.e1a5e0a1.css.map",
+    "main.89d2c59c.js.map": "/fashion-shop-fe/static/js/main.89d2c59c.js.map",
     "787.01776240.chunk.js.map": "/fashion-shop-fe/static/js/787.01776240.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f4e56737.css",
-    "static/js/main.661fd30d.js"
+    "static/css/main.e1a5e0a1.css",
+    "static/js/main.89d2c59c.js"
   ]
 }
