@@ -1,7 +1,7 @@
 
-export default function PromoSection({background = true}) {
+export default function PromoSection({background = true, backgroundColor}) {
     return (
-      <div className={ background ? "relative overflow-hidden bg-gray-100" : "relative overflow-hidden "}>
+      <div className={ background ? `relative overflow-hidden ${backgroundColor}` : "relative overflow-hidden "}>
         <div className="pt-16 pb-80 sm:pt-24 sm:pb-40 lg:pt-40 lg:pb-48">
           <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
             <div className="sm:max-w-lg">

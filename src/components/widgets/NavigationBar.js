@@ -6,33 +6,35 @@ import { Dialog } from '@headlessui/react'
 import { Link } from 'react-router-dom'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
+import UnaMano from "../../assets/logo/una_mano.jpg"
+
 const navigation = [
     { name: 'Home', href: '/fashion-shop-fe' },
     { name: 'About Us', href: '/fashion-shop-fe/about-us' },
     { name: 'Contact Us', href: '/fashion-shop-fe/contact-us' },
 ]
 
-export default function NavigationBar() {
+export default function NavigationBar({ backgroundColor, primaryTextColor, secondaryTextColor, lightBackground }) {
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    
 
     return (
-        <header className="absolute inset-x-0 top-0 z-50">
-            <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+        <header className={`absolute inset-x-0 top-0 z-50 ${backgroundColor}`}>
+            <nav className="flex items-center justify-between px-3 lg:p-1 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1">
                     <Link to="/fashion-shop-fe" className="-m-1.5 p-1.5">
                         <span className="sr-only">Your Company</span>
-                        <img
-                            className="h-8 w-auto"
-                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                            alt=""
-                        />
+                        <div
+                            className=" mix-blend-color-burn rounded-full overflow-hidden">
+                            <img className='w-32' src={UnaMano} alt="logo" />
+                        </div>
                     </Link>
                 </div>
                 <div className="flex lg:hidden">
                     <button
                         type="button"
-                        className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                        className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 ${secondaryTextColor}`}
                         onClick={() => setMobileMenuOpen(true)}
                     >
                         <span className="sr-only">Open main menu</span>
@@ -41,32 +43,31 @@ export default function NavigationBar() {
                 </div>
                 <div className="hidden lg:flex lg:gap-x-12">
                     {navigation.map((item) => (
-                        <Link key={item.name} to={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+                        <Link key={item.name} to={item.href} className={`text-sm font-semibold leading-6 ${primaryTextColor}`}>
                             {item.name}
                         </Link>
                     ))}
                 </div>
                 <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                    <Link to="/fashion-shop-fe/register" className="text-sm font-semibold leading-6 text-gray-900">
+                    <Link to="/fashion-shop-fe/register" className={`text-sm font-semibold leading-6 ${primaryTextColor}`}>
                         Log in <span aria-hidden="true">&rarr;</span>
                     </Link>
                 </div>
             </nav>
             <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
                 <div className="fixed inset-0 z-50" />
-                <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+                <Dialog.Panel className={`fixed inset-y-0 right-0 z-50 w-full overflow-y-auto ${backgroundColor} px-6 py-5 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10`}>
                     <div className="flex items-center justify-between">
-                        <Link to="/fashion-shop-fe" className="-m-1.5 p-1.5">
+                        <Link to="/fashion-shop-fe" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
                             <span className="sr-only">Your Company</span>
-                            <img
-                                className="h-8 w-auto"
-                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                alt=""
-                            />
+                            <div
+                                className=" mix-blend-color-burn rounded-full overflow-hidden">
+                                <img className='w-20' src={UnaMano} alt="logo" />
+                            </div>
                         </Link>
                         <button
                             type="button"
-                            className="-m-2.5 rounded-md p-2.5 text-gray-700"
+                            className={`-m-2.5 rounded-md p-2.5 ${primaryTextColor}`}
                             onClick={() => setMobileMenuOpen(false)}
                         >
                             <span className="sr-only">Close menu</span>
@@ -80,7 +81,8 @@ export default function NavigationBar() {
                                     <Link
                                         key={item.name}
                                         to={item.href}
-                                        className="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className={`-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 ${secondaryTextColor} hover:bg-gray-50`}
                                     >
                                         {item.name}
                                     </Link>
@@ -89,7 +91,8 @@ export default function NavigationBar() {
                             <div className="py-6">
                                 <Link
                                     to="/fashion-shop-fe/register"
-                                    className="-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                    className={`-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 ${secondaryTextColor} hover:bg-gray-50`}
                                 >
                                     Log in
                                 </Link>
