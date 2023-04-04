@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react'
 
 
@@ -6,7 +6,8 @@ import { Dialog } from '@headlessui/react'
 import { Link } from 'react-router-dom'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
-import UnaMano from "../../assets/logo/una_mano.jpg"
+import UnaMano from "../../assets/logo/una_mano.png"
+import { ThemeContext } from '../../themeContext'
 
 const navigation = [
     { name: 'Home', href: '/fashion-shop-fe' },
@@ -14,20 +15,20 @@ const navigation = [
     { name: 'Contact Us', href: '/fashion-shop-fe/contact-us' },
 ]
 
-export default function NavigationBar({ backgroundColor, primaryTextColor, secondaryTextColor, lightBackground }) {
+export default function NavigationBar() {
 
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-    
+    const {primaryBackground, primaryTextColor,secondaryTextColor} = useContext(ThemeContext)
 
     return (
-        <header className={`absolute inset-x-0 top-0 z-50 ${backgroundColor}`}>
+        <header className={`absolute inset-x-0 top-0 z-50 ${primaryBackground}`}>
             <nav className="flex items-center justify-between px-3 lg:p-1 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1">
                     <Link to="/fashion-shop-fe" className="-m-1.5 p-1.5">
                         <span className="sr-only">Your Company</span>
                         <div
-                            className=" mix-blend-color-burn rounded-full overflow-hidden">
-                            <img className='w-32' src={UnaMano} alt="logo" />
+                            className=" mix-blend-luminosity rounded-full overflow-hidden">
+                            <img className='w-28' src={UnaMano} alt="logo" />
                         </div>
                     </Link>
                 </div>
@@ -56,12 +57,12 @@ export default function NavigationBar({ backgroundColor, primaryTextColor, secon
             </nav>
             <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
                 <div className="fixed inset-0 z-50" />
-                <Dialog.Panel className={`fixed inset-y-0 right-0 z-50 w-full overflow-y-auto ${backgroundColor} px-6 py-5 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10`}>
+                <Dialog.Panel className={`fixed inset-y-0 right-0 z-50 w-full overflow-y-auto ${primaryBackground} px-6 py-5 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10`}>
                     <div className="flex items-center justify-between">
                         <Link to="/fashion-shop-fe" className="-m-1.5 p-1.5" onClick={() => setMobileMenuOpen(false)}>
                             <span className="sr-only">Your Company</span>
                             <div
-                                className=" mix-blend-color-burn rounded-full overflow-hidden">
+                                className="mix-blend-luminosity rounded-full overflow-hidden">
                                 <img className='w-20' src={UnaMano} alt="logo" />
                             </div>
                         </Link>

@@ -1,8 +1,13 @@
 import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
+import { useContext } from 'react'
+import { ThemeContext } from '../../themeContext'
 
-export default function NewLetterSection({backgroundColor , primaryTextColor, secondaryTextColor}) {
+export default function NewLetterSection() {
+
+  const {primaryBackground, primaryTextColor,secondaryTextColor, textInputBackground, startBackground, stopBackground, buttonBackground, buttonHoverBackground} = useContext(ThemeContext)
+
   return (
-    <div className={`relative isolate overflow-hidden ${backgroundColor} py-16 sm:py-24 lg:py-32`}>
+    <div className={`relative isolate overflow-hidden ${primaryBackground} py-16 sm:py-24 lg:py-32`}>
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 lg:max-w-none lg:grid-cols-2">
           <div className="max-w-xl lg:max-w-lg">
@@ -21,12 +26,12 @@ export default function NewLetterSection({backgroundColor , primaryTextColor, se
                 type="email"
                 autoComplete="email"
                 required
-                className="min-w-0 flex-auto rounded-md border-0 bg-[#f5f2ed] px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                className={`min-w-0 flex-auto rounded-md border-0 ${textInputBackground} px-3.5 py-2 text-black shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6`}
                 placeholder="Enter your email"
               />
               <button
                 type="submit"
-                className="flex-none rounded-md bg-[#94784F] py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:bg-[#84673D] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                className={`flex-none rounded-md ${buttonBackground} py-2.5 px-3.5 text-sm font-semibold text-white shadow-sm hover:${buttonHoverBackground} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500`}
               >
                 Subscribe
               </button>
@@ -73,8 +78,8 @@ export default function NewLetterSection({backgroundColor , primaryTextColor, se
             y2="474.645"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#F5F2ED" />
-            <stop offset={1} stopColor="#FF80B5" />
+            <stop stopColor={startBackground} />
+            <stop offset={1} stopColor={stopBackground} />
           </linearGradient>
         </defs>
       </svg>

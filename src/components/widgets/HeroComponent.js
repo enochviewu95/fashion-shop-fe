@@ -3,7 +3,7 @@ import { ThemeContext } from "../../themeContext"
 
 export default function HeroComponent() {
 
-  const {startBackground,stopBackground,deepBackground} = useContext(ThemeContext)
+  const {startBackground,stopBackground,deepBackground, buttonBackground, buttonHoverBackground} = useContext(ThemeContext)
 
   return (
       <div className={`relative isolate px-6 pt-14 lg:px-8 ${deepBackground}`}>
@@ -44,7 +44,7 @@ export default function HeroComponent() {
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
                 href="#"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className={`rounded-md ${buttonBackground} px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:${buttonHoverBackground} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
               >
                 Get started
               </a>

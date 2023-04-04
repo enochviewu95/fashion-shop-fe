@@ -1,3 +1,6 @@
+import { useContext } from "react"
+import { ThemeContext } from "../../themeContext"
+
 /*
   This example requires some changes to your config:
   
@@ -36,9 +39,12 @@ const callouts = [
   },
 ]
 
-export default function CategorySection({backgroundColor}) {
+export default function CategorySection() {
+
+  const {deepBackground} = useContext(ThemeContext)
+
   return (
-    <div className={backgroundColor}>
+    <div className={deepBackground}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
           <h2 className="text-2xl font-bold text-gray-900">Collections</h2>

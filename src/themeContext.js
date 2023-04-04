@@ -2,13 +2,16 @@ import { createContext } from "react"
 
 export const themes = {
     light: {
-        primaryColor: "bg-[#84673D]",
+        primaryBackground: "bg-[#84673D]",
         primaryTextColor: "text-gray-300",
         secondaryTextColor: "text-gray-100",
         deepBackground:"bg-[#d7cab6]",
         lightBackground:"bg-[#e7dfd3]",
-        startBackground: "#d7cab6",
-        stopBackground: "#84673D",
+        startBackground: "#F5F2ED",
+        stopBackground: "#FF80B5",
+        textInputBackground: "bg-[#f5f2ed]",
+        buttonBackground: "bg-[#94784F]",
+        buttonHoverBackground: "bg-[#84673D]"
     }
 }
 

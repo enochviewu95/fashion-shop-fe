@@ -1,7 +1,12 @@
+import { useContext } from "react"
+import { ThemeContext } from "../../themeContext"
 
-export default function PromoSection({background = true, backgroundColor}) {
+export default function PromoSection({background = true}) {
+
+  const {lightBackground,buttonBackground,buttonHoverBackground} = useContext(ThemeContext)
+
     return (
-      <div className={ background ? `relative overflow-hidden ${backgroundColor}` : "relative overflow-hidden "}>
+      <div className={ background ? `relative overflow-hidden ${lightBackground}` : "relative overflow-hidden "}>
         <div className="pt-16 pb-80 sm:pt-24 sm:pb-40 lg:pt-40 lg:pb-48">
           <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
             <div className="sm:max-w-lg">
@@ -83,7 +88,7 @@ export default function PromoSection({background = true, backgroundColor}) {
   
                 <a
                   href="#"
-                  className="inline-block rounded-md border border-transparent bg-indigo-600 py-3 px-8 text-center font-medium text-white hover:bg-indigo-700"
+                  className={`inline-block rounded-md border border-transparent ${buttonBackground} py-3 px-8 text-center font-medium text-white hover:${buttonHoverBackground}`}
                 >
                   Shop Collection
                 </a>

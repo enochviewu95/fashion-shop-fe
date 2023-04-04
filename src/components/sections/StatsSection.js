@@ -1,12 +1,18 @@
+import { useContext } from "react"
+import { ThemeContext } from "../../themeContext"
+
 const stats = [
     { id: 1, name: 'Transactions every 24 hours', value: '44 million' },
     { id: 2, name: 'Assets under holding', value: '$119 trillion' },
     { id: 3, name: 'New users annually', value: '46,000' },
 ]
 
-export default function StatsSection({ gridArrangement = "row", background = true , backgroundColor}) {
+export default function StatsSection({ gridArrangement = "row", background = true }) {
+    
+    const {lightBackground} = useContext(ThemeContext)
+
     return (
-        <div className={background ?`${backgroundColor} py-24 sm:py-32` : "py-24 sm:py-32"}>
+        <div className={background ?`${lightBackground} py-24 sm:py-32` : "py-24 sm:py-32"}>
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <dl className={gridArrangement === "row" ? "grid grid-cols-1 gap-y-16 gap-x-8 text-center lg:grid-cols-3" :
                     "grid grid-cols-1 gap-y-10 gap-x-8 text-center lg:grid-cols-1"}>

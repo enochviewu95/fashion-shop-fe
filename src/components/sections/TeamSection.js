@@ -1,3 +1,6 @@
+import { useContext } from "react"
+import { ThemeContext } from "../../themeContext"
+
 /*
   This example requires some changes to your config:
   
@@ -68,8 +71,11 @@ const posts = [
 ]
 
 export default function TeamSection() {
+
+    const {deepBackground} = useContext(ThemeContext)
+
     return (
-        <div className="pb-24 sm:pb-32">
+        <div className={`py-24 sm:pb-32 ${deepBackground}`}>
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl lg:mx-0">
                     <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our Team</h2>
