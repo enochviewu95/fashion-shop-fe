@@ -55,7 +55,7 @@ export const Routes = createBrowserRouter([
           children:[
             {
               path: '/fashion-shop-fe/admin/',
-              element: <DashboardView/>
+              element: <DashboardView pageTitle="Dashboard"/>
             }
           ]
         },

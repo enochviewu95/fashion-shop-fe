@@ -21,14 +21,14 @@ export default function NavigationBar() {
     const {primaryBackground, primaryTextColor,secondaryTextColor} = useContext(ThemeContext)
 
     return (
-        <header className={`relative z-40 ${primaryBackground}`}>
+        <header className={`relative z-40 h-20 ${primaryBackground}`}>
             <nav className="flex items-center justify-between px-3 lg:p-1 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1">
                     <Link to="/fashion-shop-fe" className="-m-1.5 p-1.5">
                         <span className="sr-only">Your Company</span>
                         <div
                             className=" mix-blend-luminosity rounded-full overflow-hidden">
-                            <img className='w-28' src={UnaMano} alt="logo" />
+                            <img className='w-24' src={UnaMano} alt="logo" />
                         </div>
                     </Link>
                 </div>
