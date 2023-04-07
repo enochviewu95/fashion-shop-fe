@@ -2,7 +2,7 @@
 import { useContext, useState } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Switch } from '@headlessui/react'
-import { ThemeContext } from '../themeContext';
+import { ThemeContext } from '../../themeContext';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')

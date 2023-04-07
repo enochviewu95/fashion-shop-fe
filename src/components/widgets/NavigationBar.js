@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import { Dialog } from '@headlessui/react'
 import { Link } from 'react-router-dom'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { EllipsisVerticalIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 import UnaMano from "../../assets/logo/una_mano.png"
 import { ThemeContext } from '../../themeContext'
@@ -21,7 +21,7 @@ export default function NavigationBar() {
     const {primaryBackground, primaryTextColor,secondaryTextColor} = useContext(ThemeContext)
 
     return (
-        <header className={`absolute inset-x-0 top-0 z-50 ${primaryBackground}`}>
+        <header className={`relative z-40 ${primaryBackground}`}>
             <nav className="flex items-center justify-between px-3 lg:p-1 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1">
                     <Link to="/fashion-shop-fe" className="-m-1.5 p-1.5">
@@ -39,7 +39,7 @@ export default function NavigationBar() {
                         onClick={() => setMobileMenuOpen(true)}
                     >
                         <span className="sr-only">Open main menu</span>
-                        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+                        <EllipsisVerticalIcon className="h-6 w-6" aria-hidden="true" />
                     </button>
                 </div>
                 <div className="hidden lg:flex lg:gap-x-12">

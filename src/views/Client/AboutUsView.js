@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
-import PromoSection from '../components/sections/PromoSection'
-import StatsSection from '../components/sections/StatsSection';
-import TeamSection from '../components/sections/TeamSection';
-import TrustedBrandSection from '../components/sections/TrustedBrandSection';
-import { ThemeContext } from '../themeContext';
+import PromoSection from '../../components/sections/PromoSection'
+import StatsSection from '../../components/sections/StatsSection';
+import TeamSection from '../../components/sections/TeamSection';
+import TrustedBrandSection from '../../components/sections/TrustedBrandSection';
+import { ThemeContext } from '../../themeContext';
 
 export default function AboutUsView() {
 
@@ -15,7 +15,7 @@ export default function AboutUsView() {
 
   return (
     <div>
-      <div className="relative isolate pt-16 sm:pt-20">
+      <div className="relative isolate">
         <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
           <svg
             className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"

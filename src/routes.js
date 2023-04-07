@@ -3,9 +3,12 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
 import Client from './routes/Client';
 import Admin from './routes/Admin';
-import HomepageView from './views/HomepageView';
-import AboutUsView from './views/AboutUsView';
-import ContactUsView from './views/ContactUsView';
+
+import HomepageView from './views/Client/HomepageView';
+import AboutUsView from './views/Client/AboutUsView';
+import ContactUsView from './views/Client/ContactUsView';
+import DashboardView from './views/Admin/DashboardView';
+
 import PageNotFound from './views/PageNotFound';
 import Registration from './routes/Registration';
 
@@ -46,9 +49,15 @@ export const Routes = createBrowserRouter([
           ]
         },
         {
-          path:'/admin',
+          path:'/fashion-shop-fe/admin',
           element:<Admin/>,
-          errorElement: <PageNotFound/>
+          errorElement: <PageNotFound/>,
+          children:[
+            {
+              path: '/fashion-shop-fe/admin/',
+              element: <DashboardView/>
+            }
+          ]
         },
         {
             path:'/fashion-shop-fe/register',
