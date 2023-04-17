@@ -11,7 +11,8 @@ export const themes = {
         stopBackground: "#FF80B5",
         textInputBackground: "bg-[#f5f2ed]",
         buttonBackground: "bg-[#94784F]",
-        buttonHoverBackground: "bg-[#84673D]"
+        buttonHoverBackground: "bg-[#84673D]",
+        borderColor: "border-gray-500"
     }
 }
 
