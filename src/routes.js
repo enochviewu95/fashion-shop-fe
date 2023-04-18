@@ -11,9 +11,15 @@ import DashboardView from "./views/Admin/DashboardView";
 
 import PageNotFound from "./views/PageNotFound";
 import Registration from "./routes/Registration";
-import Home from "./views/Admin/Home";
+import Home from "./views/Admin/Hero";
 import AboutUs from "./views/Admin/AboutUs";
 import ContactUs from "./views/Admin/ContactUs";
+import Hero from "./views/Admin/Hero";
+import Products from "./views/Admin/Products";
+import Categories from "./views/Admin/Categories";
+import Collections from "./views/Admin/Collections";
+
+
 
 export const Routes = createBrowserRouter([
   {
@@ -59,8 +65,20 @@ export const Routes = createBrowserRouter([
             element: <DashboardView pageTitle="Dashboard" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home",
-            element: <Home pageTitle="Home" />,
+            path: "/fashion-shop-fe/admin/home/hero",
+            element: <Hero pageTitle="Hero" />,
+          },
+          {
+            path: "/fashion-shop-fe/admin/home/products",
+            element: <Products pageTitle="Products" />,
+          },
+          {
+            path: "/fashion-shop-fe/admin/home/categories",
+            element: <Categories pageTitle="Categories" />,
+          },
+          {
+            path: "/fashion-shop-fe/admin/home/collections",
+            element: <Collections pageTitle="Collections" />,
           },
           {
             path: "/fashion-shop-fe/admin/about-us",
