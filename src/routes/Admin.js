@@ -116,106 +116,116 @@ export default function Admin() {
                                     />
                                   </Disclosure.Button>
                                   <Disclosure.Panel className="pl-4 pt-2 pb-2 text-sm text-gray-500">
-                                    <li>
-                                      <Disclosure>
-                                        {({ open }) => (
-                                          <>
-                                            <Disclosure.Button
-                                              className={
-                                                open
-                                                  ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                                  : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                              }
-                                            >
-                                              <span>Home</span>
-                                              <ChevronRightIcon
-                                                className={`${
+                                    <ul>
+                                      <li>
+                                        <Disclosure>
+                                          {({ open }) => (
+                                            <>
+                                              <Disclosure.Button
+                                                className={
                                                   open
-                                                    ? "rotate-90 transform"
-                                                    : ""
-                                                } h-5 w-5 text-purple-500`}
-                                              />
-                                            </Disclosure.Button>
-                                            <Disclosure.Panel className="pl-4 pt-2 pb-2 text-sm text-gray-500">
-                                              <ul>
-                                                <li>
-                                                  <NavLink
-                                                    to="/fashion-shop-fe/admin/home/hero"
-                                                    className={({ isActive }) =>
-                                                      isActive
-                                                        ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                                        : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                                    }
-                                                  >
-                                                    Hero
-                                                  </NavLink>
-                                                </li>
-                                                <li>
-                                                  <NavLink
-                                                    to="/fashion-shop-fe/admin/home/categories"
-                                                    className={({ isActive }) =>
-                                                      isActive
-                                                        ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                                        : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                                    }
-                                                  >
-                                                    Categories
-                                                  </NavLink>
-                                                </li>
-                                                <li>
-                                                  <NavLink
-                                                    to="/fashion-shop-fe/admin/home/products"
-                                                    className={({ isActive }) =>
-                                                      isActive
-                                                        ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                                        : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                                    }
-                                                  >
-                                                    Products
-                                                  </NavLink>
-                                                </li>
-                                                <li>
-                                                  <NavLink
-                                                    to="/fashion-shop-fe/admin/home/collections"
-                                                    className={({ isActive }) =>
-                                                      isActive
-                                                        ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                                        : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                                    }
-                                                  >
-                                                    Collections
-                                                  </NavLink>
-                                                </li>
-                                              </ul>
-                                            </Disclosure.Panel>
-                                          </>
-                                        )}
-                                      </Disclosure>
-                                    </li>
-                                    <li>
-                                      <NavLink
-                                        to="/fashion-shop-fe/admin/about-us"
-                                        className={({ isActive }) =>
-                                          isActive
-                                            ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                            : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                        }
-                                      >
-                                        About Us
-                                      </NavLink>
-                                    </li>
-                                    <li>
-                                      <NavLink
-                                        to="/fashion-shop-fe/admin/contact-us"
-                                        className={({ isActive }) =>
-                                          isActive
-                                            ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                            : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                                        }
-                                      >
-                                        Contact Us
-                                      </NavLink>
-                                    </li>
+                                                    ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                                    : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                                }
+                                              >
+                                                <span>Home</span>
+                                                <ChevronRightIcon
+                                                  className={`${
+                                                    open
+                                                      ? "rotate-90 transform"
+                                                      : ""
+                                                  } h-5 w-5 text-purple-500`}
+                                                />
+                                              </Disclosure.Button>
+                                              <Disclosure.Panel className="pl-4 pt-2 pb-2 text-sm text-gray-500">
+                                                <ul>
+                                                  <li>
+                                                    <NavLink
+                                                      to="/fashion-shop-fe/admin/home/hero"
+                                                      className={({
+                                                        isActive,
+                                                      }) =>
+                                                        isActive
+                                                          ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                                          : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                                      }
+                                                    >
+                                                      Hero
+                                                    </NavLink>
+                                                  </li>
+                                                  <li>
+                                                    <NavLink
+                                                      to="/fashion-shop-fe/admin/home/categories"
+                                                      className={({
+                                                        isActive,
+                                                      }) =>
+                                                        isActive
+                                                          ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                                          : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                                      }
+                                                    >
+                                                      Categories
+                                                    </NavLink>
+                                                  </li>
+                                                  <li>
+                                                    <NavLink
+                                                      to="/fashion-shop-fe/admin/home/products"
+                                                      className={({
+                                                        isActive,
+                                                      }) =>
+                                                        isActive
+                                                          ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                                          : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                                      }
+                                                    >
+                                                      Products
+                                                    </NavLink>
+                                                  </li>
+                                                  <li>
+                                                    <NavLink
+                                                      to="/fashion-shop-fe/admin/home/collections"
+                                                      className={({
+                                                        isActive,
+                                                      }) =>
+                                                        isActive
+                                                          ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                                          : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                                      }
+                                                    >
+                                                      Collections
+                                                    </NavLink>
+                                                  </li>
+                                                </ul>
+                                              </Disclosure.Panel>
+                                            </>
+                                          )}
+                                        </Disclosure>
+                                      </li>
+                                      <li>
+                                        <NavLink
+                                          to="/fashion-shop-fe/admin/about-us"
+                                          className={({ isActive }) =>
+                                            isActive
+                                              ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                              : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                          }
+                                        >
+                                          About Us
+                                        </NavLink>
+                                      </li>
+                                      <li>
+                                        <NavLink
+                                          to="/fashion-shop-fe/admin/contact-us"
+                                          className={({ isActive }) =>
+                                            isActive
+                                              ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                              : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                                          }
+                                        >
+                                          Contact Us
+                                        </NavLink>
+                                      </li>
+                                    </ul>
                                   </Disclosure.Panel>
                                 </>
                               )}
@@ -248,7 +258,9 @@ export default function Admin() {
           </div>
         </header>
         <main>
-          <div className={`py-6 sm:px-6 lg:px-8 min-h-screen ${lightBackground}`}>
+          <div
+            className={`py-6 sm:px-6 lg:px-8 min-h-screen ${lightBackground}`}
+          >
             <Outlet context={[setTitle]} />
           </div>
         </main>
