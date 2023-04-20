@@ -11,13 +11,13 @@ import DashboardView from "./views/Admin/DashboardView";
 
 import PageNotFound from "./views/PageNotFound";
 import Registration from "./routes/Registration";
-import Home from "./views/Admin/Hero";
 import AboutUs from "./views/Admin/AboutUs";
 import ContactUs from "./views/Admin/ContactUs";
 import Hero from "./views/Admin/Hero";
 import Products from "./views/Admin/Products";
 import Categories from "./views/Admin/Categories";
 import Collections from "./views/Admin/Collections";
+import AddHero from "./views/Admin/AddHero";
 
 
 
@@ -66,7 +66,11 @@ export const Routes = createBrowserRouter([
           },
           {
             path: "/fashion-shop-fe/admin/home/hero",
-            element: <Hero pageTitle="Hero" />,
+            element: <Hero pageTitle="Hero" />
+          },
+          {
+            path: "/fashion-shop-fe/admin/home/add-hero",
+            element: <AddHero pageTitle="Hero" />,
           },
           {
             path: "/fashion-shop-fe/admin/home/products",
