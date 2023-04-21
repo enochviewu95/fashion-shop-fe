@@ -259,7 +259,7 @@ export default function Admin() {
         </header>
         <main>
           <div
-            className={`py-6 sm:px-6 lg:px-8 min-h-screen ${lightBackground}`}
+            className={`py-6 px-4 lg:px-8 min-h-screen ${lightBackground}`}
           >
             <Outlet context={[setTitle]} />
           </div>

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getData } from "../services/apis";
+import { getData, saveData } from "../services/apis";
 
 const bannerSlice = createSlice({
   name: "banner",
@@ -22,8 +22,10 @@ export const { getBanner, addBanner, editBanner, deleteBanner } =
 
 export const getBannersAsync = (url) => async (dispatch) => {
   const response = await getData(url);
+  console.log('Response',response)
   dispatch(addBanner(response));
 };
+
 
 export const bannerData = (state) => state.banners.value;
 export default bannerSlice.reducer;
