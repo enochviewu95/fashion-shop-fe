@@ -4,9 +4,10 @@ import { ThemeContext } from "../../themeContext";
 export default function HeroSection({ banner }) {
   const { startBackground, stopBackground, deepBackground } =
     useContext(ThemeContext);
+    const bannerUrl = process.env.REACT_APP_BASE_URL + banner.imageUrl.replace(/\\/g, "/")
 
   return (
-    <div className={`relative isolate px-6 pt-14 lg:px-8 ${deepBackground}`}  style={{ backgroundImage: `url(${banner.imageUrl})` }}>
+    <div className={`relative isolate px-6 pt-14 lg:px-8 ${deepBackground}`}  style={{ backgroundImage: `url(${bannerUrl})` }}>
       {/* <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
         <svg
           className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"

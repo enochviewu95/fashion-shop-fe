@@ -93,7 +93,7 @@ export default function AddHero({ pageTitle }) {
     formData.append('image',bannerImage);
     formData.append('title',bannerTitle);
     formData.append('description',bannerDescription);
-    saveData('/admin/api/add-banner',formData)
+    saveData('admin/api/add-banner',formData)
     .then(response=>{
       console.log(response)
     })
