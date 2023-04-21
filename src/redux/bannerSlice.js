@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getData, saveData } from "../services/apis";
+import { getData } from "../services/apis";
 
 const bannerSlice = createSlice({
   name: "banner",
