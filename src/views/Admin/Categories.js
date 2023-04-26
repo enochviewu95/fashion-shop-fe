@@ -1,7 +1,112 @@
-import React from 'react'
+import React, { useContext, useEffect } from "react";
+import CategoryCardComponent from "../../components/widgets/CategoryCardComponent";
+import { Link, useOutletContext } from "react-router-dom";
+import { ThemeContext } from "../../themeContext";
+import { useDispatch, useSelector } from "react-redux";
+import { categoryList, getCategoriesAsync } from "../../redux/categorySlice";
 
-export default function Categories() {
+const callouts = [
+  {
+    name: "Desk and Office",
+    description: "Work from home accessories",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg",
+    imageAlt:
+      "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.",
+    href: "#",
+  },
+  {
+    name: "Self-Improvement",
+    description: "Journals and note-taking",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
+    imageAlt:
+      "Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.",
+    href: "#",
+  },
+  {
+    name: "Travel",
+    description: "Daily commute essentials",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg",
+    imageAlt: "Collection of four insulated travel bottles on wooden shelf.",
+    href: "#",
+  },
+  {
+    name: "Self-Improvement",
+    description: "Journals and note-taking",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
+    imageAlt:
+      "Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.",
+    href: "#",
+  },
+  {
+    name: "Desk and Office",
+    description: "Work from home accessories",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg",
+    imageAlt:
+      "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.",
+    href: "#",
+  },
+  {
+    name: "Self-Improvement",
+    description: "Journals and note-taking",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
+    imageAlt:
+      "Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.",
+    href: "#",
+  },
+  {
+    name: "Desk and Office",
+    description: "Work from home accessories",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg",
+    imageAlt:
+      "Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.",
+    href: "#",
+  },
+  {
+    name: "Self-Improvement",
+    description: "Journals and note-taking",
+    imageSrc:
+      "https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg",
+    imageAlt:
+      "Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.",
+    href: "#",
+  },
+];
+
+export default function Categories({ pageTitle }) {
+  const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
+  const [setTitle] = useOutletContext();
+  const dispatch = useDispatch();
+  const categories = useSelector(categoryList);
+
+  useEffect(() => {
+    setTitle(pageTitle);
+    dispatch(getCategoriesAsync("admin/api/get-categories"));
+  }, [dispatch, pageTitle, setTitle]);
+
+  console.log("Categories", categories);
+
   return (
-    <div>Categories</div>
-  )
+    <div>
+      <div className="my-5">
+        <Link
+          to="/fashion-shop-fe/admin/home/categories/add-category"
+          className={`${buttonBackground} px-3 py-2 hover:${buttonHoverBackground} text-white my-5 rounded-lg shadow-sm`}
+        >
+          Add Category
+        </Link>
+      </div>
+      <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
+        {categories.map((category) => (
+          <CategoryCardComponent key={category._id} category={category} />
+        ))}
+      </div>
+    </div>
+  );
 }

@@ -6,17 +6,15 @@ import PromoSection from "../../components/sections/PromoSection";
 import StatsSection from "../../components/sections/StatsSection";
 import HeroSection from "../../components/sections/HeroSection";
 import { useSelector } from "react-redux";
-import { bannerData } from "../../redux/bannerSlice";
+import { selectedBanner } from "../../redux/bannerSlice";
 
 export default function HomepageView() {
-  const banners = useSelector(bannerData);
-  console.log("Banners", banners);
+  const banner = useSelector(selectedBanner);
+  console.log("Banners", banner);
 
   return (
     <div>
-      {banners.map((banner) =>
-        banner.isSelected ? <HeroSection key={banner._id} banner={banner} /> : ""
-      )}
+      {banner ? <HeroSection key={banner.result._id} banner={banner.result} /> : ""}
       <CategorySection />
       <ProductSection />
       <PromoSection />

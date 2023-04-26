@@ -4,11 +4,16 @@ import { getData } from "../services/apis";
 const bannerSlice = createSlice({
   name: "banner",
   initialState: {
-    value: [],
+    bannerList: [],
+    selectedBanner: null,
   },
   reducers: {
-    addBanner(state, action) {
-      state.value = action.payload;
+    addBannerList(state, action) {
+      state.bannerList = action.payload;
+    },
+
+    addSelectedBanner(state, action) {
+      state.selectedBanner = action.payload;
     },
 
     deleteBanner(state, action) {},
@@ -17,15 +22,20 @@ const bannerSlice = createSlice({
   },
 });
 
-export const { getBanner, addBanner, editBanner, deleteBanner } =
+export const { addBannerList, addSelectedBanner, editBanner, deleteBanner } =
   bannerSlice.actions;
 
 export const getBannersAsync = (url) => async (dispatch) => {
   const response = await getData(url);
-  console.log('Response',response)
-  dispatch(addBanner(response));
+  dispatch(addBannerList(response));
 };
 
+export const getSelectedBannerAsync = (url) => async (dispatch) => {
+  const response = await getData(url);
+  dispatch(addSelectedBanner(response));
+};
 
-export const bannerData = (state) => state.banners.value;
+export const bannerList = (state) => state.banners.bannerList;
+export const selectedBanner = (state) => state.banners.selectedBanner;
+
 export default bannerSlice.reducer;

@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import App from "./App";
-import Client from "./routes/Client";
-import Admin from "./routes/Admin";
+import Client from "./layouts/Client";
+import Admin from "./layouts/Admin";
 
 import HomepageView from "./views/Client/HomepageView";
 import AboutUsView from "./views/Client/AboutUsView";
@@ -10,7 +10,7 @@ import ContactUsView from "./views/Client/ContactUsView";
 import DashboardView from "./views/Admin/DashboardView";
 
 import PageNotFound from "./views/PageNotFound";
-import Registration from "./routes/Registration";
+import Registration from "./layouts/Registration";
 import AboutUs from "./views/Admin/AboutUs";
 import ContactUs from "./views/Admin/ContactUs";
 import Hero from "./views/Admin/Hero";
@@ -18,6 +18,7 @@ import Products from "./views/Admin/Products";
 import Categories from "./views/Admin/Categories";
 import Collections from "./views/Admin/Collections";
 import AddHero from "./views/Admin/AddHero";
+import AddCategory from "./views/Admin/AddCategory";
 
 
 
@@ -79,6 +80,10 @@ export const Routes = createBrowserRouter([
           {
             path: "/fashion-shop-fe/admin/home/categories",
             element: <Categories pageTitle="Categories" />,
+          },
+          {
+            path: "/fashion-shop-fe/admin/home/categories/add-category",
+            element: <AddCategory pageTitle="Categories" />,
           },
           {
             path: "/fashion-shop-fe/admin/home/collections",
