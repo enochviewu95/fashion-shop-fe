@@ -1,5 +1,5 @@
 import React from "react";
-import FeatureSection from "../../components/sections/FeatureSection";
+import CollectionSection from "../../components/sections/CollectionSection";
 import CategorySection from "../../components/sections/CategorySection";
 import ProductSection from "../../components/sections/ProductSection";
 import PromoSection from "../../components/sections/PromoSection";
@@ -18,7 +18,7 @@ export default function HomepageView() {
       <CategorySection />
       <ProductSection />
       <PromoSection />
-      <FeatureSection />
+      <CollectionSection />
       <StatsSection />
     </div>
   );

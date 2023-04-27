@@ -7,6 +7,7 @@ import thunk from 'redux-thunk';
 
 import BannerReducer from "./redux/bannerSlice";
 import CategoryReducer from  "./redux/categorySlice";
+import CollectionReducer from "./redux/collectionSlice";
 
 const persitConfig = {
   key: "root",
@@ -15,7 +16,8 @@ const persitConfig = {
 
 export const rootReducers = combineReducers({
   banners: BannerReducer,
-  categories: CategoryReducer
+  categories: CategoryReducer,
+  collections: CollectionReducer
 });
 
 const persistedReducer = persistReducer(persitConfig, rootReducers);

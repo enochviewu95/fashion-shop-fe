@@ -5,6 +5,7 @@ import NewLetterSection from "../components/sections/NewsLetterSection";
 import { useDispatch } from "react-redux";
 import { getSelectedBannerAsync } from "../redux/bannerSlice";
 import { getCategoriesAsync } from "../redux/categorySlice";
+import { getCollectionAsync } from "../redux/collectionSlice";
 
 export default function Client() {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ export default function Client() {
   useEffect(() => {
     dispatch(getSelectedBannerAsync("shop/api/get-banner"));
     dispatch(getCategoriesAsync("shop/api/get-categories"));
+    dispatch(getCollectionAsync("shop/api/get-collections"))
   });
   return (
     <>
