@@ -14,7 +14,7 @@ export default function HomepageView() {
 
   return (
     <div>
-      {banner ? <HeroSection key={banner.result._id} banner={banner.result} /> : ""}
+      {banner ? <HeroSection key={banner._id} banner={banner} /> : ""}
       <CategorySection />
       <ProductSection />
       <PromoSection />

@@ -20,8 +20,7 @@ import Collections from "./views/Admin/Collections";
 import AddHero from "./views/Admin/AddHero";
 import AddCategory from "./views/Admin/AddCategory";
 import AddCollection from "./views/Admin/AddCollection";
-
-
+import AddProduct from "./views/Admin/AddProduct";
 
 export const Routes = createBrowserRouter([
   {
@@ -68,7 +67,7 @@ export const Routes = createBrowserRouter([
           },
           {
             path: "/fashion-shop-fe/admin/home/hero",
-            element: <Hero pageTitle="Hero" />
+            element: <Hero pageTitle="Hero" />,
           },
           {
             path: "/fashion-shop-fe/admin/home/add-hero",
@@ -77,6 +76,10 @@ export const Routes = createBrowserRouter([
           {
             path: "/fashion-shop-fe/admin/home/products",
             element: <Products pageTitle="Products" />,
+          },
+          {
+            path: "/fashion-shop-fe/admin/home/products/add-product",
+            element: <AddProduct pageTitle="Products" />,
           },
           {
             path: "/fashion-shop-fe/admin/home/categories",

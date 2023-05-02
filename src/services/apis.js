@@ -16,6 +16,7 @@ export const getData = async (url) => {
     .get(url)
     .then((response) => {
       const { data } = response;
+      console.log('Data',data)
       return data;
     })
     .catch((err) => {

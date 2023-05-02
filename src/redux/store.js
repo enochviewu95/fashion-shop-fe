@@ -5,9 +5,10 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
 
-import BannerReducer from "./redux/bannerSlice";
-import CategoryReducer from  "./redux/categorySlice";
-import CollectionReducer from "./redux/collectionSlice";
+import BannerReducer from "./bannerSlice";
+import CategoryReducer from  "./categorySlice";
+import CollectionReducer from "./collectionSlice";
+import ProductReducer from "./productSlice";
 
 const persitConfig = {
   key: "root",
@@ -17,7 +18,8 @@ const persitConfig = {
 export const rootReducers = combineReducers({
   banners: BannerReducer,
   categories: CategoryReducer,
-  collections: CollectionReducer
+  collections: CollectionReducer,
+  products: ProductReducer
 });
 
 const persistedReducer = persistReducer(persitConfig, rootReducers);

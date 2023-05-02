@@ -1,8 +1,7 @@
 import { useContext, useId } from "react";
 import { ThemeContext } from "../../themeContext";
 import CategoryCardComponent from "../widgets/CategoryCardComponent";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper";
+import { SwiperSlide } from "swiper/react";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -14,7 +13,7 @@ import SwiperComponent from "../widgets/SwiperComponent";
 export default function CategorySection() {
   const { lightBackground } = useContext(ThemeContext);
   const categories = useSelector(categoryList);
-  const id = useId();
+  // const id = useId();
 
   return (
     <div className={lightBackground}>

@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { getSelectedBannerAsync } from "../redux/bannerSlice";
 import { getCategoriesAsync } from "../redux/categorySlice";
 import { getCollectionAsync } from "../redux/collectionSlice";
+import { getProductAsync } from "../redux/productSlice";
 
 export default function Client() {
   const dispatch = useDispatch();
@@ -13,7 +14,8 @@ export default function Client() {
   useEffect(() => {
     dispatch(getSelectedBannerAsync("shop/api/get-banner"));
     dispatch(getCategoriesAsync("shop/api/get-categories"));
-    dispatch(getCollectionAsync("shop/api/get-collections"))
+    dispatch(getCollectionAsync("shop/api/get-collections"));
+    dispatch(getProductAsync("shop/api/get-products"))
   });
   return (
     <>

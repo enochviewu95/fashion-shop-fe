@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import React, { useContext, useState } from "react";
 import CardComponent from "../../components/widgets/CardComponent";
 import { ThemeContext } from "../../themeContext";
 import { saveData } from "../../services/apis";
 
-export default function UploadImageDocument({ url, dataType }) {
-  const [bannerImage, setBannerImage] = useState(null);
-  const [bannerTitle, setBannerTitle] = useState("");
-  const [bannerDescription, setBannerDescription] = useState("");
+export default function UploadImageDocument({ url, dataType, formType }) {
+  const [image, setBannerImage] = useState(null);
+  const [title, setBannerTitle] = useState("");
+  const [price, setPrice] = useState(0.0);
+  const [description, setBannerDescription] = useState("");
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
 
   /**
@@ -85,9 +85,11 @@ export default function UploadImageDocument({ url, dataType }) {
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("image", bannerImage);
-    formData.append("title", bannerTitle);
-    formData.append("description", bannerDescription);
+    formData.append("image", image);
+    formType === "product" && formData.append('price',price);
+    formData.append("title", title);
+    formData.append("description", description);
+    // console.log('Form Data',formData.get('price'))
     saveData(url, formData).then((response) => {
       console.log(response);
     });
@@ -96,6 +98,7 @@ export default function UploadImageDocument({ url, dataType }) {
   return (
     <form
       onSubmit={submitForm}
+      method="post"
       encType="multipart/form-data"
       className="w-full"
     >
@@ -117,7 +120,7 @@ export default function UploadImageDocument({ url, dataType }) {
             <div>
               <div
                 id="dropBox"
-                className="border-4 rounded-xl border-dashed h-96 flex flex-col justify-center items-center group hover:border-slate-300"
+                className="border-4 rounded-xl border-dashed h-[26rem] flex flex-col justify-center items-center group hover:border-slate-300"
                 onDragEnter={dragEnter}
                 onDragOver={dragOver}
                 onDrop={drop}
@@ -134,12 +137,12 @@ export default function UploadImageDocument({ url, dataType }) {
               </div>
               <div
                 id="preview"
-                className="border-4 rounded-xl border-dashed h-96 flex-col justify-center items-center group hover:border-slate-300 hidden"
+                className="border-4 rounded-xl border-dashed h-[26rem] flex-col justify-center items-center group hover:border-slate-300 hidden"
               >
                 <img
                   id="imgPreview"
                   alt="Preview"
-                  className="w-full object-cover overflow-hidden"
+                  className="w-full h-full object-cover overflow-hidden"
                 />
               </div>
             </div>
@@ -156,7 +159,7 @@ export default function UploadImageDocument({ url, dataType }) {
         </div>
         <div>
           <CardComponent>
-            <div className="h-96">
+            <div className="h-[26rem]">
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                 <div className="sm:col-span-2">
                   <label
@@ -175,6 +178,29 @@ export default function UploadImageDocument({ url, dataType }) {
                     />
                   </div>
                 </div>
+                {formType === "product" ? (
+                  <div className="sm:col-span-2">
+                    <label
+                      htmlFor="price"
+                      className="block text-sm font-semibold leading-6 text-gray-900"
+                    >
+                      Price
+                    </label>
+                    <div className="mt-2.5 w-1/3">
+                      <input
+                        type="number"
+                        min="0.00"
+                        step="0.01"
+                        name="price"
+                        id="price"
+                        onChange={(event) => setPrice(event.target.value)}
+                        className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  ""
+                )}
                 <div className="sm:col-span-2">
                   <label
                     htmlFor="description"

@@ -5,7 +5,7 @@ import {ThemeContext, themes} from './themeContext'
 import './App.css';
 
 function App() {
-  const [theme, setTheme] = useState(themes.light);
+  const [theme] = useState(themes.light);
   return (
     <ThemeContext.Provider value={theme}>
       <Outlet />

@@ -3,76 +3,15 @@ import { ThemeContext } from "../../themeContext";
 import ProductCardComponent from "../widgets/ProductCardComponent";
 import SwiperComponent from "../widgets/SwiperComponent";
 import { SwiperSlide } from "swiper/react";
+import { productList } from "../../redux/productSlice";
+import { useSelector } from "react-redux";
 
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/aspect-ratio'),
-    ],
-  }
-  ```
-*/
-const products = [
-  {
-    id: 1,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
-  },
-  {
-    id: 2,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-02.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
-  },
-  {
-    id: 3,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-03.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
-  },
-  {
-    id: 4,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-04.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
-  },
-  {
-    id: 5,
-    name: "Basic Tee",
-    href: "#",
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-03.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
-  },
-];
 
 export default function ProductSection() {
   const { deepBackground } = useContext(ThemeContext);
+
+  const products = useSelector(productList);
+  console.log('Product',products)
 
   return (
     <div className={deepBackground}>
@@ -87,8 +26,17 @@ export default function ProductSection() {
             In mi viverra elit nunc.
           </p>
         </div>
-        <div className="mt-16">
-          <SwiperComponent>
+        <div className="mt-16 hidden lg:flex">
+          <SwiperComponent screenType="large">
+            {products.map((product) => (
+              <SwiperSlide>
+                <ProductCardComponent product={product} />
+              </SwiperSlide>
+            ))}
+          </SwiperComponent>
+        </div>
+        <div className="mt-16 lg:hidden">
+          <SwiperComponent screenType="small">
             {products.map((product) => (
               <SwiperSlide>
                 <ProductCardComponent product={product} />

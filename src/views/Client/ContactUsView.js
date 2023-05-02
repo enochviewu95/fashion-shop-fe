@@ -9,7 +9,7 @@ function classNames(...classes) {
 }
 
 export default function ContactUsView() {
-  const { lightBackground, startBackground, stopBackground, textInputBackground, primaryTextColor, buttonBackground, buttonHoverBackground, primaryBackground } = useContext(ThemeContext)
+  const { lightBackground, startBackground, stopBackground, textInputBackground, primaryTextColor, buttonBackground, buttonHoverBackground } = useContext(ThemeContext)
   const [agreed, setAgreed] = useState(false)
 
   return (
