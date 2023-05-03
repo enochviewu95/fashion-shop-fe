@@ -1,22 +1,25 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useOutletContext } from "react-router-dom";
 import { bannerList, getBannersAsync } from "../../redux/bannerSlice";
 import HeroSection from "../../components/sections/HeroSection";
 import { ThemeContext } from "../../themeContext";
 
-export default function Hero({ pageTitle }) {
+export default function Hero({ pageTitle, isAdmin }) {
   const [setTitle] = useOutletContext();
   const dispatch = useDispatch();
   const banners = useSelector(bannerList);
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
+  const [selectedHero, setSelectedHero] = useState("");
+
+  const selectHero = (event) => {
+    setSelectedHero(event.target.value);
+  };
 
   useEffect(() => {
     setTitle(pageTitle);
     dispatch(getBannersAsync("admin/api/get-banners"));
   }, [dispatch, pageTitle, setTitle]);
-
-  console.log("Banners", banners);
 
   return (
     <div>
@@ -30,8 +33,31 @@ export default function Hero({ pageTitle }) {
       </div>
       {banners
         ? banners.map((banner) => (
-            <div className="my-5 rounded-xl overflow-hidden">
-              <HeroSection key={banner._id} banner={banner} />
+            <div>
+              <div
+                className={
+                  banner.isSelected && isAdmin
+                    ? "my-5 rounded-xl overflow-hidden outline outline-offset-2 outline-4 outline-orange-800 w-full"
+                    : "my-5 rounded-xl overflow-hidden"
+                }
+              >
+                <label for={banner._id}>
+                  <HeroSection
+                    key={banner._id}
+                    banner={banner}
+                    isAdmin="true"
+                    selectedHero={selectedHero}
+                  />
+                </label>
+              </div>
+              <input
+                id={banner._id}
+                name="selectedHero"
+                className="absolute overflow-hidden h-0 w-0"
+                type="radio"
+                onClick={selectHero}
+                value={banner._id}
+              />
             </div>
           ))
         : ""}
