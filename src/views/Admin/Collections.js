@@ -34,7 +34,7 @@ export default function Collections({ pageTitle }) {
       <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
         {collections
           ? collections.map((category) => (
-              <CategoryCardComponent key={category._id} category={category} />
+              <CategoryCardComponent key={category._id} category={category} isAdmin={true} isCategory={false} />
             ))
           : ""}
       </div>

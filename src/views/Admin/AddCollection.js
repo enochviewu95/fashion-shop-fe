@@ -11,5 +11,5 @@ export default function AddCollection({pageTitle}) {
     }, [pageTitle, setTitle]);
   
   
-    return <UploadImageDocument url={formUrl} />;
+    return <UploadImageDocument url={formUrl}  redirectUrl="collections"/>;
 }

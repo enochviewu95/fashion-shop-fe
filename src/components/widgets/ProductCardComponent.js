@@ -1,8 +1,8 @@
 import React from "react";
-
-export default function ProductCardComponent({product}) {
-
-  const productImageUrl = process.env.REACT_APP_BASE_URL + product.imageUrl.replace(/\\/g, "/")
+import DeleteItemsComponent from "./DeleteItemsComponent";
+export default function ProductCardComponent({ product, isAdmin }) {
+  const productImageUrl =
+    process.env.REACT_APP_BASE_URL + product.imageUrl.replace(/\\/g, "/");
 
   return (
     <div className="group relative py-5">
@@ -23,8 +23,11 @@ export default function ProductCardComponent({product}) {
           </h3>
           <p className="mt-1 text-sm text-gray-500">{product.description}</p>
         </div>
-        <p className="text-sm font-medium text-gray-900">{product.price["$numberDecimal"]}</p>
+        <p className="text-sm font-medium text-gray-900">
+          {product.price["$numberDecimal"]}
+        </p>
       </div>
+      <DeleteItemsComponent isAdmin={isAdmin} itemId={product._id} deleteUrl="admin/api/delete-product" />
     </div>
   );
 }

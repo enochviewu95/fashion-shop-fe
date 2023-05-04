@@ -30,7 +30,7 @@ export default function Categories({ pageTitle }) {
       </div>
       <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
         {categories.map((category) => (
-          <CategoryCardComponent key={category._id} category={category} />
+          <CategoryCardComponent key={category._id} category={category} isAdmin={true} isCategory={true}/>
         ))}
       </div>
     </div>

@@ -6,6 +6,6 @@ export default function AddCategory() {
   const url = '/admin/api/add-category'
 
   return (
-    <UploadImageDocument url={url}/>
+    <UploadImageDocument url={url}  redirectUrl="categories"/>
   )
 }

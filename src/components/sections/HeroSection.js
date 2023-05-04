@@ -27,7 +27,11 @@ export default function HeroSection({ banner, isAdmin, selectedHero }) {
             <div className="text-end w-16 absolute bottom-6 right-6">
               <CheckCircleIcon
                 className={
-                  selectedHero === banner._id ? "text-orange-300" : "text-white "
+                  selectedHero === banner._id
+                    ? "text-orange-300"
+                    : selectedHero === "" && banner.isSelected
+                    ? "text-orange-300"
+                    : "text-white"
                 }
               />
             </div>

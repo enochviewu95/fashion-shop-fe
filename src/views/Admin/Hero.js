@@ -12,10 +12,6 @@ export default function Hero({ pageTitle, isAdmin }) {
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
   const [selectedHero, setSelectedHero] = useState("");
 
-  const selectHero = (event) => {
-    setSelectedHero(event.target.value);
-  };
-
   useEffect(() => {
     setTitle(pageTitle);
     dispatch(getBannersAsync("admin/api/get-banners"));
@@ -33,7 +29,7 @@ export default function Hero({ pageTitle, isAdmin }) {
       </div>
       {banners
         ? banners.map((banner) => (
-            <div>
+            <div key={banner._id}>
               <div
                 className={
                   banner.isSelected && isAdmin
@@ -41,9 +37,8 @@ export default function Hero({ pageTitle, isAdmin }) {
                     : "my-5 rounded-xl overflow-hidden"
                 }
               >
-                <label for={banner._id}>
+                <label htmlFor={banner._id}>
                   <HeroSection
-                    key={banner._id}
                     banner={banner}
                     isAdmin="true"
                     selectedHero={selectedHero}
@@ -55,7 +50,9 @@ export default function Hero({ pageTitle, isAdmin }) {
                 name="selectedHero"
                 className="absolute overflow-hidden h-0 w-0"
                 type="radio"
-                onClick={selectHero}
+                onClick={(event) => {
+                  setSelectedHero(event.target.value);
+                }}
                 value={banner._id}
               />
             </div>

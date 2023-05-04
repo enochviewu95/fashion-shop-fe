@@ -1,10 +1,11 @@
 import React from "react";
+import DeleteItemsComponent from "./DeleteItemsComponent";
 
-export default function CategoryCardComponent({ category }) {
-
+export default function CategoryCardComponent({ category, isAdmin,isCategory }) {
   // console.log('Category',category)
-  const categoryImageUrl = process.env.REACT_APP_BASE_URL + category.imageUrl.replace(/\\/g, "/")
-  console.log('Image url',categoryImageUrl)
+  const categoryImageUrl =
+    process.env.REACT_APP_BASE_URL + category.imageUrl.replace(/\\/g, "/");
+  console.log("Image url", categoryImageUrl);
 
   return (
     <div className="group relative py-5 ">
@@ -15,15 +16,22 @@ export default function CategoryCardComponent({ category }) {
           className="h-full w-full object-cover object-center"
         />
       </div>
-      <h3 className="mt-6 text-sm text-gray-900">
-        <a href="#">
-          <span className="absolute inset-0" />
-          {category.title}
-        </a>
-      </h3>
-      <p className="text-base font-semibold text-gray-900">
-        {category.description}
-      </p>
+      <div>
+        <h3 className="mt-6 text-sm text-gray-900">
+          <a href="#">
+            <span className="absolute inset-0" />
+            {category.title}
+          </a>
+        </h3>
+        <p className="text-base font-semibold text-gray-900">
+          {category.description}
+        </p>
+      </div>
+      {
+        isCategory ?
+        <DeleteItemsComponent isAdmin={isAdmin} itemId={category._id} deleteUrl="admin/api/delete-category"/>
+        :  <DeleteItemsComponent isAdmin={isAdmin} itemId={category._id} deleteUrl="admin/api/delete-collection"/>
+      }
     </div>
   );
 }

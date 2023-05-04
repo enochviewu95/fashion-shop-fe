@@ -5,8 +5,8 @@ const instance = axios.create({
   baseURL: BASE_URL,
 });
 
-export const saveData = async (url,payload) => {
-  return await instance.post(url,payload).then((response) => {
+export const saveData = async (url, payload) => {
+  return await instance.post(url, payload).then((response) => {
     return response;
   });
 };
@@ -16,7 +16,19 @@ export const getData = async (url) => {
     .get(url)
     .then((response) => {
       const { data } = response;
-      console.log('Data',data)
+      console.log("Data", data);
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const deleteData = async (url) => {
+  return await instance
+    .delete(url)
+    .then((response) => {
+      const { data } = response;
       return data;
     })
     .catch((err) => {

@@ -2,12 +2,15 @@ import React, { useContext, useState } from "react";
 import CardComponent from "../../components/widgets/CardComponent";
 import { ThemeContext } from "../../themeContext";
 import { saveData } from "../../services/apis";
+import swal from "sweetalert";
+import { useNavigate } from "react-router-dom";
 
-export default function UploadImageDocument({ url, dataType, formType }) {
+export default function UploadImageDocument({ url, dataType, formType,redirectUrl }) {
   const [image, setBannerImage] = useState(null);
   const [title, setBannerTitle] = useState("");
   const [price, setPrice] = useState(0.0);
   const [description, setBannerDescription] = useState("");
+  const navigate = useNavigate();
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
 
   /**
@@ -86,12 +89,32 @@ export default function UploadImageDocument({ url, dataType, formType }) {
 
     const formData = new FormData();
     formData.append("image", image);
-    formType === "product" && formData.append('price',price);
+    formType === "product" && formData.append("price", price);
     formData.append("title", title);
     formData.append("description", description);
-    // console.log('Form Data',formData.get('price'))
-    saveData(url, formData).then((response) => {
-      console.log(response);
+
+    swal({
+      title: "Are you sure?",
+      text: "Do you want to save this item?",
+      icon: "info",
+      buttons: true,
+      dangerMode: false,
+    }).then((willDelete) => {
+      if (willDelete) {
+        saveData(url, formData)
+        .then((response) => {
+          swal("Saved Successfully", {
+            icon: "success",
+          }).then(() => {
+            console.log('Saving data')
+            navigate(`/fashion-shop-fe/admin/home/${redirectUrl}`);
+          });
+        });
+      } else {
+        swal("Unable to save", {
+          icon: "info",
+        });
+      }
     });
   };
 

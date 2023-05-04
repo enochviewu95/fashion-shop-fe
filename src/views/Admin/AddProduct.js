@@ -9,5 +9,5 @@ export default function AddProduct({ pageTitle }) {
   useEffect(() => {
     setTitle(pageTitle);
   }, [pageTitle, setTitle]);
-  return <UploadImageDocument url={formUrl} formType="product"/>;
+  return <UploadImageDocument url={formUrl} formType="product" redirectUrl="products"/>;
 }
