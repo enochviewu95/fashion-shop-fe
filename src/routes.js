@@ -82,11 +82,19 @@ export const Routes = createBrowserRouter([
             element: <AddProduct pageTitle="Products" />,
           },
           {
+            path: "/fashion-shop-fe/admin/home/products/edit-product/:id",
+            element: <AddProduct pageTitle="Products" />,
+          },
+          {
             path: "/fashion-shop-fe/admin/home/categories",
             element: <Categories pageTitle="Categories" />,
           },
           {
             path: "/fashion-shop-fe/admin/home/categories/add-category",
+            element: <AddCategory pageTitle="Categories" />,
+          },
+          {
+            path: "/fashion-shop-fe/admin/home/categories/edit-category/:id",
             element: <AddCategory pageTitle="Categories" />,
           },
           {

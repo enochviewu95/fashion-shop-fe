@@ -1,12 +1,11 @@
-import React, { useContext, useEffect } from 'react'
-import { Link, useOutletContext } from 'react-router-dom';
-import { ThemeContext } from '../../themeContext';
-import { useDispatch, useSelector } from 'react-redux';
-import ProductCardComponent from '../../components/widgets/ProductCardComponent';
-import { getProductAsync, productList } from '../../redux/productSlice';
+import React, { useContext, useEffect } from "react";
+import { Link, useOutletContext } from "react-router-dom";
+import { ThemeContext } from "../../themeContext";
+import { useDispatch, useSelector } from "react-redux";
+import ProductCardComponent from "../../components/widgets/ProductCardComponent";
+import { getProductAsync, productList } from "../../redux/productSlice";
 
-export default function Products({pageTitle}) {
-
+export default function Products({ pageTitle }) {
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
   const [setTitle] = useOutletContext();
   const dispatch = useDispatch();
@@ -15,24 +14,27 @@ export default function Products({pageTitle}) {
   useEffect(() => {
     setTitle(pageTitle);
     dispatch(getProductAsync("admin/api/get-products"));
-  }, [ dispatch, pageTitle, setTitle]);
-
+  }, [dispatch, pageTitle, setTitle]);
 
   return (
     <div>
-    <div className="my-5">
-      <Link
-        to="/fashion-shop-fe/admin/home/products/add-product"
-        className={`${buttonBackground} px-3 py-2 hover:${buttonHoverBackground} text-white my-5 rounded-lg shadow-sm`}
-      >
-        Add Product
-      </Link>
+      <div className="my-5">
+        <Link
+          to="/fashion-shop-fe/admin/home/products/add-product"
+          className={`${buttonBackground} px-3 py-2 hover:${buttonHoverBackground} text-white my-5 rounded-lg shadow-sm`}
+        >
+          Add Product
+        </Link>
+      </div>
+      <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
+        {products.map((product) => (
+          <ProductCardComponent
+            key={product._id}
+            product={product}
+            isAdmin="true"
+          />
+        ))}
+      </div>
     </div>
-    <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
-      {products.map((product) => (
-        <ProductCardComponent key={product.id} product={product} isAdmin="true" />
-      ))}
-    </div>
-  </div>
-  )
+  );
 }

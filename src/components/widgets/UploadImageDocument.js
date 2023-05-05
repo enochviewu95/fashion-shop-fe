@@ -1,17 +1,35 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CardComponent from "../../components/widgets/CardComponent";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ThemeContext } from "../../themeContext";
-import { saveData } from "../../services/apis";
+import { saveData, getData } from "../../services/apis";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 
-export default function UploadImageDocument({ url, dataType, formType,redirectUrl }) {
+export default function UploadImageDocument({
+  url,
+  dataType,
+  formType,
+  redirectUrl,
+  itemId,
+  editUrl,
+}) {
   const [image, setBannerImage] = useState(null);
   const [title, setBannerTitle] = useState("");
   const [price, setPrice] = useState(0.0);
   const [description, setBannerDescription] = useState("");
+  const [item, setItem] = useState(null);
   const navigate = useNavigate();
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
+
+  useEffect(() => {
+    if (!itemId && !editUrl) {
+      return;
+    }
+    getData(`${editUrl}/${itemId}`).then((response) => {
+      setItem(response);
+    });
+  }, [editUrl, itemId]);
 
   /**
    * The function prevents default behavior and stops event propagation for a drag enter event.
@@ -68,12 +86,9 @@ export default function UploadImageDocument({ url, dataType, formType,redirectUr
         continue;
       }
 
-      const img = document.getElementById("imgPreview");
-      const preview = document.getElementById("preview");
-      const dropBox = document.getElementById("dropBox");
+      let img = displayPreviewController();
+
       img.file = file;
-      preview.classList.replace("hidden", "flex");
-      dropBox.classList.replace("flex", "hidden");
 
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -82,6 +97,33 @@ export default function UploadImageDocument({ url, dataType, formType,redirectUr
 
       reader.readAsDataURL(file);
     }
+  };
+
+  const displayPreviewController = () => {
+    const img = document.getElementById("imgPreview");
+    const preview = document.getElementById("preview");
+    const dropBox = document.getElementById("dropBox");
+    preview.classList.replace("hidden", "flex");
+    dropBox.classList.replace("flex", "hidden");
+
+    if (item) {
+      img.src =
+        process.env.REACT_APP_BASE_URL + item.imageUrl.replace(/\\/g, "/");
+    }
+
+    return img;
+  };
+
+  const removeImage = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const img = document.getElementById("imgPreview");
+    const preview = document.getElementById("preview");
+    const dropBox = document.getElementById("dropBox");
+    preview.classList.replace("flex", "hidden");
+    dropBox.classList.replace("hidden", "flex");
+    img.src = "";
+    img.file = undefined;
   };
 
   const submitForm = (event) => {
@@ -101,12 +143,11 @@ export default function UploadImageDocument({ url, dataType, formType,redirectUr
       dangerMode: false,
     }).then((willDelete) => {
       if (willDelete) {
-        saveData(url, formData)
-        .then((response) => {
+        saveData(url, formData).then((response) => {
           swal("Saved Successfully", {
             icon: "success",
           }).then(() => {
-            console.log('Saving data')
+            console.log("Saving data");
             navigate(`/fashion-shop-fe/admin/home/${redirectUrl}`);
           });
         });
@@ -117,6 +158,10 @@ export default function UploadImageDocument({ url, dataType, formType,redirectUr
       }
     });
   };
+
+  if (item) {
+    displayPreviewController();
+  }
 
   return (
     <form
@@ -160,16 +205,23 @@ export default function UploadImageDocument({ url, dataType, formType,redirectUr
               </div>
               <div
                 id="preview"
-                className="border-4 rounded-xl border-dashed h-[26rem] flex-col justify-center items-center group hover:border-slate-300 hidden"
+                className="border-4 rounded-xl border-dashed h-[26rem] flex-col relative justify-center items-center group hover:border-slate-300 hidden"
               >
+                <div className="absolute w-full h-full">
                 <img
                   id="imgPreview"
                   alt="Preview"
-                  className="w-full h-full object-cover overflow-hidden"
+                  className="w-full h-full object-cover overflow-hidden "
                 />
+                </div>
+                  <button
+                  className="relative w-20 h-20"
+                  onClick={removeImage}
+                >
+                  <XMarkIcon className=" rounded-full bg-orange-500/50 text-white/50 lg:bg-orange-500/10 group-hover:bg-orange-500 lg:text-white/10 group-hover:text-white" />
+                </button>
               </div>
             </div>
-
             <input
               type="file"
               id="image"
@@ -196,6 +248,7 @@ export default function UploadImageDocument({ url, dataType, formType,redirectUr
                       type="text"
                       name="title"
                       id="title"
+                      value={item ? item.title : ""}
                       onChange={(event) => setBannerTitle(event.target.value)}
                       className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -216,6 +269,7 @@ export default function UploadImageDocument({ url, dataType, formType,redirectUr
                         step="0.01"
                         name="price"
                         id="price"
+                        value={item ? item.price["$numberDecimal"] : ""}
                         onChange={(event) => setPrice(event.target.value)}
                         className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
@@ -235,6 +289,7 @@ export default function UploadImageDocument({ url, dataType, formType,redirectUr
                     <textarea
                       name="description"
                       id="description"
+                      value={item ? item.description : ""}
                       onChange={(event) =>
                         setBannerDescription(event.target.value)
                       }

@@ -1,7 +1,13 @@
 import React from "react";
 import DeleteItemsComponent from "./DeleteItemsComponent";
+import { Link } from "react-router-dom";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
-export default function CategoryCardComponent({ category, isAdmin,isCategory }) {
+export default function CategoryCardComponent({
+  category,
+  isAdmin,
+  isCategory,
+}) {
   // console.log('Category',category)
   const categoryImageUrl =
     process.env.REACT_APP_BASE_URL + category.imageUrl.replace(/\\/g, "/");
@@ -27,11 +33,28 @@ export default function CategoryCardComponent({ category, isAdmin,isCategory }) 
           {category.description}
         </p>
       </div>
-      {
-        isCategory ?
-        <DeleteItemsComponent isAdmin={isAdmin} itemId={category._id} deleteUrl="admin/api/delete-category"/>
-        :  <DeleteItemsComponent isAdmin={isAdmin} itemId={category._id} deleteUrl="admin/api/delete-collection"/>
-      }
+      {isCategory ? (
+        <div>
+          <Link
+            to={`/fashion-shop-fe/admin/home/categories/edit-category/${category._id}`}
+            className="absolute top-8 left-3 w-7"
+          >
+            <PencilSquareIcon className="text-orange-300 hover:text-orange-500" />
+          </Link>
+          <DeleteItemsComponent
+            isAdmin={isAdmin}
+            itemId={category._id}
+            deleteUrl="admin/api/delete-category"
+          />
+        </div>
+      ) : (
+        
+        <DeleteItemsComponent
+          isAdmin={isAdmin}
+          itemId={category._id}
+          deleteUrl="admin/api/delete-collection"
+        />
+      )}
     </div>
   );
 }
