@@ -67,8 +67,9 @@ export default function UploadImageDocument({
 
     const data = event.dataTransfer;
     const files = data.files;
-    const image = document.getElementById("image");
-    image.target.files = files;
+    console.log('Data',files)
+    const imageInput = document.getElementById("image");
+    imageInput.files = files;
     handleFiles(files);
   };
 
@@ -89,7 +90,6 @@ export default function UploadImageDocument({
       const file = files[i];
       setBannerImage(file);
       if (!file.type.startsWith("image/")) {
-        console.log('File type',file)
         continue;
       }
       let img = displayPreviewController();

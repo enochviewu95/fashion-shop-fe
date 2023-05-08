@@ -23,7 +23,7 @@ export default function CollectionSection() {
                 <SwiperSlide key={"swiper" + collection._id}>
                   <CategoryCardComponent
                     key={collection._id}
-                    category={collection}
+                    item={collection}
                   />
                 </SwiperSlide>
               ))}
@@ -35,7 +35,7 @@ export default function CollectionSection() {
                 <SwiperSlide>
                   <CategoryCardComponent
                     key={collection._id}
-                    category={collection}
+                    item={collection}
                   />
                 </SwiperSlide>
               ))}

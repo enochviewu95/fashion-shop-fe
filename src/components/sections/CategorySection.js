@@ -26,7 +26,7 @@ export default function CategorySection() {
                 <SwiperSlide>
                   <CategoryCardComponent
                     key={category._id}
-                    category={category}
+                    item={category}
                   />
                 </SwiperSlide>
               ))}
@@ -38,7 +38,7 @@ export default function CategorySection() {
                 <SwiperSlide>
                   <CategoryCardComponent
                     key={category._id}
-                    category={category}
+                    item={category}
                   />
                 </SwiperSlide>
               ))}

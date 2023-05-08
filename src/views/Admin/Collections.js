@@ -33,8 +33,8 @@ export default function Collections({ pageTitle }) {
       </div>
       <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
         {collections
-          ? collections.map((category) => (
-              <CategoryCardComponent key={category._id} category={category} isAdmin={true} isCategory={false} />
+          ? collections.map((collection) => (
+              <CategoryCardComponent key={collection._id} item={collection} isAdmin={true} isCategory={false} />
             ))
           : ""}
       </div>

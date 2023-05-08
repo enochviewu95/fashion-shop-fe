@@ -5,14 +5,13 @@ import UploadImageDocument from "../../components/widgets/UploadImageDocument";
 export default function AddProduct({ pageTitle }) {
   const [setTitle] = useOutletContext();
   const { id } = useParams();
-  const formUrl = "admin/api/add-product";
 
   useEffect(() => {
     setTitle(pageTitle);
   }, [pageTitle, setTitle]);
   return id ? (
     <UploadImageDocument
-      url={formUrl}
+      url={`admin/api/edit-product/${id}`}
       formType="product"
       redirectUrl="products"
       editUrl="admin/api/get-product"
@@ -20,7 +19,7 @@ export default function AddProduct({ pageTitle }) {
     />
   ) : (
     <UploadImageDocument
-      url={formUrl}
+      url="admin/api/add-product"
       formType="product"
       redirectUrl="products"
     />

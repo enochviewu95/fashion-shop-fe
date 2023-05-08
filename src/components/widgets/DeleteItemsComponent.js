@@ -34,7 +34,7 @@ export default function DeleteItemsComponent({
         });
       } else {
         swal("Delete Unsuccessful", {
-          icon: "info",
+          icon: "warning",
         });
       }
     });

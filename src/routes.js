@@ -110,6 +110,10 @@ export const Routes = createBrowserRouter([
             element: <AddCollection pageTitle="Collections" />,
           },
           {
+            path: "/fashion-shop-fe/admin/home/collections/edit-collection/:id",
+            element: <AddCollection pageTitle="Collections" />,
+          },
+          {
             path: "/fashion-shop-fe/admin/about-us",
             element: <AboutUs pageTitle="About Us" />,
           },

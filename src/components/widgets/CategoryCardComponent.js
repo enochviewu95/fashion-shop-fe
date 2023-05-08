@@ -4,21 +4,20 @@ import { Link } from "react-router-dom";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
 export default function CategoryCardComponent({
-  category,
+  item,
   isAdmin,
   isCategory,
 }) {
   // console.log('Category',category)
   const categoryImageUrl =
-    process.env.REACT_APP_BASE_URL + category.imageUrl.replace(/\\/g, "/");
-  console.log("Image url", categoryImageUrl);
+    process.env.REACT_APP_BASE_URL + item.imageUrl.replace(/\\/g, "/");
 
   return (
     <div className="group relative py-5 ">
       <div className="relative lg:h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 h-52 lg:aspect-w-1 lg:aspect-h-1">
         <img
           src={categoryImageUrl}
-          alt={category.title}
+          alt={item.title}
           className="h-full w-full object-cover object-center"
         />
       </div>
@@ -26,34 +25,41 @@ export default function CategoryCardComponent({
         <h3 className="mt-6 text-sm text-gray-900">
           <a href="#">
             <span className="absolute inset-0" />
-            {category.title}
+            {item.title}
           </a>
         </h3>
         <p className="text-base font-semibold text-gray-900">
-          {category.description}
+          {item.description}
         </p>
       </div>
       {isCategory ? (
         <div>
           <Link
-            to={`/fashion-shop-fe/admin/home/categories/edit-category/${category._id}`}
+            to={`/fashion-shop-fe/admin/home/categories/edit-category/${item._id}`}
             className="absolute top-8 left-3 w-7"
           >
             <PencilSquareIcon className="text-orange-300 hover:text-orange-500" />
           </Link>
           <DeleteItemsComponent
             isAdmin={isAdmin}
-            itemId={category._id}
+            itemId={item._id}
             deleteUrl="admin/api/delete-category"
           />
         </div>
       ) : (
-        
-        <DeleteItemsComponent
-          isAdmin={isAdmin}
-          itemId={category._id}
-          deleteUrl="admin/api/delete-collection"
-        />
+        <div>
+          <Link
+            to={`/fashion-shop-fe/admin/home/collections/edit-collection/${item._id}`}
+            className="absolute top-8 left-3 w-7"
+          >
+            <PencilSquareIcon className="text-orange-300 hover:text-orange-500" />
+          </Link>
+          <DeleteItemsComponent
+            isAdmin={isAdmin}
+            itemId={item._id}
+            deleteUrl="admin/api/delete-collection"
+          />
+        </div>
       )}
     </div>
   );
