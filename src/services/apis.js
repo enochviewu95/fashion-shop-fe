@@ -5,6 +5,12 @@ const instance = axios.create({
   baseURL: BASE_URL,
 });
 
+export const updateData = async(url)=>{
+  return await instance.put(url).then(response=>{
+    return response
+  })
+}
+
 export const saveData = async (url, payload) => {
   return await instance.post(url, payload).then((response) => {
     return response;

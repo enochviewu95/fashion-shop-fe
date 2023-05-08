@@ -3,11 +3,16 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import swal from "sweetalert";
 import { deleteData } from "../../services/apis";
 
-export default function DeleteItemsComponent({ isAdmin, itemId, deleteUrl }) {
+export default function DeleteItemsComponent({
+  isAdmin,
+  itemId,
+  deleteUrl,
+  disableDelete,
+}) {
   const deleteItem = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    const url = deleteUrl +"/" + itemId
+    const url = deleteUrl + "/" + itemId;
     deleteAlert(url);
   };
 
@@ -23,22 +28,30 @@ export default function DeleteItemsComponent({ isAdmin, itemId, deleteUrl }) {
         deleteData(url).then(() => {
           swal("Delete Successful", {
             icon: "success",
-          }).then(()=>{
+          }).then(() => {
             window.location.reload();
           });
         });
       } else {
-        swal("Delete Unsuccessful",{
-          icon:"info"
+        swal("Delete Unsuccessful", {
+          icon: "info",
         });
       }
     });
   };
 
   return isAdmin ? (
-      <button className="absolute top-8 right-3 w-7" onClick={deleteItem}>
-        <TrashIcon className="text-red-300 hover:text-red-700" />
-      </button>
+    <button
+      className="absolute top-8 right-3 w-7 disabled:opacity-75"
+      onClick={deleteItem}
+      disabled={disableDelete}
+    >
+      <TrashIcon
+        className={
+          disableDelete ? "text-red-50" : "text-red-300 hover:text-red-700"
+        }
+      />
+    </button>
   ) : (
     ""
   );

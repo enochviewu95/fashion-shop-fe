@@ -15,6 +15,7 @@ export default function UploadImageDocument({
   editUrl,
 }) {
   const [image, setBannerImage] = useState(null);
+  const [imageUrl, setBannerImageUrl] = useState("");
   const [title, setBannerTitle] = useState("");
   const [price, setPrice] = useState(0.0);
   const [description, setBannerDescription] = useState("");
@@ -28,8 +29,13 @@ export default function UploadImageDocument({
     }
     getData(`${editUrl}/${itemId}`).then((response) => {
       setItem(response);
+      formType ==="product" && setPrice(response.price["$numberDecimal"]);
+      setBannerDescription(response.description)
+      setBannerTitle(response.title);
+      setBannerImageUrl(process.env.REACT_APP_BASE_URL + response.imageUrl.replace(/\\/g, "/"))
+      displayPreviewController();
     });
-  }, [editUrl, itemId]);
+  }, [editUrl, formType, itemId]);
 
   /**
    * The function prevents default behavior and stops event propagation for a drag enter event.
@@ -83,18 +89,15 @@ export default function UploadImageDocument({
       const file = files[i];
       setBannerImage(file);
       if (!file.type.startsWith("image/")) {
+        console.log('File type',file)
         continue;
       }
-
       let img = displayPreviewController();
-
       img.file = file;
-
       const reader = new FileReader();
       reader.onload = (e) => {
         img.src = e.target.result;
       };
-
       reader.readAsDataURL(file);
     }
   };
@@ -105,25 +108,18 @@ export default function UploadImageDocument({
     const dropBox = document.getElementById("dropBox");
     preview.classList.replace("hidden", "flex");
     dropBox.classList.replace("flex", "hidden");
-
-    if (item) {
-      img.src =
-        process.env.REACT_APP_BASE_URL + item.imageUrl.replace(/\\/g, "/");
-    }
-
     return img;
   };
 
   const removeImage = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    const img = document.getElementById("imgPreview");
     const preview = document.getElementById("preview");
     const dropBox = document.getElementById("dropBox");
     preview.classList.replace("flex", "hidden");
     dropBox.classList.replace("hidden", "flex");
-    img.src = "";
-    img.file = undefined;
+    setBannerImageUrl("")
+    setBannerImage(null);
   };
 
   const submitForm = (event) => {
@@ -141,13 +137,12 @@ export default function UploadImageDocument({
       icon: "info",
       buttons: true,
       dangerMode: false,
-    }).then((willDelete) => {
-      if (willDelete) {
+    }).then((willSave) => {
+      if (willSave) {
         saveData(url, formData).then((response) => {
           swal("Saved Successfully", {
             icon: "success",
           }).then(() => {
-            console.log("Saving data");
             navigate(`/fashion-shop-fe/admin/home/${redirectUrl}`);
           });
         });
@@ -158,10 +153,6 @@ export default function UploadImageDocument({
       }
     });
   };
-
-  if (item) {
-    displayPreviewController();
-  }
 
   return (
     <form
@@ -208,16 +199,14 @@ export default function UploadImageDocument({
                 className="border-4 rounded-xl border-dashed h-[26rem] flex-col relative justify-center items-center group hover:border-slate-300 hidden"
               >
                 <div className="absolute w-full h-full">
-                <img
-                  id="imgPreview"
-                  alt="Preview"
-                  className="w-full h-full object-cover overflow-hidden "
-                />
+                  <img
+                    id="imgPreview"
+                    alt="Preview"
+                    src={imageUrl}
+                    className="w-full h-full object-cover overflow-hidden "
+                  />
                 </div>
-                  <button
-                  className="relative w-20 h-20"
-                  onClick={removeImage}
-                >
+                <button className="relative w-20 h-20" onClick={removeImage}>
                   <XMarkIcon className=" rounded-full bg-orange-500/50 text-white/50 lg:bg-orange-500/10 group-hover:bg-orange-500 lg:text-white/10 group-hover:text-white" />
                 </button>
               </div>
@@ -248,7 +237,7 @@ export default function UploadImageDocument({
                       type="text"
                       name="title"
                       id="title"
-                      value={item ? item.title : ""}
+                      value={title}
                       onChange={(event) => setBannerTitle(event.target.value)}
                       className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
@@ -269,7 +258,7 @@ export default function UploadImageDocument({
                         step="0.01"
                         name="price"
                         id="price"
-                        value={item ? item.price["$numberDecimal"] : ""}
+                        value={price}
                         onChange={(event) => setPrice(event.target.value)}
                         className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       />
@@ -289,24 +278,32 @@ export default function UploadImageDocument({
                     <textarea
                       name="description"
                       id="description"
-                      value={item ? item.description : ""}
+                      value={description}
                       onChange={(event) =>
                         setBannerDescription(event.target.value)
                       }
                       rows={4}
                       className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={""}
                     />
                   </div>
                 </div>
               </div>
               <div className="mt-10">
-                <button
-                  type="submit"
-                  className={`block w-full rounded-md ${buttonBackground} px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:${buttonHoverBackground} `}
-                >
-                  Save
-                </button>
+                {item ? (
+                  <button
+                    type="submit"
+                    className={`block w-full rounded-md ${buttonBackground} px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:${buttonHoverBackground} `}
+                  >
+                    Update
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    className={`block w-full rounded-md ${buttonBackground} px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:${buttonHoverBackground} `}
+                  >
+                    Save
+                  </button>
+                )}
               </div>
             </div>
           </CardComponent>

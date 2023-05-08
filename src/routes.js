@@ -70,7 +70,11 @@ export const Routes = createBrowserRouter([
             element: <Hero pageTitle="Hero" isAdmin="true" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home/add-hero",
+            path: "/fashion-shop-fe/admin/home/hero/add-hero",
+            element: <AddHero pageTitle="Hero" />,
+          },
+          {
+            path: "/fashion-shop-fe/admin/home/hero/edit-hero/:id",
             element: <AddHero pageTitle="Hero" />,
           },
           {
