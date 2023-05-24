@@ -10,8 +10,8 @@ export const themes = {
         startBackground: "#F5F2ED",
         stopBackground: "#FF80B5",
         textInputBackground: "bg-[#f5f2ed]",
-        buttonBackground: "bg-[#94784F]",
-        buttonHoverBackground: "bg-[#A99511]",
+        buttonBackground: "bg-yellow-700",
+        buttonHoverBackground: "bg-yellow-900",
         borderColor: "border-gray-500"
     }
 }

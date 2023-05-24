@@ -20,6 +20,8 @@ export default function NavigationBar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
     const {primaryBackground, primaryTextColor,secondaryTextColor} = useContext(ThemeContext)
 
+    // const user_sesssion = sessionStorage.getItem()
+
     return (
         <header className={`relative z-40 h-20 ${primaryBackground}`}>
             <nav className="flex items-center justify-between px-3 lg:p-1 lg:px-8" aria-label="Global">
@@ -91,7 +93,7 @@ export default function NavigationBar() {
                             </div>
                             <div className="py-6">
                                 <Link
-                                    to="/fashion-shop-fe/register"
+                                    to="/fashion-shop-fe/login"
                                     onClick={() => setMobileMenuOpen(false)}
                                     className={`-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 ${secondaryTextColor} hover:bg-gray-50`}
                                 >

@@ -29,8 +29,11 @@ export default function ProductCardComponent({ product, isAdmin }) {
           {product.price["$numberDecimal"]}
         </p>
       </div>
-      <Link to={`/fashion-shop-fe/admin/home/products/edit-product/${product._id}`} className="absolute top-8 left-3 w-7">
-          <PencilSquareIcon className="text-orange-300 hover:text-orange-500"/>
+      <Link
+        to={`/fashion-shop-fe/admin/home/products/edit-product/${product._id}`}
+        className={isAdmin ? "absolute top-8 left-3 w-7" : "hidden"}
+      >
+        <PencilSquareIcon className="text-orange-300 hover:text-orange-500" />
       </Link>
       <DeleteItemsComponent
         isAdmin={isAdmin}

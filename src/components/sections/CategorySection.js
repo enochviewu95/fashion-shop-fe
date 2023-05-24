@@ -1,4 +1,4 @@
-import { useContext, useId } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../../themeContext";
 import CategoryCardComponent from "../widgets/CategoryCardComponent";
 import { SwiperSlide } from "swiper/react";

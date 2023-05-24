@@ -3,11 +3,7 @@ import DeleteItemsComponent from "./DeleteItemsComponent";
 import { Link } from "react-router-dom";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
-export default function CategoryCardComponent({
-  item,
-  isAdmin,
-  isCategory,
-}) {
+export default function CategoryCardComponent({ item, isAdmin, isCategory }) {
   // console.log('Category',category)
   const categoryImageUrl =
     process.env.REACT_APP_BASE_URL + item.imageUrl.replace(/\\/g, "/");
@@ -36,7 +32,7 @@ export default function CategoryCardComponent({
         <div>
           <Link
             to={`/fashion-shop-fe/admin/home/categories/edit-category/${item._id}`}
-            className="absolute top-8 left-3 w-7"
+            className={isAdmin ? "absolute top-8 left-3 w-7" : "hidden"}
           >
             <PencilSquareIcon className="text-orange-300 hover:text-orange-500" />
           </Link>
@@ -50,7 +46,7 @@ export default function CategoryCardComponent({
         <div>
           <Link
             to={`/fashion-shop-fe/admin/home/collections/edit-collection/${item._id}`}
-            className="absolute top-8 left-3 w-7"
+            className={isAdmin ? "absolute top-8 left-3 w-7" : "hidden"}
           >
             <PencilSquareIcon className="text-orange-300 hover:text-orange-500" />
           </Link>

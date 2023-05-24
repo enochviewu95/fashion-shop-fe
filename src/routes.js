@@ -10,7 +10,7 @@ import ContactUsView from "./views/Client/ContactUsView";
 import DashboardView from "./views/Admin/DashboardView";
 
 import PageNotFound from "./views/PageNotFound";
-import Registration from "./layouts/Registration";
+import Login from "./layouts/Login";
 import AboutUs from "./views/Admin/AboutUs";
 import ContactUs from "./views/Admin/ContactUs";
 import Hero from "./views/Admin/Hero";
@@ -124,8 +124,8 @@ export const Routes = createBrowserRouter([
         ],
       },
       {
-        path: "/fashion-shop-fe/register",
-        element: <Registration />,
+        path: "/fashion-shop-fe/login",
+        element: <Login />,
         errorElement: <PageNotFound />,
       },
     ],
