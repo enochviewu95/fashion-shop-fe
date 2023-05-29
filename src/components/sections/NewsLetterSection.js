@@ -1,6 +1,6 @@
 import { CalendarDaysIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
 import { useContext } from 'react'
-import { ThemeContext } from '../../themeContext'
+import { ThemeContext } from '../../context/themeContext'
 
 export default function NewLetterSection() {
 

@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { ThemeContext } from "../../themeContext"
+import { ThemeContext } from "../../context/themeContext"
 
 /*
   This example requires some changes to your config:

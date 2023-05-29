@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { useState } from 'react';
-import {ThemeContext, themes} from './themeContext'
+import {ThemeContext, themes} from './context/themeContext'
 
 import './App.css';
 

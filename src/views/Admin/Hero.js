@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useOutletContext } from "react-router-dom";
 import { bannerList, getBannersAsync } from "../../redux/bannerSlice";
 import HeroSection from "../../components/sections/HeroSection";
-import { ThemeContext } from "../../themeContext";
+import LoadingComponent from "../../components/widgets/LoadingComponent"
+import { ThemeContext } from "../../context/themeContext";
 import swal from "sweetalert";
 import { updateData } from "../../services/apis";
 
@@ -13,6 +14,7 @@ export default function Hero({ pageTitle, isAdmin }) {
   const banners = useSelector(bannerList);
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
   const [selectedHero, setSelectedHero] = useState("");
+  const [showLoading, setShowLoading] = useState(true);
 
   useEffect(() => {
     setTitle(pageTitle);
@@ -48,6 +50,7 @@ export default function Hero({ pageTitle, isAdmin }) {
   
 
   return (
+    <>
     <div>
       <div className="my-5 flex">
         <Link
@@ -95,5 +98,7 @@ export default function Hero({ pageTitle, isAdmin }) {
           ))
         : ""}
     </div>
+    <LoadingComponent showLoading={showLoading} setShowLoading={setShowLoading} />
+    </>
   );
 }

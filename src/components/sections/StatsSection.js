@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { ThemeContext } from "../../themeContext"
+import { ThemeContext } from "../../context/themeContext"
 
 const stats = [
     { id: 1, name: 'Transactions every 24 hours', value: '44 million' },

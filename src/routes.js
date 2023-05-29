@@ -68,6 +68,7 @@ export const Routes = createBrowserRouter([
           {
             path: "/fashion-shop-fe/admin/home/hero",
             element: <Hero pageTitle="Hero" isAdmin="true" />,
+            
           },
           {
             path: "/fashion-shop-fe/admin/home/hero/add-hero",
@@ -128,6 +129,10 @@ export const Routes = createBrowserRouter([
         element: <Login />,
         errorElement: <PageNotFound />,
       },
+      {
+        path:"/fashion-shop-fe/pagenotfound",
+        element: <PageNotFound/>
+      }
     ],
   },
 ]);

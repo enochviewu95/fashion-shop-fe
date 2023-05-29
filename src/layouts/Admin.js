@@ -2,18 +2,21 @@ import React, { useContext } from "react";
 import NavigationBar from "../components/widgets/NavigationBar";
 import { useState } from "react";
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import { Outlet } from "react-router-dom";
-import { ThemeContext } from "../themeContext";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { ThemeContext } from "../context/themeContext";
 import SideNavigationSlider from "../components/widgets/SideNavigationSlider";
 import SideNavigationLinks from "../components/widgets/SideNavigationLinks";
+import { useAuth } from "../context/auth";
 
 export default function Admin() {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("Dashboard");
 
   const { lightBackground } = useContext(ThemeContext);
+  const auth = useAuth();
+  const location = useLocation();
 
-  return (
+  return auth ? (
     <div>
       <div className="fixed inset-x-0 z-50">
         <NavigationBar />
@@ -45,5 +48,7 @@ export default function Admin() {
         </div>
       </div>
     </div>
+  ) : (
+    <Navigate to="/fashion-shop-fe/login" state={{ from: location }} replace />
   );
 }

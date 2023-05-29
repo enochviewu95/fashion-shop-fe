@@ -1,27 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import NavigationBar from "../components/widgets/NavigationBar";
 import NewLetterSection from "../components/sections/NewsLetterSection";
-import { useDispatch } from "react-redux";
-import { getSelectedBannerAsync } from "../redux/bannerSlice";
-import { getCategoriesAsync } from "../redux/categorySlice";
-import { getCollectionAsync } from "../redux/collectionSlice";
-import { getProductAsync } from "../redux/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import LoadingComponent from "../components/widgets/LoadingComponent";
+import { getShopAsync, shopData } from "../redux/shopSlice";
 
 export default function Client() {
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-
+  const shop = useSelector(shopData);
   useEffect(() => {
-    dispatch(getSelectedBannerAsync("shop/api/get-banner"));
-    dispatch(getCategoriesAsync("shop/api/get-categories"));
-    dispatch(getCollectionAsync("shop/api/get-collections"));
-    dispatch(getProductAsync("shop/api/get-products"))
-  });
-  return (
+    dispatch(getShopAsync("shop/api/get-shop"));
+    if (shopData) {
+      setLoading(false);
+    }
+  }, [dispatch]);
+
+  return shop ? (
     <>
-      <NavigationBar />
-      <Outlet />
-      <NewLetterSection />
+      <NavigationBar setLoading={setLoading} />
+      <Outlet setLoading={setLoading} />
+      <NewLetterSection setLoading={setLoading} />
+      {loading && <LoadingComponent showLoading={loading} />}
     </>
+  ) : (
+    <LoadingComponent showLoading={loading} />
   );
 }

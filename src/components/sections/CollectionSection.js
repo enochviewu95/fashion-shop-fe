@@ -1,16 +1,16 @@
 import { useContext } from "react";
-import { ThemeContext } from "../../themeContext";
+import { ThemeContext } from "../../context/themeContext";
 import { useSelector } from "react-redux";
-import { collectionList } from "../../redux/collectionSlice";
 import SwiperComponent from "../widgets/SwiperComponent";
 import { SwiperSlide } from "swiper/react";
 import CategoryCardComponent from "../widgets/CategoryCardComponent";
+import { shopData } from "../../redux/shopSlice";
 
 
 export default function CollectionSection() {
   const { deepBackground } = useContext(ThemeContext);
-  const collections = useSelector(collectionList);
-  console.log('Collection list',collections)
+  const collectionData = useSelector(shopData);
+  const collections = collectionData.collection
 
   return (
     <div className={deepBackground}>
@@ -20,9 +20,8 @@ export default function CollectionSection() {
           <div className="mt-6 hidden lg:flex">
             <SwiperComponent screenType="large">
               {collections.map((collection) => (
-                <SwiperSlide key={"swiper" + collection._id}>
+                <SwiperSlide key={collection._id}>
                   <CategoryCardComponent
-                    key={collection._id}
                     item={collection}
                   />
                 </SwiperSlide>
@@ -32,9 +31,8 @@ export default function CollectionSection() {
           <div className="mt-6 lg:hidden">
             <SwiperComponent screenType="small">
               {collections.map((collection) => (
-                <SwiperSlide>
+                <SwiperSlide key={collection._id}>
                   <CategoryCardComponent
-                    key={collection._id}
                     item={collection}
                   />
                 </SwiperSlide>

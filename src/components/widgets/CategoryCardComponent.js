@@ -19,10 +19,10 @@ export default function CategoryCardComponent({ item, isAdmin, isCategory }) {
       </div>
       <div>
         <h3 className="mt-6 text-sm text-gray-900">
-          <a href="#">
+          <Link href="#">
             <span className="absolute inset-0" />
             {item.title}
-          </a>
+          </Link>
         </h3>
         <p className="text-base font-semibold text-gray-900">
           {item.description}

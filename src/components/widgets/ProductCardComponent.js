@@ -18,10 +18,10 @@ export default function ProductCardComponent({ product, isAdmin }) {
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm text-gray-700">
-            <a href="#">
+            <Link >
               <span aria-hidden="true" className="absolute inset-0" />
               {product.title}
-            </a>
+            </Link>
           </h3>
           <p className="mt-1 text-sm text-gray-500">{product.description}</p>
         </div>

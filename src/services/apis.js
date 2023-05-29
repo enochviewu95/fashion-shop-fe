@@ -2,20 +2,30 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const instance = axios.create({
-  withCredentials:true,
+  withCredentials: true,
   baseURL: BASE_URL,
 });
 
-export const updateData = async(url)=>{
-  return await instance.put(url).then(response=>{
-    return response
-  })
-}
+export const updateData = async (url) => {
+  return await instance
+    .put(url)
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      return null;
+    });
+};
 
 export const saveData = async (url, payload) => {
-  return await instance.post(url, payload).then((response) => {
-    return response;
-  });
+  return await instance
+    .post(url, payload)
+    .then((response) => {
+      return response;
+    })
+    .catch((err) => {
+      return null;
+    });
 };
 
 export const getData = async (url) => {
@@ -23,11 +33,11 @@ export const getData = async (url) => {
     .get(url)
     .then((response) => {
       const { data } = response;
-      console.log("Data", data);
       return data;
     })
     .catch((err) => {
-      console.log(err);
+      const { data } = null;
+      return data;
     });
 };
 

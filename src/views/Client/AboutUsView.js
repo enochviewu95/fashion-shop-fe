@@ -3,7 +3,7 @@ import PromoSection from '../../components/sections/PromoSection'
 import StatsSection from '../../components/sections/StatsSection';
 import TeamSection from '../../components/sections/TeamSection';
 import TrustedBrandSection from '../../components/sections/TrustedBrandSection';
-import { ThemeContext } from '../../themeContext';
+import { ThemeContext } from '../../context/themeContext';
 
 export default function AboutUsView() {
 

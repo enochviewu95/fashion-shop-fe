@@ -2,8 +2,12 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import DeleteItemsComponent from "../widgets/DeleteItemsComponent";
+import { useSelector } from "react-redux";
+import { shopData } from "../../redux/shopSlice";
 
-export default function HeroSection({ banner, isAdmin, selectedHero }) {
+export default function HeroSection({ isAdmin, selectedHero }) {
+  const bannerData = useSelector(shopData);
+  const banner = bannerData.banner
   const bannerUrl =
     process.env.REACT_APP_BASE_URL + banner.imageUrl.replace(/\\/g, "/");
 

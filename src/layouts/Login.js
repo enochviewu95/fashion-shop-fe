@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
-import { ThemeContext } from "../themeContext";
-import { saveData } from "../services/apis";
-import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../context/themeContext";
+import { getData, saveData } from "../services/apis";
+import { Link, useNavigate } from "react-router-dom";
+import googleIcon from "../assets/logo/google.png"
 
 /*Images*/
 import unaMano from "../assets/logo/una_mano.png";
@@ -29,7 +30,7 @@ export default function Login() {
     formData.append("email", email);
     formData.append("password", password);
 
-    saveData("/auth/api/login", formData)
+    saveData("/auth/login", formData)
       .then((response) => {
         navigate(`/fashion-shop-fe/`);
       })
@@ -37,6 +38,21 @@ export default function Login() {
         console.log("Error", err);
       });
   };
+
+  const googleLogin = (event)=>{
+    event.preventDefault();
+    event.stopPropagation();
+    setShowLoading(true)
+    window.open("http://localhost:8080/auth/google","_self")
+    getData("/auth/google")
+    .then(response=>{
+      console.log('Response',response)
+      // navigate('/fashion-shop-fe/')
+    })
+    .catch(err=>{
+      console.log('Error',err)
+    })
+  }
 
   return (
     <>
@@ -85,12 +101,11 @@ export default function Login() {
 
               <div className="flex items-center justify-between">
                 <div className="text-sm">
-                  <a
-                    href="#"
+                  <Link
                     className={`font-medium ${primaryTextColor} hover:${secondaryTextColor}`}
                   >
                     Forgot your password?
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -109,11 +124,23 @@ export default function Login() {
                 </button>
               </div>
             </form>
+            <button
+              onClick={googleLogin}
+              className={`group relative text-white flex w-full justify-center rounded-md bg-blue-400 hover:bg-blue-600 hover:shadow-lg py-2 px-3 text-sm font-semibold hover:${buttonHoverBackground} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+            >
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                <img src={googleIcon} alt="Google icon" className="w-5" />
+              </span>
+              Google Sign In
+            </button>
           </div>
         </div>
         <div className="login-image w-full h-screen hidden lg:block"></div>
       </div>
-      <LoadingComponent showLoading={showLoading} setShowLoading={setShowLoading} />
+      <LoadingComponent
+        showLoading={showLoading}
+        setShowLoading={setShowLoading}
+      />
     </>
   );
 }

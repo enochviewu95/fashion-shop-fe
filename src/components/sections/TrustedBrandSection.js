@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { ThemeContext } from "../../themeContext"
+import { ThemeContext } from "../../context/themeContext"
 
 export default function TrustedBrandSection() {
 

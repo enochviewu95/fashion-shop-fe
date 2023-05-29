@@ -5,7 +5,7 @@ import loading from "../../assets/images/loading-transparent.gif";
 export default function LoadingComponent({ showLoading }) {
   return (
     <Transition.Root show={showLoading} as={Fragment}>
-      <div className="relative z-10">
+      <div className="relative z-50">
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"

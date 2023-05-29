@@ -1,5 +1,6 @@
 import { useContext } from "react"
-import { ThemeContext } from "../../themeContext"
+import { ThemeContext } from "../../context/themeContext"
+import { Link } from "react-router-dom"
 
 export default function PromoSection({background = true}) {
 
@@ -86,12 +87,11 @@ export default function PromoSection({background = true}) {
                   </div>
                 </div>
   
-                <a
-                  href="#"
+                <Link
                   className={`inline-block rounded-md border border-transparent ${buttonBackground} py-3 px-8 text-center font-medium text-white hover:${buttonHoverBackground}`}
                 >
                   Shop Collection
-                </a>
+                </Link>
               </div>
             </div>
           </div>

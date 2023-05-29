@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import CategoryCardComponent from "../../components/widgets/CategoryCardComponent";
 import { Link, useOutletContext } from "react-router-dom";
-import { ThemeContext } from "../../themeContext";
+import { ThemeContext } from "../../context/themeContext";
 import { useDispatch, useSelector } from "react-redux";
 import { categoryList, getCategoriesAsync } from "../../redux/categorySlice";
 

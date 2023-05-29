@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ThemeContext } from "../../themeContext";
+import { ThemeContext } from "../../context/themeContext";
 import CategoryCardComponent from "../widgets/CategoryCardComponent";
 import { SwiperSlide } from "swiper/react";
 
@@ -7,13 +7,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { useSelector } from "react-redux";
-import { categoryList } from "../../redux/categorySlice";
 import SwiperComponent from "../widgets/SwiperComponent";
+import { shopData } from "../../redux/shopSlice";
 
 export default function CategorySection() {
   const { lightBackground } = useContext(ThemeContext);
-  const categories = useSelector(categoryList);
-  // const id = useId();
+  const categoriesData = useSelector(shopData);
+  const categories = categoriesData.category
 
   return (
     <div className={lightBackground}>
@@ -23,9 +23,8 @@ export default function CategorySection() {
           <div className="mt-6 hidden lg:flex">
             <SwiperComponent screenType="large">
               {categories.map((category) => (
-                <SwiperSlide>
+                <SwiperSlide key={category._id}>
                   <CategoryCardComponent
-                    key={category._id}
                     item={category}
                   />
                 </SwiperSlide>
@@ -35,9 +34,8 @@ export default function CategorySection() {
           <div className="mt-6 lg:hidden">
             <SwiperComponent screenType="small">
               {categories.map((category) => (
-                <SwiperSlide>
+                <SwiperSlide  key={category._id}>
                   <CategoryCardComponent
-                    key={category._id}
                     item={category}
                   />
                 </SwiperSlide>

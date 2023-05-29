@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
-import { ThemeContext } from "../../themeContext";
-import { Link, useOutletContext } from "react-router-dom";
+import { ThemeContext } from "../../context/themeContext";
+import { Link, Navigate, useLocation, useOutletContext } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   collectionList,
@@ -13,15 +13,14 @@ export default function Collections({ pageTitle }) {
   const [setTitle] = useOutletContext();
   const dispatch = useDispatch();
   const collections = useSelector(collectionList);
+  const location = useLocation();
 
   useEffect(() => {
     setTitle(pageTitle);
     dispatch(getCollectionAsync("admin/api/get-collections"));
   }, [dispatch, pageTitle, setTitle]);
 
-  console.log("this is my collections", collections);
-
-  return (
+  return collections.length !== 0 ? (
     <div>
       <div className="my-5">
         <Link
@@ -39,5 +38,5 @@ export default function Collections({ pageTitle }) {
           : ""}
       </div>
     </div>
-  );
+  ): (<Navigate to="/fashion-shop-fe/pagenotfound" state={{ from: location }} replace /> )
 }

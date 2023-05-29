@@ -2,7 +2,8 @@
 import { useContext, useState } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { Switch } from '@headlessui/react'
-import { ThemeContext } from '../../themeContext';
+import { ThemeContext } from '../../context/themeContext';
+import { Link } from 'react-router-dom';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -171,9 +172,9 @@ export default function ContactUsView() {
             </div>
             <Switch.Label className="text-sm leading-6 text-gray-600">
               By selecting this, you agree to our{' '}
-              <a href="#" className={`font-semibold ${primaryTextColor}`}>
+              <Link  className={`font-semibold ${primaryTextColor}`}>
                 privacy&nbsp;policy
-              </a>
+              </Link>
               .
             </Switch.Label>
           </Switch.Group>

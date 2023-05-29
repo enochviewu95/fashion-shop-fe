@@ -1,19 +1,19 @@
 import { useContext } from "react";
-import { ThemeContext } from "../../themeContext";
+import { ThemeContext } from "../../context/themeContext";
 import ProductCardComponent from "../widgets/ProductCardComponent";
 import SwiperComponent from "../widgets/SwiperComponent";
 import { SwiperSlide } from "swiper/react";
-import { productList } from "../../redux/productSlice";
 import { useSelector } from "react-redux";
+import { shopData } from "../../redux/shopSlice";
 
 
 export default function ProductSection() {
   const { deepBackground } = useContext(ThemeContext);
 
-  const products = useSelector(productList);
-  console.log('Product',products)
+  const productsData = useSelector(shopData)
+  const products = productsData.product
 
-  return (
+  return products.length > 0? (
     <div className={deepBackground}>
       <div className="mx-auto max-w-2xl py-16 px-4 sm:py-14 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
@@ -29,7 +29,7 @@ export default function ProductSection() {
         <div className="mt-16 hidden lg:flex">
           <SwiperComponent screenType="large">
             {products.map((product) => (
-              <SwiperSlide>
+              <SwiperSlide key={product._id}>
                 <ProductCardComponent product={product} />
               </SwiperSlide>
             ))}
@@ -38,7 +38,7 @@ export default function ProductSection() {
         <div className="mt-16 lg:hidden">
           <SwiperComponent screenType="small">
             {products.map((product) => (
-              <SwiperSlide>
+              <SwiperSlide key={product._id}>
                 <ProductCardComponent product={product} />
               </SwiperSlide>
             ))}
@@ -46,5 +46,5 @@ export default function ProductSection() {
         </div>
       </div>
     </div>
-  );
+  ):""
 }

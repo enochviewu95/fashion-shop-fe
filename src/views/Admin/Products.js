@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useOutletContext } from "react-router-dom";
-import { ThemeContext } from "../../themeContext";
+import { ThemeContext } from "../../context/themeContext";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCardComponent from "../../components/widgets/ProductCardComponent";
 import { getProductAsync, productList } from "../../redux/productSlice";
