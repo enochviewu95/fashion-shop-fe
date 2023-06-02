@@ -8,17 +8,18 @@ export function useAuth() {
 }
 
 export function ProvideAuth({ children }) {
-  const [user, setUser] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
+  
+  const fetchLogin = async () => {
+    const response = await getData("auth/login");
+    if (response) {
+      setUserInfo(response);
+    }
+  }
   useEffect(() => {
-    getData("auth/login")
-      .then((registeredUser) => {
-        if (registeredUser) {
-          setUser(registeredUser);
-        }
-      })
-      .catch((err) => {
-        setUser(null);
-      });
-  }, [setUser]);
-  return <authContext.Provider value={user}>{children}</authContext.Provider>;
+    fetchLogin();
+  }, []);
+  return (
+    <authContext.Provider value={userInfo}>{children}</authContext.Provider>
+  );
 }

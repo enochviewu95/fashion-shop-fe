@@ -10,6 +10,7 @@ import CategoryReducer from  "./categorySlice";
 import CollectionReducer from "./collectionSlice";
 import ProductReducer from "./productSlice";
 import ShopReducer from "./shopSlice";
+import UserReducer from "./userSlice"
 
 const persitConfig = {
   key: "root",
@@ -21,7 +22,8 @@ export const rootReducers = combineReducers({
   categories: CategoryReducer,
   collections: CollectionReducer,
   products: ProductReducer,
-  shop: ShopReducer
+  shop: ShopReducer,
+  user: UserReducer
 });
 
 const persistedReducer = persistReducer(persitConfig, rootReducers);

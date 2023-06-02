@@ -14,8 +14,8 @@ export default function ProductSection() {
   const products = productsData.product
 
   return products.length > 0? (
-    <div className={deepBackground}>
-      <div className="mx-auto max-w-2xl py-16 px-4 sm:py-14 sm:px-6 lg:max-w-7xl lg:px-8">
+    <section className={deepBackground}>
+      <div className="mx-auto h-full max-w-2xl py-16 px-4 sm:py-14 sm:px-6 lg:max-w-7xl lg:px-8">
         <div className="mx-auto max-w-2xl lg:text-center">
           <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Everything you need to deploy your app
@@ -45,6 +45,6 @@ export default function ProductSection() {
           </SwiperComponent>
         </div>
       </div>
-    </div>
+    </section>
   ):""
 }

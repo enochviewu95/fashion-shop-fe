@@ -10,7 +10,7 @@ import ContactUsView from "./views/Client/ContactUsView";
 import DashboardView from "./views/Admin/DashboardView";
 
 import PageNotFound from "./views/PageNotFound";
-import Login from "./layouts/Login";
+import Login from "./views/Authentications/Login"
 import AboutUs from "./views/Admin/AboutUs";
 import ContactUs from "./views/Admin/ContactUs";
 import Hero from "./views/Admin/Hero";
@@ -21,6 +21,8 @@ import AddHero from "./views/Admin/AddHero";
 import AddCategory from "./views/Admin/AddCategory";
 import AddCollection from "./views/Admin/AddCollection";
 import AddProduct from "./views/Admin/AddProduct";
+import Authentications from "./layouts/Authentications";
+import Signup from "./views/Authentications/Signup";
 
 export const Routes = createBrowserRouter([
   {
@@ -125,9 +127,19 @@ export const Routes = createBrowserRouter([
         ],
       },
       {
-        path: "/fashion-shop-fe/login",
-        element: <Login />,
+        path: "/fashion-shop-fe/auth",
+        element: <Authentications />,
         errorElement: <PageNotFound />,
+        children:[
+          {
+            path: "/fashion-shop-fe/auth/",
+            element:<Login/>
+          },
+          {
+            path: "/fashion-shop-fe/auth/signup",
+            element: <Signup />,
+          }
+        ]
       },
       {
         path:"/fashion-shop-fe/pagenotfound",

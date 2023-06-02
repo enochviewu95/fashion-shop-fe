@@ -7,9 +7,9 @@ export default function PromoSection({background = true}) {
   const {lightBackground,buttonBackground,buttonHoverBackground} = useContext(ThemeContext)
 
     return (
-      <div className={ background ? `relative overflow-hidden ${lightBackground}` : "relative overflow-hidden "}>
-        <div className="pt-16 pb-80 sm:pt-24 sm:pb-40 lg:pt-40 lg:pb-48">
-          <div className="relative mx-auto max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
+      <section className={ background ? `relative overflow-hidden ${lightBackground}` : "relative overflow-hidden "}>
+        <div className="pt-16 h-full pb-80 sm:pt-24 sm:pb-40 lg:pt-40 lg:pb-48">
+          <div className="relative mx-auto h-full max-w-7xl px-4 sm:static sm:px-6 lg:px-8">
             <div className="sm:max-w-lg">
               <h1 className="font text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
                 Summer styles are finally here
@@ -96,7 +96,7 @@ export default function PromoSection({background = true}) {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     )
   }
   

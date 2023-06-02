@@ -3,23 +3,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useOutletContext } from "react-router-dom";
 import { bannerList, getBannersAsync } from "../../redux/bannerSlice";
 import HeroSection from "../../components/sections/HeroSection";
-import LoadingComponent from "../../components/widgets/LoadingComponent"
 import { ThemeContext } from "../../context/themeContext";
 import swal from "sweetalert";
 import { updateData } from "../../services/apis";
 
-export default function Hero({ pageTitle, isAdmin }) {
+export default function Hero({ pageTitle, isAdmin, setLoading }) {
   const [setTitle] = useOutletContext();
   const dispatch = useDispatch();
   const banners = useSelector(bannerList);
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
   const [selectedHero, setSelectedHero] = useState("");
-  const [showLoading, setShowLoading] = useState(true);
 
   useEffect(() => {
     setTitle(pageTitle);
     dispatch(getBannersAsync("admin/api/get-banners"));
-  }, [dispatch, pageTitle, setTitle]);
+    if(bannerList){
+      setLoading(false);
+    }
+  }, [dispatch, pageTitle, setLoading, setTitle]);
 
   const updateSelectedBanner = (event) => {
     event.preventDefault();
@@ -32,7 +33,7 @@ export default function Hero({ pageTitle, isAdmin }) {
       dangerMode: false,
     }).then((willUpdate) => {
       if (willUpdate) {
-        updateData(`/admin/api/update-selected/${selectedHero}`).then((response) => {
+        updateData(`/admin/api/update-selected/${selectedHero}`).then(() => {
           swal("Updated Successfully", {
             icon: "success",
           }).then(() => {
@@ -98,7 +99,6 @@ export default function Hero({ pageTitle, isAdmin }) {
           ))
         : ""}
     </div>
-    <LoadingComponent showLoading={showLoading} setShowLoading={setShowLoading} />
     </>
   );
 }

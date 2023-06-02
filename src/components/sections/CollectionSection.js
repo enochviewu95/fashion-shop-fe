@@ -13,9 +13,9 @@ export default function CollectionSection() {
   const collections = collectionData.collection
 
   return (
-    <div className={deepBackground}>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
+    <section className={deepBackground}>
+      <div className="mx-auto h-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto h-full max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
           <h2 className="text-2xl font-bold text-gray-900">Collections</h2>
           <div className="mt-6 hidden lg:flex">
             <SwiperComponent screenType="large">
@@ -41,6 +41,6 @@ export default function CollectionSection() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

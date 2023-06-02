@@ -7,7 +7,7 @@ export default function ProductCardComponent({ product, isAdmin }) {
     process.env.REACT_APP_BASE_URL + product.imageUrl.replace(/\\/g, "/");
 
   return (
-    <div className="group relative py-5">
+    <article className="group relative py-5">
       <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
         <img
           src={productImageUrl}
@@ -40,6 +40,6 @@ export default function ProductCardComponent({ product, isAdmin }) {
         itemId={product._id}
         deleteUrl="admin/api/delete-product"
       />
-    </div>
+    </article>
   );
 }

@@ -12,7 +12,7 @@ export default function HeroSection({ isAdmin, selectedHero }) {
     process.env.REACT_APP_BASE_URL + banner.imageUrl.replace(/\\/g, "/");
 
   return (
-    <div className="w-full h-[40rem] relative">
+    <section className="w-full h-[40rem] relative">
       <div className="absolute w-full h-full">
         <img
           className="w-full h-full object-cover object-center filter brightness-50"
@@ -60,6 +60,6 @@ export default function HeroSection({ isAdmin, selectedHero }) {
           )}
         </div>
       </div>
-    </div>
+    </section>
   );
 }

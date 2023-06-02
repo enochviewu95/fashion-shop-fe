@@ -27,6 +27,9 @@ export const { addBannerList, addSelectedBanner, editBanner, deleteBanner } =
 
 export const getBannersAsync = (url) => async (dispatch) => {
   const response = await getData(url);
+  // if (response.data.length > 0) {
+  //   dispatch(addBannerList(response));
+  // }
   dispatch(addBannerList(response));
 };
 
