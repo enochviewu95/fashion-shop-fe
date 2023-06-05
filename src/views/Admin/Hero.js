@@ -7,7 +7,7 @@ import { ThemeContext } from "../../context/themeContext";
 import swal from "sweetalert";
 import { updateData } from "../../services/apis";
 
-export default function Hero({ pageTitle, isAdmin, setLoading }) {
+export default function Hero({ pageTitle, isAdmin }) {
   const [setTitle] = useOutletContext();
   const dispatch = useDispatch();
   const banners = useSelector(bannerList);
@@ -18,9 +18,9 @@ export default function Hero({ pageTitle, isAdmin, setLoading }) {
     setTitle(pageTitle);
     dispatch(getBannersAsync("admin/api/get-banners"));
     if(bannerList){
-      setLoading(false);
+      // setLoading(false);
     }
-  }, [dispatch, pageTitle, setLoading, setTitle]);
+  }, [dispatch, pageTitle, setTitle]);
 
   const updateSelectedBanner = (event) => {
     event.preventDefault();

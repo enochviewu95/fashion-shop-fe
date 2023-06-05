@@ -97,7 +97,7 @@ export default function Login() {
           </div>
           <div className="flex items-center justify-between">
             <div className="text-sm">
-              <Link
+              <Link to="/fashion-shop-fe/auth/forgot-password"
                 className={`font-medium ${primaryTextColor} hover:${secondaryTextColor}`}
               >
                 Forgot your password?

@@ -17,12 +17,12 @@ export default function Admin() {
 
   return (
     <>
-      <div>
+      {/* <div>
         <div className="fixed inset-x-0 z-50">
           <NavigationBar setLoading={setLoading} />
         </div>
         <SideNavigationSlider open={open} setOpen={setOpen} />
-        <div className="flex h-screen">
+        <div className="flex h-full">
           <div className="hidden lg:flex lg:mr-72">
             <SideNavigationLinks />
           </div>
@@ -47,13 +47,13 @@ export default function Admin() {
             </main>
           </div>
         </div>
-      </div>
+      </div> */}
       <div>
         <div className="fixed inset-x-0 z-50">
           <NavigationBar setLoading={setLoading} />
         </div>
         <SideNavigationSlider open={open} setOpen={setOpen} />
-        <div className="flex h-screen">
+        <div className="flex h-full">
           <div className="hidden lg:flex lg:mr-72">
             <SideNavigationLinks />
           </div>

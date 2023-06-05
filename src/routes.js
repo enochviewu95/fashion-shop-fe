@@ -23,6 +23,8 @@ import AddCollection from "./views/Admin/AddCollection";
 import AddProduct from "./views/Admin/AddProduct";
 import Authentications from "./layouts/Authentications";
 import Signup from "./views/Authentications/Signup";
+import ResetPassword from "./views/Authentications/ResetPassword";
+import PasswordReset from "./views/Authentications/PasswordReset";
 
 export const Routes = createBrowserRouter([
   {
@@ -138,6 +140,14 @@ export const Routes = createBrowserRouter([
           {
             path: "/fashion-shop-fe/auth/signup",
             element: <Signup />,
+          },
+          {
+            path:"/fashion-shop-fe/auth/forgot-password",
+            element: <ResetPassword/>
+          },
+          {
+            path:"/fashion-shop-fe/auth/reset/",
+            element: <PasswordReset/>
           }
         ]
       },
