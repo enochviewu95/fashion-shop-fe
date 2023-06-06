@@ -2,9 +2,9 @@ import { Fragment } from "react";
 import { Transition } from "@headlessui/react";
 import loading from "../../assets/images/loading-transparent.gif";
 
-export default function LoadingComponent({ showLoading }) {
+export default function LoadingComponent({ isLoading }) {
   return (
-    <Transition.Root show={showLoading} as={Fragment}>
+    <Transition.Root show={isLoading} as={Fragment}>
       <div className="relative z-50">
         <Transition.Child
           as={Fragment}

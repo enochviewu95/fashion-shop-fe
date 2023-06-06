@@ -21,7 +21,8 @@ export const saveData = async (url, payload) => {
   return await instance
     .post(url, payload)
     .then((response) => {
-      return response;
+      const { data } = response;
+      return data;
     })
     .catch((err) => {
       return null;

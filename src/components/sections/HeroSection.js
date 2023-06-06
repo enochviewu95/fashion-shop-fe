@@ -5,9 +5,15 @@ import DeleteItemsComponent from "../widgets/DeleteItemsComponent";
 import { useSelector } from "react-redux";
 import { shopData } from "../../redux/shopSlice";
 
-export default function HeroSection({ isAdmin, selectedHero }) {
+export default function HeroSection({ isAdmin, selectedHero, hero }) {
   const bannerData = useSelector(shopData);
-  const banner = bannerData.banner
+  let banner;
+  if (isAdmin && hero) {
+    banner = hero;
+  } else {
+    if (bannerData === null) return;
+    banner = bannerData.banner;
+  }
   const bannerUrl =
     process.env.REACT_APP_BASE_URL + banner.imageUrl.replace(/\\/g, "/");
 

@@ -7,14 +7,17 @@ import { getProductAsync, productList } from "../../redux/productSlice";
 
 export default function Products({ pageTitle }) {
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
-  const [setTitle] = useOutletContext();
+  const [setTitle, setLoading] = useOutletContext();
   const dispatch = useDispatch();
   const products = useSelector(productList);
 
   useEffect(() => {
     setTitle(pageTitle);
     dispatch(getProductAsync("admin/api/get-products"));
-  }, [dispatch, pageTitle, setTitle]);
+    if(productList.length > 0){
+      setLoading(false)
+    }
+  }, [dispatch, pageTitle, setLoading, setTitle]);
 
   return (
     <div>

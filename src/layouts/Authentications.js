@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import LoadingComponent from "../components/widgets/LoadingComponent";
 
-
 export default function Authentications() {
   const [loading, setLoading] = useState(false);
 
@@ -12,10 +11,7 @@ export default function Authentications() {
         <Outlet context={[setLoading]}></Outlet>
         <div className="login-image w-full h-screen hidden lg:block"></div>
       </div>
-      <LoadingComponent
-        showLoading={loading}
-        setShowLoading={setLoading}
-      />
+      <LoadingComponent isLoading={loading} />
     </>
   );
 }

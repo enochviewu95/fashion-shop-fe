@@ -7,14 +7,17 @@ import { categoryList, getCategoriesAsync } from "../../redux/categorySlice";
 
 export default function Categories({ pageTitle }) {
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
-  const [setTitle] = useOutletContext();
+  const [setTitle, setLoading] = useOutletContext();
   const dispatch = useDispatch();
   const categories = useSelector(categoryList);
 
   useEffect(() => {
     setTitle(pageTitle);
     dispatch(getCategoriesAsync("admin/api/get-categories"));
-  }, [dispatch, pageTitle, setTitle]);
+    if(categoryList.length > 0){
+      setLoading(false)
+    }
+  }, [ dispatch, pageTitle, setTitle, setLoading]);
 
   console.log("Categories", categories);
 

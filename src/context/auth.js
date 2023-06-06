@@ -9,13 +9,13 @@ export function useAuth() {
 
 export function ProvideAuth({ children }) {
   const [userInfo, setUserInfo] = useState(null);
-  
+
   const fetchLogin = async () => {
     const response = await getData("auth/login");
     if (response) {
       setUserInfo(response);
     }
-  }
+  };
   useEffect(() => {
     fetchLogin();
   }, []);

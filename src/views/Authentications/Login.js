@@ -7,6 +7,7 @@ import googleIcon from "../../assets/logo/google.png";
 
 /*Images*/
 import unaMano from "../../assets/logo/una_mano.png";
+import { dialogAlert } from "../../utils/DialogAlert";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ export default function Login() {
     primaryTextColor,
     secondaryTextColor,
   } = useContext(ThemeContext);
-  const [setLoading] = useOutletContext()
+  const [setLoading] = useOutletContext();
   const navigate = useNavigate();
 
   const login = (event) => {
@@ -32,6 +33,10 @@ export default function Login() {
     saveData("/auth/login", formData)
       .then((response) => {
         setLoading(false);
+        if (response.status === "failed") {
+          dialogAlert("Login unsuccessful", response.msg);
+          return;
+        }
         navigate(`/fashion-shop-fe/`);
       })
       .catch((err) => {
@@ -97,7 +102,8 @@ export default function Login() {
           </div>
           <div className="flex items-center justify-between">
             <div className="text-sm">
-              <Link to="/fashion-shop-fe/auth/forgot-password"
+              <Link
+                to="/fashion-shop-fe/auth/forgot-password"
                 className={`font-medium ${primaryTextColor} hover:${secondaryTextColor}`}
               >
                 Forgot your password?
@@ -129,14 +135,14 @@ export default function Login() {
           Google Sign In
         </button>
         <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{" "}
-            <Link
-              to="/fashion-shop-fe/auth/signup"
-              className={`font-medium leading-6 ${primaryTextColor} hover:${secondaryTextColor}`}
-            >
-              Sign up
-            </Link>
-          </p>
+          Not a member?{" "}
+          <Link
+            to="/fashion-shop-fe/auth/signup"
+            className={`font-medium leading-6 ${primaryTextColor} hover:${secondaryTextColor}`}
+          >
+            Sign up
+          </Link>
+        </p>
       </div>
     </div>
   );

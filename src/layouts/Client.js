@@ -22,9 +22,9 @@ export default function Client() {
       <NavigationBar setLoading={setLoading} />
       <Outlet setLoading={setLoading} />
       <NewLetterSection setLoading={setLoading} />
-      {loading && <LoadingComponent showLoading={loading} />}
+      {loading && <LoadingComponent isLoading={loading} />}
     </>
   ) : (
-    <LoadingComponent showLoading={loading} />
+    <LoadingComponent isLoading={loading} />
   );
 }

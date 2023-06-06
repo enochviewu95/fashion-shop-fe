@@ -1,6 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import { ThemeContext } from "../../context/themeContext";
-import { Link, Navigate, useLocation, useOutletContext } from "react-router-dom";
+import {
+  Link,
+  Navigate,
+  useLocation,
+  useOutletContext,
+} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   collectionList,
@@ -10,7 +15,7 @@ import CategoryCardComponent from "../../components/widgets/CategoryCardComponen
 
 export default function Collections({ pageTitle }) {
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
-  const [setTitle] = useOutletContext();
+  const [setTitle, setLoading] = useOutletContext();
   const dispatch = useDispatch();
   const collections = useSelector(collectionList);
   const location = useLocation();
@@ -18,7 +23,10 @@ export default function Collections({ pageTitle }) {
   useEffect(() => {
     setTitle(pageTitle);
     dispatch(getCollectionAsync("admin/api/get-collections"));
-  }, [dispatch, pageTitle, setTitle]);
+    if (collectionList.length > 0) {
+      setLoading(false);
+    }
+  }, [dispatch, pageTitle, setLoading, setTitle]);
 
   return collections.length !== 0 ? (
     <div>
@@ -33,10 +41,21 @@ export default function Collections({ pageTitle }) {
       <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
         {collections
           ? collections.map((collection) => (
-              <CategoryCardComponent key={collection._id} item={collection} isAdmin={true} isCategory={false} />
+              <CategoryCardComponent
+                key={collection._id}
+                item={collection}
+                isAdmin={true}
+                isCategory={false}
+              />
             ))
           : ""}
       </div>
     </div>
-  ): (<Navigate to="/fashion-shop-fe/pagenotfound" state={{ from: location }} replace /> )
+  ) : (
+    <Navigate
+      to="/fashion-shop-fe/pagenotfound"
+      state={{ from: location }}
+      replace
+    />
+  );
 }

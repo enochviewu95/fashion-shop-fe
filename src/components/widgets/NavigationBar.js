@@ -78,7 +78,7 @@ export default function NavigationBar({ setLoading }) {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          {_.isEmpty(auth) ? (
+          {auth.status === "failed" ? (
             <Link
               to="/fashion-shop-fe/auth"
               className={`text-sm font-semibold leading-6 ${primaryTextColor}`}
@@ -140,7 +140,7 @@ export default function NavigationBar({ setLoading }) {
                 ))}
               </div>
               <div className="py-6">
-                {_.isEmpty(auth) !== {} ? (
+                {auth.status === "failed" ? (
                   <Link
                     to="/fashion-shop-fe/auth"
                     onClick={() => setMobileMenuOpen(false)}

@@ -14,7 +14,7 @@ function App() {
       <Outlet />
     </ThemeContext.Provider>
   ) : (
-    <LoadingComponent showLoading={true} />
+    <LoadingComponent isLoading={true} />
   );
 }
 
