@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
-import NavigationBar from "../components/widgets/NavigationBar";
 import NewLetterSection from "../components/sections/NewsLetterSection";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingComponent from "../components/widgets/LoadingComponent";

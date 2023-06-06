@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import NavigationBar from "../components/widgets/NavigationBar";
 import { useState } from "react";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { Outlet } from "react-router-dom";
