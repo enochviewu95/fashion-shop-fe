@@ -62,7 +62,9 @@ export default function Login() {
     <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div>
-          <img className="mx-auto w-52" src={unaMano} alt="Your Company" />
+          <Link to="/fashion-shop-fe/" reloadDocument>
+            <img className="mx-auto w-52" src={unaMano} alt="Your Company" />
+          </Link>
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
             Sign in to your account
           </h2>

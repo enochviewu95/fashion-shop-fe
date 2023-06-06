@@ -5,6 +5,7 @@ import NewLetterSection from "../components/sections/NewsLetterSection";
 import { useDispatch, useSelector } from "react-redux";
 import LoadingComponent from "../components/widgets/LoadingComponent";
 import { getShopAsync, shopData } from "../redux/shopSlice";
+import Navbar from "../components/widgets/Navbar";
 
 export default function Client() {
   const [loading, setLoading] = useState(true);
@@ -19,7 +20,8 @@ export default function Client() {
 
   return shop ? (
     <>
-      <NavigationBar setLoading={setLoading} />
+      {/* <NavigationBar setLoading={setLoading} /> */}
+      <Navbar setLoading={setLoading}/>
       <Outlet setLoading={setLoading} />
       <NewLetterSection setLoading={setLoading} />
       {loading && <LoadingComponent isLoading={loading} />}

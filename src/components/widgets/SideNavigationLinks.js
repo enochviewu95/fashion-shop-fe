@@ -9,7 +9,7 @@ export default function SideNavigationLinks({setLoading}) {
 
 
   return (
-    <div className="flex h-screen flex-col bg-slate-100 py-6 shadow-xl z-50 fixed left-0 top-20 bottom-0">
+    <div className="flex h-screen flex-col bg-slate-100 py-6 shadow-xl z-50 fixed left-0 top-16 bottom-0">
       <div className="px-4 sm:px-6">
         <div className="text-lg font-semibold leading-6 text-gray-900 py-4 border-b-2">
           <NavLink to="/fashion-shop-fe" onClick={()=>setLoading(true)}>

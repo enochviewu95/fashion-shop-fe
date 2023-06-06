@@ -7,6 +7,7 @@ import { ThemeContext } from "../context/themeContext";
 import SideNavigationSlider from "../components/widgets/SideNavigationSlider";
 import SideNavigationLinks from "../components/widgets/SideNavigationLinks";
 import LoadingComponent from "../components/widgets/LoadingComponent";
+import Navbar from "../components/widgets/Navbar";
 
 export default function Admin() {
   const [open, setOpen] = useState(false);
@@ -19,14 +20,14 @@ export default function Admin() {
     <>
       <div>
         <div className="fixed inset-x-0 z-50">
-          <NavigationBar setLoading={setLoading} />
+          <Navbar setLoading={setLoading} />
         </div>
         <SideNavigationSlider setLoading={setLoading} open={open} setOpen={setOpen} />
         <div className="flex h-full">
           <div className="hidden lg:flex lg:mr-72">
             <SideNavigationLinks />
           </div>
-          <div className={`w-full ${lightBackground} overflow-y-auto mt-20`}>
+          <div className={`w-full ${lightBackground} overflow-y-auto mt-16`}>
             <header className="bg-white shadow flex lg:hidden">
               <div className="max-w-7xl px-2 py-6 sm:px-6 lg:px-8 flex">
                 <button
