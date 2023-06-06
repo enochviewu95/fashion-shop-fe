@@ -11,7 +11,6 @@ import { useAuth } from "../../context/auth";
 import { saveData } from "../../services/apis";
 import { useDispatch } from "react-redux";
 import { logoutUserAsync } from "../../redux/userSlice";
-import _ from "lodash";
 
 const navigation = [
   { name: "Home", href: "/fashion-shop-fe" },
