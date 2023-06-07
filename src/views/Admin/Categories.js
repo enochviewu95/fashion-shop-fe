@@ -18,9 +18,7 @@ export default function Categories({ pageTitle }) {
       setLoading(false)
     }
   }, [ dispatch, pageTitle, setTitle, setLoading]);
-
-  console.log("Categories", categories);
-
+  
   return (
     <div>
       <div className="my-5">

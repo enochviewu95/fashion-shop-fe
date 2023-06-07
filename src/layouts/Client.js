@@ -19,7 +19,6 @@ export default function Client() {
 
   return shop ? (
     <>
-      {/* <NavigationBar setLoading={setLoading} /> */}
       <Navbar setLoading={setLoading}/>
       <Outlet setLoading={setLoading} />
       <NewLetterSection setLoading={setLoading} />

@@ -18,6 +18,7 @@ export default function UploadImageDocument({
   const [imageUrl, setBannerImageUrl] = useState("");
   const [title, setBannerTitle] = useState("");
   const [price, setPrice] = useState(0.0);
+  const [selected, setSelected] = useState(false)
   const [description, setBannerDescription] = useState("");
   const [item, setItem] = useState(null);
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ export default function UploadImageDocument({
       formType ==="product" && setPrice(response.price["$numberDecimal"]);
       setBannerDescription(response.description)
       setBannerTitle(response.title);
+      setSelected(response.isSelected)
       setBannerImageUrl(process.env.REACT_APP_BASE_URL + response.imageUrl.replace(/\\/g, "/"))
       displayPreviewController();
     });
@@ -67,7 +69,6 @@ export default function UploadImageDocument({
 
     const data = event.dataTransfer;
     const files = data.files;
-    console.log('Data',files)
     const imageInput = document.getElementById("image");
     imageInput.files = files;
     handleFiles(files);
@@ -130,6 +131,7 @@ export default function UploadImageDocument({
     formType === "product" && formData.append("price", price);
     formData.append("title", title);
     formData.append("description", description);
+    formData.append('selected',selected)
 
     swal({
       title: "Are you sure?",

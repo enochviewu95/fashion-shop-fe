@@ -24,8 +24,7 @@ function classNames(...classes) {
 }
 
 export default function Navbar({ setLoading }) {
-  const { primaryBackground } =
-    useContext(ThemeContext);
+  const { primaryBackground } = useContext(ThemeContext);
   const auth = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -93,6 +92,25 @@ export default function Navbar({ setLoading }) {
                           {item.name}
                         </NavLink>
                       ))}
+                      {auth.status !== "failed" ? (
+                        auth.user.role === "admin" ? (
+                          <NavLink
+                            key="Dashboard"
+                            to="/fashion-shop-fe/admin"
+                            className={({ isActive }) =>
+                              isActive
+                                ? "bg-amber-900 text-white rounded-md px-3 py-2 text-sm font-medium"
+                                : "text-gray-300 hover:bg-amber-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                            }
+                          >
+                            Dashboard
+                          </NavLink>
+                        ) : (
+                          ""
+                        )
+                      ) : (
+                        ""
+                      )}
                     </div>
                   </div>
                 </div>

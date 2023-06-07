@@ -14,8 +14,8 @@ export default function Products({ pageTitle }) {
   useEffect(() => {
     setTitle(pageTitle);
     dispatch(getProductAsync("admin/api/get-products"));
-    if(productList.length > 0){
-      setLoading(false)
+    if (productList.length > 0) {
+      setLoading(false);
     }
   }, [dispatch, pageTitle, setLoading, setTitle]);
 
@@ -30,13 +30,15 @@ export default function Products({ pageTitle }) {
         </Link>
       </div>
       <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
-        {products.map((product) => (
-          <ProductCardComponent
-            key={product._id}
-            product={product}
-            isAdmin="true"
-          />
-        ))}
+        {products.length > 0
+          ? products.map((product) => (
+              <ProductCardComponent
+                key={product._id}
+                product={product}
+                isAdmin="true"
+              />
+            ))
+          : ""}
       </div>
     </div>
   );

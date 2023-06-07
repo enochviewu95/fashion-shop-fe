@@ -2,8 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { ThemeContext } from "../../context/themeContext";
 import {
   Link,
-  Navigate,
-  useLocation,
   useOutletContext,
 } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,7 +16,6 @@ export default function Collections({ pageTitle }) {
   const [setTitle, setLoading] = useOutletContext();
   const dispatch = useDispatch();
   const collections = useSelector(collectionList);
-  const location = useLocation();
 
   useEffect(() => {
     setTitle(pageTitle);
@@ -28,7 +25,7 @@ export default function Collections({ pageTitle }) {
     }
   }, [dispatch, pageTitle, setLoading, setTitle]);
 
-  return collections.length !== 0 ? (
+  return (
     <div>
       <div className="my-5">
         <Link
@@ -39,7 +36,7 @@ export default function Collections({ pageTitle }) {
         </Link>
       </div>
       <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
-        {collections
+        {collections.length > 0
           ? collections.map((collection) => (
               <CategoryCardComponent
                 key={collection._id}
@@ -51,11 +48,5 @@ export default function Collections({ pageTitle }) {
           : ""}
       </div>
     </div>
-  ) : (
-    <Navigate
-      to="/fashion-shop-fe/pagenotfound"
-      state={{ from: location }}
-      replace
-    />
-  );
+  )
 }
