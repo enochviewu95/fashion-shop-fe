@@ -18,6 +18,7 @@ export default function TrustedBrandSection() {
               alt="Transistor"
               width={158}
               height={48}
+              loading="lazy"
             />
             <img
               className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
@@ -25,6 +26,7 @@ export default function TrustedBrandSection() {
               alt="Reform"
               width={158}
               height={48}
+              loading="lazy"
             />
             <img
               className="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
@@ -32,6 +34,7 @@ export default function TrustedBrandSection() {
               alt="Tuple"
               width={158}
               height={48}
+              loading="lazy"
             />
             <img
               className="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
@@ -39,6 +42,7 @@ export default function TrustedBrandSection() {
               alt="SavvyCal"
               width={158}
               height={48}
+              loading="lazy"
             />
             <img
               className="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
@@ -46,6 +50,7 @@ export default function TrustedBrandSection() {
               alt="Statamic"
               width={158}
               height={48}
+              loading="lazy"
             />
           </div>
         </div>

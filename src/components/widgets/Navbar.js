@@ -3,14 +3,13 @@ import React, { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import UnaMano from "../../assets/logo/una_mano.png";
 import { ThemeContext } from "../../context/themeContext";
 import { useAuth } from "../../context/auth";
 import { saveData } from "../../services/apis";
-import { useDispatch } from "react-redux";
-import { logoutUserAsync } from "../../redux/userSlice";
+import swal from "sweetalert";
 
 const navigation = [
   { name: "Home", href: "/fashion-shop-fe/" },
@@ -19,14 +18,12 @@ const navigation = [
 ];
 
 function classNames(...classes) {
-  console.log(classes);
   return classes.filter(Boolean).join(" ");
 }
 
 export default function Navbar({ setLoading }) {
   const { primaryBackground } = useContext(ThemeContext);
   const auth = useAuth();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const logout = (event) => {
@@ -35,12 +32,11 @@ export default function Navbar({ setLoading }) {
     saveData("/auth/logout")
       .then((response) => {
         if (response) {
-          dispatch(logoutUserAsync());
-          navigate("/fashion-shop-fe/auth");
+          navigate("/fashion-shop-fe/auth", { replace: true });
         }
       })
       .catch((err) => {
-        console.log(err);
+        swal("Unable to logout at this time. Please try again later");
       });
   };
 
@@ -69,11 +65,13 @@ export default function Navbar({ setLoading }) {
                         className="block h-12 w-auto lg:hidden"
                         src={UnaMano}
                         alt="Una Mano"
+                        loading="lazy"
                       />
                       <img
                         className="hidden h-12 w-auto lg:block"
                         src={UnaMano}
                         alt="Una Mano"
+                        loading="lazy"
                       />
                     </div>
                   </Link>
@@ -116,13 +114,13 @@ export default function Navbar({ setLoading }) {
                 </div>
                 {auth.status !== "failed" ? (
                   <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                    <button
+                    {/* <button
                       type="button"
                       className="rounded-full bg-amber-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       <span className="sr-only">View notifications</span>
                       <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
+                    </button> */}
 
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
@@ -131,8 +129,11 @@ export default function Navbar({ setLoading }) {
                           <span className="sr-only">Open user menu</span>
                           <img
                             className="h-8 w-8 rounded-full"
-                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
+                            src={`https://ui-avatars.com/api/?name=${
+                              auth.user.firstname + auth.user.lastname
+                            }`}
+                            alt="avatar"
+                            loading="lazy"
                           />
                         </Menu.Button>
                       </div>
@@ -145,38 +146,37 @@ export default function Navbar({ setLoading }) {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right overflow-hidden rounded-md bg-white pb-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                          <div className="bg-gray-200">
+                            <p className="block px-4 py-2 text-sm text-gray-700">
+                              {auth.user.firstname + " " + auth.user.lastname}
+                            </p>
+
+                            <p className="block px-4 py-2 text-sm text-gray-700">
+                              {auth.user.email}
+                            </p>
+                          </div>
+
                           <Menu.Item>
                             {({ active }) => (
                               <Link
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
+                                  "block px-4 py-2 text-sm text-gray-700 border-gray-500"
                                 )}
                               >
-                                Your Profile
+                                Favorites
                               </Link>
                             )}
                           </Menu.Item>
-                          <Menu.Item>
-                            {({ active }) => (
-                              <Link
-                                className={classNames(
-                                  active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
-                                )}
-                              >
-                                Settings
-                              </Link>
-                            )}
-                          </Menu.Item>
+
                           <Menu.Item>
                             {({ active }) => (
                               <Link
                                 onClick={logout}
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-gray-700"
+                                  "block px-4 py-2 text-sm text-gray-700 border-gray-500"
                                 )}
                               >
                                 Sign out
@@ -217,6 +217,26 @@ export default function Navbar({ setLoading }) {
                     {item.name}
                   </Disclosure.Button>
                 ))}
+                {auth.status !== "failed" ? (
+                  auth.user.role === "admin" ? (
+                    <Disclosure.Button
+                      key="Dashboard"
+                      as="a"
+                      href="/fashion-shop-fe/admin"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "bg-amber-900 text-white block rounded-md px-3 py-2 text-base font-medium"
+                          : "text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-2 text-base font-medium"
+                      }
+                    >
+                      Dashboard
+                    </Disclosure.Button>
+                  ) : (
+                    ""
+                  )
+                ) : (
+                  ""
+                )}
               </div>
             </Disclosure.Panel>
           </>

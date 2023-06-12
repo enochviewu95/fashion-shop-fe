@@ -51,7 +51,7 @@ export default function NavigationBar({ setLoading }) {
           <Link to="/fashion-shop-fe" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <div className=" mix-blend-luminosity rounded-full overflow-hidden">
-              <img className="w-24" src={UnaMano} alt="logo" />
+              <img className="w-24" src={UnaMano} alt="logo" loading="lazy"/>
             </div>
           </Link>
         </div>
@@ -112,7 +112,7 @@ export default function NavigationBar({ setLoading }) {
             >
               <span className="sr-only">Your Company</span>
               <div className="mix-blend-luminosity rounded-full overflow-hidden">
-                <img className="w-20" src={UnaMano} alt="logo" />
+                <img className="w-20" src={UnaMano} alt="logo" loading="lazy" />
               </div>
             </Link>
             <button

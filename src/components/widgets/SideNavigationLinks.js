@@ -19,6 +19,7 @@ export default function SideNavigationLinks({setLoading}) {
                   className="w-24 mix-blend-luminosity "
                   src={UnaMano}
                   alt="logo"
+                  loading="lazy"
                 />
               </div>
               <p>Admin Dashboard</p>

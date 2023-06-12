@@ -66,6 +66,7 @@ export default function SideNavigationSlider({open, setOpen, setLoading}) {
                               className="w-24 mix-blend-luminosity "
                               src={UnaMano}
                               alt="logo"
+                              loading="lazy"
                             />
                           </div>
                           <p>Admin Dashboard</p>

@@ -32,7 +32,7 @@ export default function LoadingComponent({ isLoading }) {
               >
                 <div className="pointer-events-auto relative w-screen flex justify-center items-center mix-blend-color-burn">
                   <div>
-                    <img src={loading} className="w-20 h-20" alt="loading" />
+                    <img src={loading} className="w-20 h-20" alt="loading" loading="lazy" />
                   </div>
                 </div>
               </Transition.Child>

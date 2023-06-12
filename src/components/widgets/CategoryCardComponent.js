@@ -14,6 +14,7 @@ export default function CategoryCardComponent({ item, isAdmin, isCategory }) {
           src={categoryImageUrl}
           alt={item.title}
           className="h-full w-full object-cover object-center"
+          loading="lazy"
         />
       </div>
       <div>

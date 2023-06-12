@@ -38,6 +38,7 @@ export default function Login() {
           return;
         }
         navigate(`/fashion-shop-fe/`);
+        navigate(0)
       })
       .catch((err) => {
         console.log("Error", err);
@@ -63,7 +64,7 @@ export default function Login() {
       <div className="w-full max-w-md space-y-8">
         <div>
           <Link to="/fashion-shop-fe/" reloadDocument>
-            <img className="mx-auto w-52" src={unaMano} alt="Your Company" />
+            <img className="mx-auto w-52" src={unaMano} alt="Your Company" loading="lazy" />
           </Link>
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
             Sign in to your account
@@ -132,7 +133,7 @@ export default function Login() {
           className={`group relative text-white flex w-full justify-center rounded-md bg-blue-400 hover:bg-blue-600 hover:shadow-lg py-2 px-3 text-sm font-semibold hover:${buttonHoverBackground} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
         >
           <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-            <img src={googleIcon} alt="Google icon" className="w-5" />
+            <img src={googleIcon} alt="Google icon" className="w-5" loading="lazy" />
           </span>
           Google Sign In
         </button>
