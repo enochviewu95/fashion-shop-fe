@@ -5,11 +5,10 @@ import DeleteItemsComponent from "../widgets/DeleteItemsComponent";
 import { useSelector } from "react-redux";
 import { shopData } from "../../redux/shopSlice";
 import { Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 
 export default function HeroSection({ isAdmin, selectedHero, hero }) {
   const bannerData = useSelector(shopData);
-  const [isShowing, setIsShowing] = useState(false);
   let banner;
   if (isAdmin && hero) {
     banner = hero;
