@@ -85,6 +85,7 @@ export default function HeroSection({ isAdmin, selectedHero, hero }) {
               className="w-full h-full object-cover object-center filter brightness-50"
               src={bannerUrl}
               alt={banner.title}
+              fetchpriority="high"
             />
           </div>
         </Transition.Child>
