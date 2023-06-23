@@ -1,16 +1,19 @@
 {
   "files": {
-    "main.css": "/fashion-shop-fe/static/css/main.b5d03ba3.css",
-    "main.js": "/fashion-shop-fe/static/js/main.3571ea80.js",
+    "main.css": "/fashion-shop-fe/static/css/main.5df59b31.css",
+    "main.js": "/fashion-shop-fe/static/js/main.a43c2838.js",
     "static/js/787.01776240.chunk.js": "/fashion-shop-fe/static/js/787.01776240.chunk.js",
+    "static/media/sewing_two.mp4": "/fashion-shop-fe/static/media/sewing_two.42e66f6b614096f679b5.mp4",
+    "static/media/african_woman.jpg": "/fashion-shop-fe/static/media/african_woman.84045891ce342e9112a3.jpg",
     "static/media/una_mano.png": "/fashion-shop-fe/static/media/una_mano.c0a0d130290d68e4bd2f.png",
+    "static/media/loading-transparent.gif": "/fashion-shop-fe/static/media/loading-transparent.99209d852db24ed8be9b.gif",
     "index.html": "/fashion-shop-fe/index.html",
-    "main.b5d03ba3.css.map": "/fashion-shop-fe/static/css/main.b5d03ba3.css.map",
-    "main.3571ea80.js.map": "/fashion-shop-fe/static/js/main.3571ea80.js.map",
+    "main.5df59b31.css.map": "/fashion-shop-fe/static/css/main.5df59b31.css.map",
+    "main.a43c2838.js.map": "/fashion-shop-fe/static/js/main.a43c2838.js.map",
     "787.01776240.chunk.js.map": "/fashion-shop-fe/static/js/787.01776240.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b5d03ba3.css",
-    "static/js/main.3571ea80.js"
+    "static/css/main.5df59b31.css",
+    "static/js/main.a43c2838.js"
   ]
 }
