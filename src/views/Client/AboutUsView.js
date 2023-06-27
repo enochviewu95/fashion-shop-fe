@@ -42,7 +42,7 @@ export default function AboutUsView() {
           </svg>
         </div>
       </div>
-      <PromoSection/>
+      {/* <PromoSection/> */}
       <div className={` ${deepBackground}`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className='grid grid-cols-1 lg:grid-cols-2 '>

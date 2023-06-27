@@ -27,7 +27,7 @@ export default function ProductCardComponent({ product, isAdmin }) {
           <p className="mt-1 text-sm text-gray-500">{product.description}</p>
         </div>
         <p className="text-sm font-medium text-gray-900">
-          {product.price["$numberDecimal"]}
+          &#163; {product.price["$numberDecimal"]}
         </p>
       </div>
       <Link
