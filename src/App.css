@@ -71,6 +71,26 @@
   z-index: 10;
 }
 
+/*Phone input*/
+.PhoneInput {
+  padding-left: 0.875rem;
+}
+
+.PhoneInputInput {
+  background: transparent !important;
+  border: 0px !important;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity));
+}
+
+.PhoneInputInput:focus  {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(217 119 6 / var(--tw-ring-opacity)) !important;
+  border-radius: 0.375rem;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -81,8 +101,8 @@
   }
 }
 
-@keyframes no-transform{
-  100%{
+@keyframes no-transform {
+  100% {
     opacity: 1;
     transform: none;
   }

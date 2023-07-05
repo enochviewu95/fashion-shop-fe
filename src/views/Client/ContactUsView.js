@@ -1,17 +1,35 @@
+import { useContext, useState } from "react";
+import { ThemeContext } from "../../context/themeContext";
+import PhoneInput from "react-phone-number-input";
 
-import { useContext, useState } from 'react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import { Switch } from '@headlessui/react'
-import { ThemeContext } from '../../context/themeContext';
-import { Link } from 'react-router-dom';
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
-}
+import "react-phone-number-input/style.css";
 
 export default function ContactUsView() {
-  const { lightBackground, startBackground, stopBackground, textInputBackground, primaryTextColor, buttonBackground, buttonHoverBackground } = useContext(ThemeContext)
-  const [agreed, setAgreed] = useState(false)
+  const {
+    lightBackground,
+    startBackground,
+    stopBackground,
+    textInputBackground,
+    buttonBackground,
+    buttonHoverBackground,
+  } = useContext(ThemeContext);
+
+  const [query, setQuery] = useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+    message: "",
+    title: "",
+  });
+
+  function submitQuery(event){
+    event.preventDefault();
+    let emailTo = "viewuenoch@gmail.com"
+    let emailSub = query.title
+    let emailBody = `${query.message}%0A${query.firstName} ${query.lastName}%0A${query.email}%0A${query.phoneNumber}`
+    window.open('mailto:'+emailTo+'?subject='+emailSub+'&body='+emailBody, '_self');
+  };
 
   return (
     <div className={`isolate ${lightBackground} py-40 px-6 sm:py-32 lg:px-8`}>
@@ -41,15 +59,26 @@ export default function ContactUsView() {
         </svg>
       </div>
       <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact sales</h2>
+        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Contact Us
+        </h2>
         <p className="mt-2 text-lg leading-8 text-gray-600">
-          Aute magna irure deserunt veniam aliqua magna enim voluptate.
+          Get in touch with us for any questions and to place an order
         </p>
       </div>
-      <form action="#" method="POST" className="mx-auto mt-16 max-w-xl sm:mt-20">
+      <form
+        id="query-form"
+        method="POST"
+        onSubmit={submitQuery}
+        encType="text/plain"
+        className="mx-auto mt-16 max-w-xl sm:mt-20"
+      >
         <div className="grid grid-cols-1 gap-y-6 gap-x-8 sm:grid-cols-2">
           <div>
-            <label htmlFor="first-name" className="block text-sm font-semibold leading-6 text-gray-900">
+            <label
+              htmlFor="first-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
               First name
             </label>
             <div className="mt-2.5">
@@ -57,13 +86,21 @@ export default function ContactUsView() {
                 type="text"
                 name="first-name"
                 id="first-name"
+                placeholder="Ex. John"
+                value={query.firstName}
+                onChange={(event) =>
+                  setQuery({ ...query, firstName: event.target.value })
+                }
                 autoComplete="given-name"
                 className={`block w-full rounded-md border-0 py-2 px-3.5 ${textInputBackground} text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6`}
               />
             </div>
           </div>
           <div>
-            <label htmlFor="last-name" className="block text-sm font-semibold leading-6 text-gray-900">
+            <label
+              htmlFor="last-name"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
               Last name
             </label>
             <div className="mt-2.5">
@@ -71,13 +108,21 @@ export default function ContactUsView() {
                 type="text"
                 name="last-name"
                 id="last-name"
+                placeholder="Ex. Doe"
+                value={query.lastName}
+                onChange={(event) =>
+                  setQuery({ ...query, lastName: event.target.value })
+                }
                 autoComplete="family-name"
                 className={`block w-full rounded-md border-0 py-2 px-3.5 ${textInputBackground} text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6`}
               />
             </div>
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor="email" className="block text-sm font-semibold leading-6 text-gray-900">
+            <label
+              htmlFor="email"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
               Email
             </label>
             <div className="mt-2.5">
@@ -85,45 +130,65 @@ export default function ContactUsView() {
                 type="email"
                 name="email"
                 id="email"
+                placeholder="Ex. johndoe@gmail.com"
+                value={query.email}
+                onChange={(event) =>
+                  setQuery({ ...query, email: event.target.value })
+                }
                 autoComplete="email"
                 className={`block w-full rounded-md border-0 py-2 px-3.5 ${textInputBackground} text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6`}
               />
             </div>
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor="phone-number" className="block text-sm font-semibold leading-6 text-gray-900">
+            <label
+              htmlFor="phone-number"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
               Phone number
             </label>
             <div className="relative mt-2.5">
-              <div className="absolute inset-y-0 left-0 flex items-center">
-                <label htmlFor="country" className="sr-only">
-                  Country
-                </label>
-                <select
-                  id="country"
-                  name="country"
-                  className={`block w-full rounded-md border-0 py-2 px-3.5 ${textInputBackground} text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6`}
-                >
-                  <option>US</option>
-                  <option>CA</option>
-                  <option>EU</option>
-                </select>
-                <ChevronDownIcon
-                  className="pointer-events-none absolute top-0 right-3 h-full w-5 text-gray-400"
-                  aria-hidden="true"
+              <div
+                className={`block w-fit rounded-md border-0 ${textInputBackground} text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6`}
+              >
+                <PhoneInput
+                  placeholder="Enter phone number"
+                  defaultCountry="GH"
+                  value={query.phoneNumber}
+                  onChange={(value) => {
+                    setQuery({ ...query, phoneNumber: value });
+                  }}
                 />
               </div>
+            </div>
+          </div>
+          <div className="sm:col-span-2">
+            <label
+              htmlFor="title"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
+              Title
+            </label>
+            <div className="mt-2.5">
               <input
-                type="tel"
-                name="phone-number"
-                id="phone-number"
-                autoComplete="tel"
+                type="text"
+                name="title"
+                id="title"
+                placeholder="Place an order or make a query for ..."
+                value={query.title}
+                autoComplete="title-name"
+                onChange={(event) =>
+                  setQuery({ ...query, title: event.target.value })
+                }
                 className={`block w-full rounded-md border-0 py-2 px-3.5 ${textInputBackground} text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6`}
               />
             </div>
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor="message" className="block text-sm font-semibold leading-6 text-gray-900">
+            <label
+              htmlFor="message"
+              className="block text-sm font-semibold leading-6 text-gray-900"
+            >
               Message
             </label>
             <div className="mt-2.5">
@@ -131,39 +196,15 @@ export default function ContactUsView() {
                 name="message"
                 id="message"
                 rows={4}
+                placeholder="Enter your message here ..."
+                value={query.message}
+                onChange={(event) =>
+                  setQuery({ ...query, message: event.target.value })
+                }
                 className={`block w-full rounded-md border-0 py-2 px-3.5 ${textInputBackground} text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-amber-600 sm:text-sm sm:leading-6`}
-                defaultValue={''}
               />
             </div>
           </div>
-          <Switch.Group as="div" className="flex gap-x-4 sm:col-span-2">
-            <div className="flex h-6 items-center">
-              <Switch
-                checked={agreed}
-                onChange={setAgreed}
-                className={classNames(
-                  agreed ?  buttonBackground  : 'bg-gray-200',
-                  'flex w-8 flex-none cursor-pointer rounded-full p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
-                )}
-              >
-                <span className="sr-only">Agree to policies</span>
-                <span
-                  aria-hidden="true"
-                  className={classNames(
-                    agreed ? 'translate-x-3.5' : 'translate-x-0',
-                    'h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out'
-                  )}
-                />
-              </Switch>
-            </div>
-            <Switch.Label className="text-sm leading-6 text-gray-600">
-              By selecting this, you agree to our{' '}
-              <Link  className={`font-semibold ${primaryTextColor}`}>
-                privacy&nbsp;policy
-              </Link>
-              .
-            </Switch.Label>
-          </Switch.Group>
         </div>
         <div className="mt-10">
           <button
@@ -175,5 +216,5 @@ export default function ContactUsView() {
         </div>
       </form>
     </div>
-  )
+  );
 }

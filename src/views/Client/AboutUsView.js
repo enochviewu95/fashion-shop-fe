@@ -1,17 +1,15 @@
-import React, { useContext } from 'react'
-import PromoSection from '../../components/sections/PromoSection'
-import StatsSection from '../../components/sections/StatsSection';
-import TeamSection from '../../components/sections/TeamSection';
-import TrustedBrandSection from '../../components/sections/TrustedBrandSection';
-import { ThemeContext } from '../../context/themeContext';
+import React, { useContext } from "react";
+import StatsSection from "../../components/sections/StatsSection";
+import TeamSection from "../../components/sections/TeamSection";
+import TrustedBrandSection from "../../components/sections/TrustedBrandSection";
+import { ThemeContext } from "../../context/themeContext";
 
 export default function AboutUsView() {
-
-
   const background = false;
-  const gridArrangement = "column"
-  const padding = "py-20"
-  const { startBackground, stopBackground, deepBackground } = useContext(ThemeContext)
+  const gridArrangement = "column";
+  const padding = "py-20";
+  const { startBackground, stopBackground, deepBackground } =
+    useContext(ThemeContext);
 
   return (
     <div>
@@ -42,36 +40,55 @@ export default function AboutUsView() {
           </svg>
         </div>
       </div>
-      {/* <PromoSection/> */}
       <div className={` ${deepBackground}`}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className='grid grid-cols-1 lg:grid-cols-2 '>
-            <div className='pt-24 sm:py-32'>
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900">Our Mission</h2>
+          <div className="grid grid-cols-1 lg:grid-cols-2 ">
+            <div className="pt-24 sm:py-32">
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+                Our Mission
+              </h2>
               <p className="mt-8">
-                Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor
-                fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac
-                adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.
+                At Una Mano, Our mission is to celebrate and promote African
+                craftsmanship, creativity, and innovation in the realm of
+                fashion. By featuring authentic African designs, fabrics, and
+                aesthetics, we aim to amplify the voices of talented African
+                designers and artisans, while providing a platform for cultural
+                exchange and appreciation. We are committed to driving positive
+                change by supporting sustainable practices, ethical sourcing,
+                and fair trade within the African fashion industry. Through our
+                platform, we strive to inspire individuals to embrace African
+                fashion as a powerful tool for self-expression, cultural pride,
+                and empowerment.
               </p>
               <p className="mt-6">
-                Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in. Convallis arcu ipsum urna nibh.
-                Pharetra, euismod vitae interdum mauris enim, consequat vulputate nibh. Maecenas pellentesque id sed
-                tellus mauris, ultrices mauris. Tincidunt enim cursus ridiculus mi. Pellentesque nam sed nullam sed diam
-                turpis ipsum eu a sed convallis diam.
+                Additionally, we are dedicated to breaking down stereotypes and
+                misconceptions surrounding African fashion. By highlighting the
+                diversity of styles and influences across the African continent,
+                we aim to challenge the notion of a monolithic "African fashion"
+                and instead promote a nuanced understanding of the myriad of
+                regional aesthetics and design traditions.
               </p>
               <p className="mt-6">
-                Id orci tellus laoreet id ac. Dolor, aenean leo, ac etiam consequat in. Convallis arcu ipsum urna nibh.
-                Pharetra, euismod vitae interdum mauris enim, consequat vulputate nibh. Maecenas pellentesque id sed
-                tellus mauris, ultrices mauris. Tincidunt enim cursus ridiculus mi. Pellentesque nam sed nullam sed diam
-                turpis ipsum eu a sed convallis diam.
+                We believe in fostering inclusivity and representation,
+                featuring models, influencers, and fashion enthusiasts from
+                diverse backgrounds who proudly embrace African fashion. Through
+                thought-provoking articles, interviews, and fashion stories, we
+                aim to educate, inspire, and foster a deeper appreciation for
+                the richness and vibrancy of African fashion. Together, we
+                celebrate the beauty of Africa's sartorial heritage and its
+                ongoing contributions to the global fashion landscape.
               </p>
             </div>
-            <StatsSection gridArrangement={gridArrangement} background={background} padding={padding} />
+            <StatsSection
+              gridArrangement={gridArrangement}
+              background={background}
+              padding={padding}
+            />
           </div>
         </div>
       </div>
       <TrustedBrandSection />
       <TeamSection />
     </div>
-  )
+  );
 }

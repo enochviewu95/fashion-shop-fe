@@ -1,15 +1,20 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { ThemeContext } from "../../context/themeContext"
+import { shopData } from "../../redux/shopSlice"
+import { useSelector } from "react-redux"
 
-const stats = [
-    { id: 1, name: 'Transactions every 24 hours', value: '44 million' },
-    { id: 2, name: 'Assets under holding', value: '$119 trillion' },
-    { id: 3, name: 'New users annually', value: '46,000' },
-]
+
 
 export default function StatsSection({ gridArrangement = "row", background = true }) {
     
     const {lightBackground} = useContext(ThemeContext)
+    const statisticsData = useSelector(shopData)
+    const statistics = statisticsData.statistics
+    const stats = [
+        { id: 1, name: 'Products made', value: statistics.products },
+        { id: 2, name: 'Catalogs for you', value: statistics.catalogs },
+        { id: 3, name: 'Total users', value: statistics.users },
+    ]
 
     return (
         <div className={background ?`${lightBackground} py-24 sm:py-32` : "py-24 sm:py-32"}>

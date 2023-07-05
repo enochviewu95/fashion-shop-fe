@@ -27,7 +27,7 @@ export default function NewLetterSection() {
             </h2>
             <p className={`mt-4 text-lg leading-8 ${secondaryTextColor}`}>
               Get newsletters and updates from us about our new products and the
-              latest the trend in Ghanaian fashion
+              latest trend in Ghanaian fashion
             </p>
             <div className="mt-6 flex max-w-md gap-x-4">
               <label htmlFor="email-address" className="sr-only">
