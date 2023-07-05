@@ -1,19 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.a7c888c8.css",
-    "main.js": "/static/js/main.c0ae042b.js",
+    "main.css": "/static/css/main.d7f414cb.css",
+    "main.js": "/static/js/main.59395582.js",
     "static/js/787.01776240.chunk.js": "/static/js/787.01776240.chunk.js",
     "static/media/sewing_two.mp4": "/static/media/sewing_two.42e66f6b614096f679b5.mp4",
     "static/media/african_woman.jpg": "/static/media/african_woman.84045891ce342e9112a3.jpg",
     "static/media/una_mano.png": "/static/media/una_mano.c0a0d130290d68e4bd2f.png",
     "static/media/loading-transparent.gif": "/static/media/loading-transparent.99209d852db24ed8be9b.gif",
+    "static/media/promo.jpg": "/static/media/promo.354607fbdf4185dd93a6.jpg",
     "index.html": "/index.html",
-    "main.a7c888c8.css.map": "/static/css/main.a7c888c8.css.map",
-    "main.c0ae042b.js.map": "/static/js/main.c0ae042b.js.map",
+    "main.d7f414cb.css.map": "/static/css/main.d7f414cb.css.map",
+    "main.59395582.js.map": "/static/js/main.59395582.js.map",
     "787.01776240.chunk.js.map": "/static/js/787.01776240.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a7c888c8.css",
-    "static/js/main.c0ae042b.js"
+    "static/css/main.d7f414cb.css",
+    "static/js/main.59395582.js"
   ]
 }
