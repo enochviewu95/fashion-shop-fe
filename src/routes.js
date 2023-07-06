@@ -26,6 +26,139 @@ import Signup from "./views/Authentications/Signup";
 import ResetPassword from "./views/Authentications/ResetPassword";
 import PasswordReset from "./views/Authentications/PasswordReset";
 
+// export const Routes = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <App />,
+//     errorElement: <PageNotFound />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <Client />,
+//         children: [
+//           {
+//             path: "/",
+//             element: <HomepageView />,
+//           },
+//         ],
+//       },
+//       {
+//         path: "/fashion-shop-fe",
+//         element: <Client />,
+//         children: [
+//           {
+//             path: "/fashion-shop-fe",
+//             element: <HomepageView />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/about-us",
+//             element: <AboutUsView />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/contact-us",
+//             element: <ContactUsView />,
+//           },
+//         ],
+//       },
+//       {
+//         path: "/fashion-shop-fe/admin",
+//         element: <Admin />,
+//         errorElement: <PageNotFound />,
+//         children: [
+//           {
+//             path: "/fashion-shop-fe/admin/",
+//             element: <DashboardView pageTitle="Dashboard" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/home/hero",
+//             element: <Hero pageTitle="Hero" isAdmin="true" />,
+            
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/home/hero/add-hero",
+//             element: <AddHero pageTitle="Hero" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/home/hero/edit-hero/:id",
+//             element: <AddHero pageTitle="Hero" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/home/products",
+//             element: <Products pageTitle="Products" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/home/products/add-product",
+//             element: <AddProduct pageTitle="Products" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/home/products/edit-product/:id",
+//             element: <AddProduct pageTitle="Products" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/home/categories",
+//             element: <Categories pageTitle="Categories" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/home/categories/add-category",
+//             element: <AddCategory pageTitle="Categories" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/home/categories/edit-category/:id",
+//             element: <AddCategory pageTitle="Categories" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/home/collections",
+//             element: <Collections pageTitle="Collections" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/home/collections/add-collection",
+//             element: <AddCollection pageTitle="Collections" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/home/collections/edit-collection/:id",
+//             element: <AddCollection pageTitle="Collections" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/about-us",
+//             element: <AboutUs pageTitle="About Us" />,
+//           },
+//           {
+//             path: "/fashion-shop-fe/admin/contact-us",
+//             element: <ContactUs pageTitle="Contact Us" />,
+//           },
+//         ],
+//       },
+//       {
+//         path: "/fashion-shop-fe/auth",
+//         element: <Authentications />,
+//         errorElement: <PageNotFound />,
+//         children:[
+//           {
+//             path: "/fashion-shop-fe/auth/",
+//             element:<Login/>
+//           },
+//           {
+//             path: "/fashion-shop-fe/auth/signup",
+//             element: <Signup />,
+//           },
+//           {
+//             path:"/fashion-shop-fe/auth/forgot-password",
+//             element: <ResetPassword/>
+//           },
+//           {
+//             path:"/fashion-shop-fe/auth/reset/",
+//             element: <PasswordReset/>
+//           }
+//         ]
+//       },
+//       {
+//         path:"/fashion-shop-fe/pagenotfound",
+//         element: <PageNotFound/>
+//       }
+//     ],
+//   },
+// ]);
+
 export const Routes = createBrowserRouter([
   {
     path: "/",
@@ -40,119 +173,109 @@ export const Routes = createBrowserRouter([
             path: "/",
             element: <HomepageView />,
           },
-        ],
-      },
-      {
-        path: "/fashion-shop-fe",
-        element: <Client />,
-        children: [
           {
-            path: "/fashion-shop-fe",
-            element: <HomepageView />,
-          },
-          {
-            path: "/fashion-shop-fe/about-us",
+            path: "/about-us",
             element: <AboutUsView />,
           },
           {
-            path: "/fashion-shop-fe/contact-us",
+            path: "/contact-us",
             element: <ContactUsView />,
           },
         ],
       },
       {
-        path: "/fashion-shop-fe/admin",
+        path: "/admin",
         element: <Admin />,
         errorElement: <PageNotFound />,
         children: [
           {
-            path: "/fashion-shop-fe/admin/",
+            path: "/admin/",
             element: <DashboardView pageTitle="Dashboard" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home/hero",
+            path: "/admin/home/hero",
             element: <Hero pageTitle="Hero" isAdmin="true" />,
             
           },
           {
-            path: "/fashion-shop-fe/admin/home/hero/add-hero",
+            path: "/admin/home/hero/add-hero",
             element: <AddHero pageTitle="Hero" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home/hero/edit-hero/:id",
+            path: "/admin/home/hero/edit-hero/:id",
             element: <AddHero pageTitle="Hero" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home/products",
+            path: "/admin/home/products",
             element: <Products pageTitle="Products" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home/products/add-product",
+            path: "/admin/home/products/add-product",
             element: <AddProduct pageTitle="Products" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home/products/edit-product/:id",
+            path: "/admin/home/products/edit-product/:id",
             element: <AddProduct pageTitle="Products" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home/categories",
+            path: "/admin/home/categories",
             element: <Categories pageTitle="Categories" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home/categories/add-category",
+            path: "/admin/home/categories/add-category",
             element: <AddCategory pageTitle="Categories" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home/categories/edit-category/:id",
+            path: "/admin/home/categories/edit-category/:id",
             element: <AddCategory pageTitle="Categories" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home/collections",
+            path: "/admin/home/collections",
             element: <Collections pageTitle="Collections" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home/collections/add-collection",
+            path: "/admin/home/collections/add-collection",
             element: <AddCollection pageTitle="Collections" />,
           },
           {
-            path: "/fashion-shop-fe/admin/home/collections/edit-collection/:id",
+            path: "/admin/home/collections/edit-collection/:id",
             element: <AddCollection pageTitle="Collections" />,
           },
           {
-            path: "/fashion-shop-fe/admin/about-us",
+            path: "/admin/about-us",
             element: <AboutUs pageTitle="About Us" />,
           },
           {
-            path: "/fashion-shop-fe/admin/contact-us",
+            path: "/admin/contact-us",
             element: <ContactUs pageTitle="Contact Us" />,
           },
         ],
       },
       {
-        path: "/fashion-shop-fe/auth",
+        path: "/auth",
         element: <Authentications />,
         errorElement: <PageNotFound />,
         children:[
           {
-            path: "/fashion-shop-fe/auth/",
+            path: "/auth/",
             element:<Login/>
           },
           {
-            path: "/fashion-shop-fe/auth/signup",
+            path: "/auth/signup",
             element: <Signup />,
           },
           {
-            path:"/fashion-shop-fe/auth/forgot-password",
+            path:"/auth/forgot-password",
             element: <ResetPassword/>
           },
           {
-            path:"/fashion-shop-fe/auth/reset/",
+            path:"/auth/reset/",
             element: <PasswordReset/>
           }
         ]
       },
       {
-        path:"/fashion-shop-fe/pagenotfound",
+        path:"/pagenotfound",
         element: <PageNotFound/>
       }
     ],
