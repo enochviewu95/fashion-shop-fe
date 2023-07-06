@@ -37,8 +37,7 @@ export const getData = async (url) => {
       return data;
     })
     .catch((err) => {
-      const { data } = null;
-      return data;
+      return null
     });
 };
 
