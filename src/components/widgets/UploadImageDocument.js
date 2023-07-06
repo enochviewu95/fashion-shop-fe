@@ -145,7 +145,7 @@ export default function UploadImageDocument({
           swal("Saved Successfully", {
             icon: "success",
           }).then(() => {
-            navigate(`/fashion-shop-fe/admin/home/${redirectUrl}`);
+            navigate(`/admin/home/${redirectUrl}`);
           });
         });
       } else {

@@ -12,9 +12,9 @@ import { saveData } from "../../services/apis";
 import swal from "sweetalert";
 
 const navigation = [
-  { name: "Home", href: "/fashion-shop-fe/" },
-  { name: "About Us", href: "/fashion-shop-fe/about-us" },
-  { name: "Contact Us", href: "/fashion-shop-fe/contact-us" },
+  { name: "Home", href: "/" },
+  { name: "About Us", href: "/about-us" },
+  { name: "Contact Us", href: "/contact-us" },
 ];
 
 function classNames(...classes) {
@@ -32,7 +32,7 @@ export default function Navbar({ setLoading }) {
     saveData("/auth/logout")
       .then((response) => {
         if (response) {
-          navigate("/fashion-shop-fe/auth", { replace: true });
+          navigate("/auth", { replace: true });
         }
       })
       .catch((err) => {
@@ -59,7 +59,7 @@ export default function Navbar({ setLoading }) {
                   </Disclosure.Button>
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                  <Link to="/fashion-shop-fe">
+                  <Link to="/">
                     <div className="flex flex-shrink-0 items-center mix-blend-luminosity rounded-full">
                       <img
                         className="block h-12 w-auto lg:hidden"
@@ -94,7 +94,7 @@ export default function Navbar({ setLoading }) {
                         auth.user.role === "admin" ? (
                           <NavLink
                             key="Dashboard"
-                            to="/fashion-shop-fe/admin"
+                            to="/admin"
                             className={({ isActive }) =>
                               isActive
                                 ? "bg-amber-900 text-white rounded-md px-3 py-2 text-sm font-medium"
@@ -190,7 +190,7 @@ export default function Navbar({ setLoading }) {
                 ) : (
                   <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <Link
-                      to="/fashion-shop-fe/auth"
+                      to="/auth"
                       className="rounded shadow bg-amber-800 py-1 px-3 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       Login
@@ -222,7 +222,7 @@ export default function Navbar({ setLoading }) {
                     <Disclosure.Button
                       key="Dashboard"
                       as="a"
-                      href="/fashion-shop-fe/admin"
+                      href="/admin"
                       className={({ isActive }) =>
                         isActive
                           ? "bg-amber-900 text-white block rounded-md px-3 py-2 text-base font-medium"

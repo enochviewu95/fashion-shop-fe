@@ -37,7 +37,7 @@ export default function Login() {
           dialogAlert("Login unsuccessful", response.msg);
           return;
         }
-        navigate(`/fashion-shop-fe/`);
+        navigate(`/`);
         navigate(0)
       })
       .catch((err) => {
@@ -63,7 +63,7 @@ export default function Login() {
     <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div>
-          <Link to="/fashion-shop-fe/" reloadDocument>
+          <Link to="/" reloadDocument>
             <img className="mx-auto w-52" src={unaMano} alt="Your Company" loading="lazy" />
           </Link>
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
@@ -106,7 +106,7 @@ export default function Login() {
           <div className="flex items-center justify-between">
             <div className="text-sm">
               <Link
-                to="/fashion-shop-fe/auth/forgot-password"
+                to="/auth/forgot-password"
                 className={`font-medium ${primaryTextColor} hover:${secondaryTextColor}`}
               >
                 Forgot your password?
@@ -140,7 +140,7 @@ export default function Login() {
         <p className="mt-10 text-center text-sm text-gray-500">
           Not a member?{" "}
           <Link
-            to="/fashion-shop-fe/auth/signup"
+            to="/auth/signup"
             className={`font-medium leading-6 ${primaryTextColor} hover:${secondaryTextColor}`}
           >
             Sign up

@@ -48,7 +48,7 @@ export default function Signup() {
     saveData("/auth/signup",formData)
     .then(response=>{
       setLoading(false)
-      navigate(`/fashion-shop-fe/auth`)
+      navigate(`/auth`)
     }).catch(err=>{
       console.log('Error',err)
     })
@@ -181,7 +181,7 @@ export default function Signup() {
           <p className="mt-6 text-center text-sm text-gray-500">
             Already registered?{" "}
             <Link
-              to="/fashion-shop-fe/auth"
+              to="/auth"
               className={`font-medium leading-6 ${primaryTextColor} hover:${secondaryTextColor}`}
             >
               Sign in

@@ -57,7 +57,7 @@ export default function SideNavigationSlider({open, setOpen, setLoading}) {
                   <div className="px-4 sm:px-6">
                     <Dialog.Title className="text-lg font-semibold leading-6 text-gray-900 py-4 border-b-2">
                       <NavLink
-                        to="/fashion-shop-fe"
+                        to="/"
                         onClick={() => setOpen(false)}
                       >
                         <div className="flex items-center flex-row">
@@ -78,7 +78,7 @@ export default function SideNavigationSlider({open, setOpen, setLoading}) {
                     <ul>
                       <li>
                         <NavLink
-                          to="/fashion-shop-fe/admin/"
+                          to="/admin/"
                           onClick={() => setOpen(false)}
                           className={({ isActive }) =>
                             isActive
@@ -136,7 +136,7 @@ export default function SideNavigationSlider({open, setOpen, setLoading}) {
                                                   onClick={() =>
                                                     setOpen(false)
                                                   }
-                                                  to="/fashion-shop-fe/admin/home/hero"
+                                                  to="/admin/home/hero"
                                                   className={({
                                                     isActive,
                                                   }) =>
@@ -150,7 +150,7 @@ export default function SideNavigationSlider({open, setOpen, setLoading}) {
                                               </li>
                                               <li>
                                                 <NavLink
-                                                  to="/fashion-shop-fe/admin/home/categories"
+                                                  to="/admin/home/categories"
                                                   onClick={() =>
                                                     setOpen(false)
                                                   }
@@ -167,7 +167,7 @@ export default function SideNavigationSlider({open, setOpen, setLoading}) {
                                               </li>
                                               <li>
                                                 <NavLink
-                                                  to="/fashion-shop-fe/admin/home/products"
+                                                  to="/admin/home/products"
                                                   onClick={() =>
                                                     setOpen(false)
                                                   }
@@ -184,7 +184,7 @@ export default function SideNavigationSlider({open, setOpen, setLoading}) {
                                               </li>
                                               <li>
                                                 <NavLink
-                                                  to="/fashion-shop-fe/admin/home/collections"
+                                                  to="/admin/home/collections"
                                                   onClick={() =>
                                                     setOpen(false)
                                                   }
@@ -207,7 +207,7 @@ export default function SideNavigationSlider({open, setOpen, setLoading}) {
                                   </li>
                                   <li>
                                     <NavLink
-                                      to="/fashion-shop-fe/admin/about-us"
+                                      to="/admin/about-us"
                                       onClick={() => setOpen(false)}
                                       className={({ isActive }) =>
                                         isActive
@@ -220,7 +220,7 @@ export default function SideNavigationSlider({open, setOpen, setLoading}) {
                                   </li>
                                   <li>
                                     <NavLink
-                                      to="/fashion-shop-fe/admin/contact-us"
+                                      to="/admin/contact-us"
                                       onClick={() => setOpen(false)}
                                       className={({ isActive }) =>
                                         isActive
