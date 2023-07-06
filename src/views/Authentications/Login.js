@@ -49,7 +49,7 @@ export default function Login() {
     event.preventDefault();
     event.stopPropagation();
     setLoading(true);
-    window.open("http://localhost:8080/auth/google", "_self");
+    window.open(`${process.env.REACT_APP_BASE_URL}auth/google`, "_self");
     getData("/auth/google")
       .then((response) => {
         console.log("Response", response);
