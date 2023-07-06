@@ -31,7 +31,7 @@ export default function CategoryCardComponent({ item, isAdmin, isCategory }) {
       {isCategory ? (
         <div>
           <Link
-            to={`/fashion-shop-fe/admin/home/categories/edit-category/${item._id}`}
+            to={`/admin/home/categories/edit-category/${item._id}`}
             className={isAdmin ? "absolute top-8 left-3 w-7" : "hidden"}
           >
             <PencilSquareIcon className="text-orange-300 hover:text-orange-500" />
@@ -45,7 +45,7 @@ export default function CategoryCardComponent({ item, isAdmin, isCategory }) {
       ) : (
         <div>
           <Link
-            to={`/fashion-shop-fe/admin/home/collections/edit-collection/${item._id}`}
+            to={`/admin/home/collections/edit-collection/${item._id}`}
             className={isAdmin ? "absolute top-8 left-3 w-7" : "hidden"}
           >
             <PencilSquareIcon className="text-orange-300 hover:text-orange-500" />

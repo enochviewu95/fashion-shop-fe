@@ -12,7 +12,7 @@ export default function SideNavigationLinks({setLoading}) {
     <div className="flex h-screen flex-col bg-slate-100 py-6 shadow-xl z-50 fixed left-0 top-16 bottom-0">
       <div className="px-4 sm:px-6">
         <div className="text-lg font-semibold leading-6 text-gray-900 py-4 border-b-2">
-          <NavLink to="/fashion-shop-fe" onClick={()=>setLoading(true)}>
+          <NavLink to="/" onClick={()=>setLoading(true)}>
             <div className="flex items-center flex-row">
               <div className="rounded-full overflow-hidden">
                 <img
@@ -32,7 +32,7 @@ export default function SideNavigationLinks({setLoading}) {
           <li>
             <NavLink
             onClick={()=>setLoading(true)}
-              to="/fashion-shop-fe/admin/"
+              to="/admin/"
               className={({ isActive }) =>
                 isActive
                   ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
@@ -84,7 +84,7 @@ export default function SideNavigationLinks({setLoading}) {
                                 <ul>
                                   <li>
                                     <NavLink
-                                      to="/fashion-shop-fe/admin/home/hero"
+                                      to="/admin/home/hero"
                                       onClick={()=>setLoading(true)}
                                       className={({ isActive }) =>
                                         isActive
@@ -97,7 +97,7 @@ export default function SideNavigationLinks({setLoading}) {
                                   </li>
                                   <li>
                                     <NavLink
-                                      to="/fashion-shop-fe/admin/home/categories"
+                                      to="/admin/home/categories"
                                       onClick={()=>setLoading(true)}
                                       className={({ isActive }) =>
                                         isActive
@@ -110,7 +110,7 @@ export default function SideNavigationLinks({setLoading}) {
                                   </li>
                                   <li>
                                     <NavLink
-                                      to="/fashion-shop-fe/admin/home/products"
+                                      to="/admin/home/products"
                                       onClick={()=>setLoading(true)}
                                       className={({ isActive }) =>
                                         isActive
@@ -123,7 +123,7 @@ export default function SideNavigationLinks({setLoading}) {
                                   </li>
                                   <li>
                                     <NavLink
-                                      to="/fashion-shop-fe/admin/home/collections"
+                                      to="/admin/home/collections"
                                       onClick={()=>setLoading(true)}
                                       className={({ isActive }) =>
                                         isActive
@@ -142,7 +142,7 @@ export default function SideNavigationLinks({setLoading}) {
                       </li>
                       <li>
                         <NavLink
-                          to="/fashion-shop-fe/admin/about-us"
+                          to="/admin/about-us"
                           onClick={()=>setLoading(true)}
                           className={({ isActive }) =>
                             isActive
@@ -155,7 +155,7 @@ export default function SideNavigationLinks({setLoading}) {
                       </li>
                       <li>
                         <NavLink
-                          to="/fashion-shop-fe/admin/contact-us"
+                          to="/admin/contact-us"
                           onClick={()=>setLoading(true)}
                           className={({ isActive }) =>
                             isActive

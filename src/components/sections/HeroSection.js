@@ -52,7 +52,7 @@ export default function HeroSection({ isAdmin, selectedHero, hero }) {
                 />
               </div>
               <Link
-                to={`/fashion-shop-fe/admin/home/hero/edit-hero/${banner._id}`}
+                to={`/admin/home/hero/edit-hero/${banner._id}`}
                 className="absolute top-8 left-3 w-7"
               >
                 <PencilSquareIcon className="text-orange-300 hover:text-orange-500" />
@@ -128,7 +128,7 @@ export default function HeroSection({ isAdmin, selectedHero, hero }) {
                   />
                 </div>
                 <Link
-                  to={`/fashion-shop-fe/admin/home/hero/edit-hero/${banner._id}`}
+                  to={`/admin/home/hero/edit-hero/${banner._id}`}
                   className="absolute top-8 left-3 w-7"
                 >
                   <PencilSquareIcon className="text-orange-300 hover:text-orange-500" />

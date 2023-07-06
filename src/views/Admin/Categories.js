@@ -23,7 +23,7 @@ export default function Categories({ pageTitle }) {
     <div>
       <div className="my-5">
         <Link
-          to="/fashion-shop-fe/admin/home/categories/add-category"
+          to="/admin/home/categories/add-category"
           className={`${buttonBackground} px-3 py-2 hover:${buttonHoverBackground} text-white my-5 rounded-lg shadow-sm`}
         >
           Add Category

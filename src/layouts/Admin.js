@@ -64,9 +64,9 @@ export default function Admin() {
         <LoadingComponent isLoading={loading} />
       </>
     ) : (
-      <Navigate to="/fashion-shop-fe/" replace />
+      <Navigate to="/" replace />
     )
   ) : (
-    <Navigate to="/fashion-shop-fe/auth" replace />
+    <Navigate to="/auth" replace />
   );
 }

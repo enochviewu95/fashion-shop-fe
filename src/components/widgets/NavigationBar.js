@@ -13,9 +13,9 @@ import { useDispatch } from "react-redux";
 import { logoutUserAsync } from "../../redux/userSlice";
 
 const navigation = [
-  { name: "Home", href: "/fashion-shop-fe" },
-  { name: "About Us", href: "/fashion-shop-fe/about-us" },
-  { name: "Contact Us", href: "/fashion-shop-fe/contact-us" },
+  { name: "Home", href: "/" },
+  { name: "About Us", href: "/about-us" },
+  { name: "Contact Us", href: "/contact-us" },
 ];
 
 export default function NavigationBar({ setLoading }) {
@@ -33,7 +33,7 @@ export default function NavigationBar({ setLoading }) {
       .then((response) => {
         if (response) {
           dispatch(logoutUserAsync());
-          navigate("/fashion-shop-fe/auth");
+          navigate("/auth");
         }
       })
       .catch((err) => {
@@ -48,7 +48,7 @@ export default function NavigationBar({ setLoading }) {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <Link to="/fashion-shop-fe" className="-m-1.5 p-1.5">
+          <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <div className=" mix-blend-luminosity rounded-full overflow-hidden">
               <img className="w-24" src={UnaMano} alt="logo" loading="lazy"/>
@@ -79,7 +79,7 @@ export default function NavigationBar({ setLoading }) {
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {auth.status === "failed" ? (
             <Link
-              to="/fashion-shop-fe/auth"
+              to="/auth"
               className={`text-sm font-semibold leading-6 ${primaryTextColor}`}
             >
               Log in <span aria-hidden="true">&rarr;</span>
@@ -106,7 +106,7 @@ export default function NavigationBar({ setLoading }) {
         >
           <div className="flex items-center justify-between">
             <Link
-              to="/fashion-shop-fe"
+              to="/"
               className="-m-1.5 p-1.5"
               onClick={() => setMobileMenuOpen(false)}
             >
@@ -141,7 +141,7 @@ export default function NavigationBar({ setLoading }) {
               <div className="py-6">
                 {auth.status === "failed" ? (
                   <Link
-                    to="/fashion-shop-fe/auth"
+                    to="/auth"
                     onClick={() => setMobileMenuOpen(false)}
                     className={`-mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-7 ${secondaryTextColor} hover:bg-gray-50`}
                   >

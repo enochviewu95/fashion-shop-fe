@@ -54,7 +54,7 @@ export default function Hero({ pageTitle, isAdmin }) {
       <div>
         <div className="my-5 flex">
           <Link
-            to="/fashion-shop-fe/admin/home/hero/add-hero"
+            to="/admin/home/hero/add-hero"
             className={`${buttonBackground} px-3 py-2 hover:${buttonHoverBackground} text-white my-5 rounded-lg shadow-sm`}
           >
             Add Banner
