@@ -61,13 +61,13 @@ export default function Navbar({ setLoading }) {
                   <Link to="/">
                     <div className="flex flex-shrink-0 items-center mix-blend-luminosity rounded-full">
                       <img
-                        className="block h-12 w-auto lg:hidden"
+                        className="block w-16 h-12 lg:hidden"
                         src={UnaMano}
                         alt="Una Mano"
                         loading="lazy"
                       />
                       <img
-                        className="hidden h-12 w-auto lg:block"
+                        className="hidden w-16 h-12 lg:block"
                         src={UnaMano}
                         alt="Una Mano"
                         loading="lazy"

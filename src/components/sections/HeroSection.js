@@ -79,7 +79,7 @@ export default function HeroSection({ isAdmin, selectedHero, hero }) {
       <section className="w-full relative">
         <Transition.Child
           as={Fragment}
-          enter="transition ease-[cubic-bezier(.01,.73,.45,.99)] duration-1000 delay-1000 transform opacity"
+          enter="transition ease-[cubic-bezier(.01,.73,.45,.99)] duration-300 delay-200 transform opacity"
           enterFrom="-translate-y-full opacity-0"
           enterTo="translate-y-0 opacity-100"
         >
