@@ -18,8 +18,6 @@ export default function ProductSection() {
   const ref = useRef(null);
   const isVisible = useOnScreen(ref);
   
-  if(products.length < 1) return "";
-
   return products.length > 0 ? (
     <section className={deepBackground}>
       <div ref={ref} className="mx-auto h-full max-w-2xl py-16 px-4 sm:py-14 sm:px-6 lg:max-w-7xl lg:px-8">
