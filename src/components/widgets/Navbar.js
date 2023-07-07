@@ -26,6 +26,8 @@ export default function Navbar({ setLoading }) {
   const auth = useAuth();
   const navigate = useNavigate();
 
+  console.log('Navigation',navigation)
+
   const logout = (event) => {
     event.preventDefault();
     setLoading(true);
