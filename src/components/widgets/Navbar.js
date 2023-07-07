@@ -64,13 +64,13 @@ export default function Navbar({ setLoading }) {
                         className="block w-16 h-12 lg:hidden"
                         src={UnaMano}
                         alt="Una Mano"
-                        loading="lazy"
+                        fetchpriority="high"
                       />
                       <img
                         className="hidden w-16 h-12 lg:block"
                         src={UnaMano}
                         alt="Una Mano"
-                        loading="lazy"
+                        fetchpriority="high"
                       />
                     </div>
                   </Link>
