@@ -16,10 +16,11 @@ export default function HeroSection({ isAdmin, selectedHero, hero }) {
     if (bannerData === null) return;
     banner = bannerData.banner;
   }
+
+  if (banner == null) return "";
+
   const bannerUrl =
-    banner !== null
-      ? process.env.REACT_APP_BASE_URL + banner.imageUrl.replace(/\\/g, "/")
-      : "";
+    process.env.REACT_APP_BASE_URL + banner.imageUrl.replace(/\\/g, "/");
 
   return isAdmin && hero ? (
     <section className="w-full h-[40rem] relative">
