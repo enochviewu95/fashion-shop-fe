@@ -6,13 +6,12 @@ import { SwiperSlide } from "swiper/react";
 import CategoryCardComponent from "../widgets/CategoryCardComponent";
 import { shopData } from "../../redux/shopSlice";
 
-
 export default function CollectionSection() {
   const { deepBackground } = useContext(ThemeContext);
   const collectionData = useSelector(shopData);
-  const collections = collectionData.collection
+  const collections = collectionData.collection;
 
-  return (
+  return collections.length > 0 ? (
     <section className={deepBackground}>
       <div className="mx-auto h-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto h-full max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
@@ -21,9 +20,7 @@ export default function CollectionSection() {
             <SwiperComponent screenType="large">
               {collections.map((collection) => (
                 <SwiperSlide key={collection._id}>
-                  <CategoryCardComponent
-                    item={collection}
-                  />
+                  <CategoryCardComponent item={collection} />
                 </SwiperSlide>
               ))}
             </SwiperComponent>
@@ -32,9 +29,7 @@ export default function CollectionSection() {
             <SwiperComponent screenType="small">
               {collections.map((collection) => (
                 <SwiperSlide key={collection._id}>
-                  <CategoryCardComponent
-                    item={collection}
-                  />
+                  <CategoryCardComponent item={collection} />
                 </SwiperSlide>
               ))}
             </SwiperComponent>
@@ -42,5 +37,7 @@ export default function CollectionSection() {
         </div>
       </div>
     </section>
+  ) : (
+    ""
   );
 }
