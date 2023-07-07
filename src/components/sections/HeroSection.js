@@ -17,7 +17,9 @@ export default function HeroSection({ isAdmin, selectedHero, hero }) {
     banner = bannerData.banner;
   }
   const bannerUrl =
-    process.env.REACT_APP_BASE_URL + banner.imageUrl.replace(/\\/g, "/");
+    banner !== null
+      ? process.env.REACT_APP_BASE_URL + banner.imageUrl.replace(/\\/g, "/")
+      : "";
 
   return isAdmin && hero ? (
     <section className="w-full h-[40rem] relative">
@@ -77,7 +79,7 @@ export default function HeroSection({ isAdmin, selectedHero, hero }) {
         <Transition.Child
           as={Fragment}
           enter="transition ease-[cubic-bezier(.01,.73,.45,.99)] duration-300 delay-200 transform opacity"
-          enterFrom="-translate-y-full opacity-0"
+          enterFrom="translate-y-full opacity-0"
           enterTo="translate-y-0 opacity-100"
         >
           <div className="absolute w-full aspect-w-7 aspect-h-10 lg:aspect-h-3">
