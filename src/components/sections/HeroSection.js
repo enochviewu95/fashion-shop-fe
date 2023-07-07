@@ -79,8 +79,8 @@ export default function HeroSection({ isAdmin, selectedHero, hero }) {
       <section className="w-full relative">
         <Transition.Child
           as={Fragment}
-          enter="transition ease-[cubic-bezier(.01,.73,.45,.99)] duration-300 delay-200 transform opacity"
-          enterFrom="translate-y-full opacity-0"
+          enter="transition ease-[cubic-bezier(.01,.73,.45,.99)] duration-300 delay-1000 transform opacity"
+          enterFrom="-translate-y-full opacity-0"
           enterTo="translate-y-0 opacity-100"
         >
           <div className="absolute w-full aspect-w-7 aspect-h-10 lg:aspect-h-3">
