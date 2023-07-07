@@ -2,7 +2,7 @@ import { Fragment, useContext, useRef } from "react";
 import { ThemeContext } from "../../context/themeContext";
 import { Transition } from "@headlessui/react";
 import Sewing from "../../assets/video/sewing_two.mp4";
-import promo from "../../assets/images/promo.jpg";
+import promo from "../../assets/images/promo.webp";
 import useOnScreen from "../../hooks/useOnScreen";
 
 export default function PromoSection({ background = true }) {
