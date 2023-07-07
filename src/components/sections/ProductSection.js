@@ -14,8 +14,11 @@ export default function ProductSection() {
   const productsData = useSelector(shopData);
   const products = productsData.product;
 
+  
   const ref = useRef(null);
   const isVisible = useOnScreen(ref);
+  
+  if(products.length < 1) return "";
 
   return products.length > 0 ? (
     <section className={deepBackground}>
