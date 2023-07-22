@@ -8,18 +8,22 @@ export default function ProductCardComponent({ product, isAdmin }) {
 
   return (
     <article className="group relative py-5">
-      <div className="min-h-80 h-52 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
-        <img
-          src={productImageUrl}
-          alt={product.title}
-          className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-          loading="lazy"
-        />
-      </div>
+      <Link to={`/details/${product._id}`}>
+        <div className="min-h-80 h-52 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
+          <img
+            src={productImageUrl}
+            alt={product.title}
+            width={274}
+            height={320}
+            className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+            loading="lazy"
+          />
+        </div>
+      </Link>
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm text-gray-700">
-            <Link >
+            <Link to={`/details/${product._id}`}>
               <span aria-hidden="true" className="absolute inset-0" />
               {product.title}
             </Link>

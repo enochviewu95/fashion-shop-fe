@@ -9,17 +9,21 @@ export default function CategoryCardComponent({ item, isAdmin, isCategory }) {
 
   return (
     <article className="group relative py-5 ">
-      <div className="relative lg:h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 h-52 lg:aspect-w-1 lg:aspect-h-1">
-        <img
-          src={categoryImageUrl}
-          alt={item.title}
-          className="h-full w-full object-cover object-center"
-          loading="lazy"
-        />
-      </div>
+      <Link to="/list/category">
+        <div className="relative lg:h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 h-52 lg:aspect-w-1 lg:aspect-h-1">
+          <img
+            src={categoryImageUrl}
+            alt={item.title}
+            width={274}
+            height={320}
+            className="h-full w-full object-cover object-center"
+            loading="lazy"
+          />
+        </div>
+      </Link>
       <div>
         <h3 className="mt-6 text-sm text-gray-900">
-          <Link href="#">
+          <Link to="/list/category">
             <span className="absolute inset-0" />
             {item.title}
           </Link>

@@ -88,6 +88,8 @@ export default function HeroSection({ isAdmin, selectedHero, hero }) {
               className="w-full h-full object-cover object-center filter brightness-50"
               src={bannerUrl}
               alt={banner.title}
+              width={1280}
+              height={848}
               fetchpriority="high"
             />
           </div>
@@ -101,7 +103,7 @@ export default function HeroSection({ isAdmin, selectedHero, hero }) {
                 enterFrom="scale-0"
                 enterTo="scale-100"
               >
-                <h1 className="text-2xl font-bold tracking-tight text-gray-200 sm:text-6xl">
+                <h1 className="text-4xl font-bold tracking-tight text-gray-200 lg:text-6xl">
                   {banner.title}
                 </h1>
               </Transition.Child>
