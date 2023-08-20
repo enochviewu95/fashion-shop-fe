@@ -1,16 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { combineReducers } from "@reduxjs/toolkit";
 
 import { persistReducer, persistStore } from "redux-persist";
-import storage from 'redux-persist/lib/storage';
-import thunk from 'redux-thunk';
+import storage from "redux-persist/lib/storage";
+import thunk from "redux-thunk";
 
 import BannerReducer from "./bannerSlice";
-import CategoryReducer from  "./categorySlice";
+import CategoryReducer from "./categorySlice";
 import CollectionReducer from "./collectionSlice";
 import ProductReducer from "./productSlice";
 import ShopReducer from "./shopSlice";
-import UserReducer from "./userSlice"
+import UserReducer from "./userSlice";
+import { fashionShopApi } from "./rtkQuery";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
 const persitConfig = {
   key: "root",
@@ -23,13 +25,17 @@ export const rootReducers = combineReducers({
   collections: CollectionReducer,
   products: ProductReducer,
   shop: ShopReducer,
-  user: UserReducer
+  user: UserReducer,
+  [fashionShopApi.reducerPath]: fashionShopApi.reducer,
 });
 
 const persistedReducer = persistReducer(persitConfig, rootReducers);
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: [thunk]
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(fashionShopApi.middleware),
 });
+
+setupListeners(store.dispatch);
 
 export const persistor = persistStore(store);

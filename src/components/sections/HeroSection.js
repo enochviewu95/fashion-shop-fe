@@ -33,7 +33,7 @@ export default function HeroSection({ isAdmin, selectedHero, hero }) {
         />
       </div>
       <div className="w-full relative h-full flex flex-col justify-center">
-        <div className="text-center rounded h-full backdrop-blur-sm bg-black/20 flex flex-col justify-center content-center">
+        <div className="text-center rounded h-full bg-black/10 flex flex-col justify-center content-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-200 sm:text-6xl">
             {banner.title}
           </h1>
@@ -95,7 +95,7 @@ export default function HeroSection({ isAdmin, selectedHero, hero }) {
           </div>
         </Transition.Child>
         <div className="w-full relative aspect-w-7 aspect-h-10 lg:aspect-h-3 flex-col justify-center">
-          <div className="text-center rounded h-full items-center backdrop-blur-sm bg-black/20 flex flex-col justify-center content-center">
+          <div className="text-center rounded h-full items-center bg-black/10 flex flex-col justify-center content-center">
             <div className="max-w-lg">
               <Transition.Child
                 as={Fragment}

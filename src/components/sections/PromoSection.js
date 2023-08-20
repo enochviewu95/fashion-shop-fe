@@ -1,9 +1,7 @@
 import { useContext, useRef } from "react";
 import { ThemeContext } from "../../context/themeContext";
-import Sewing from "../../assets/video/sewing_vid_two.mp4";
-import promo from "../../assets/images/promo.webp";
 
-export default function PromoSection({ background = true }) {
+export default function PromoSection({heading, text, vidSrc, promoimg, background = true }) {
   const { lightBackground } = useContext(ThemeContext);
 
   const ref = useRef(null);
@@ -28,7 +26,7 @@ export default function PromoSection({ background = true }) {
             loop
             playsInline
           >
-            <source src={Sewing} type="video/mp4" />
+            <source src={vidSrc} type="video/mp4" />
           </video>
         </div>
         <div
@@ -42,14 +40,12 @@ export default function PromoSection({ background = true }) {
                 <div className="sm:max-w-lg">
                   <div data-aos="fade-right" data-aos-delay="100" data-aos-duration="300" data-aos-easing="ease-out-cubic">
                     <h1 className="font text-4xl font-bold tracking-tight text-gray-700 lg:text-gray-200 lg:text-6xl">
-                      Crafted Ghanaian Elegance
+                      {heading}
                     </h1>
                   </div>
                   <div data-aos="fade-right" data-aos-delay="200" data-aos-duration="300" data-aos-easing="ease-out-cubic">
                     <p className="mt-4 lg:text-2xl text-lg leading-8 text-gray-700 lg:text-gray-200">
-                      Discover Ghanaian clothing, meticulously handcrafted with
-                      passion and precision, showcasing the artistry and
-                      heritage that make each piece truly exceptional.
+                        {text}
                     </p>
                   </div>
                 </div>
@@ -60,7 +56,7 @@ export default function PromoSection({ background = true }) {
                           <div  data-aos="fade-left" data-aos-delay="700" data-aos-duration="300" data-aos-easing="ease-out-cubic">
                             <div className="overflow-hidden rounded-lg">
                               <img
-                                src={promo}
+                                src={promoimg}
                                 alt="promo"
                                 className="object-cover object-center h-[45rem]"
                                 loading="lazy"

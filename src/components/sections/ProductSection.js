@@ -11,7 +11,7 @@ import useOnScreen from "../../hooks/useOnScreen";
 export default function ProductSection() {
   const { deepBackground } = useContext(ThemeContext);
 
-  const productsData = useSelector(shopData);
+  const productsData = useSelector(shopData)
   const products = productsData.product;
 
   
@@ -22,7 +22,7 @@ export default function ProductSection() {
     <section className={deepBackground}>
       <div ref={ref} className="mx-auto h-full max-w-2xl py-16 px-4 sm:py-14 sm:px-6 lg:max-w-7xl lg:px-8">
         <Transition appear={true} show={isVisible}>
-          <div className="mx-auto max-w-2xl h-52 lg:text-center">
+          <div className="mx-auto max-w-2xl h-72 lg:h-52 lg:text-center">
             <Transition.Child
              as={Fragment}
              enter="transition ease-[cubic-bezier(.01,.73,.35,1.35)] duration-500 delay-500 transform"

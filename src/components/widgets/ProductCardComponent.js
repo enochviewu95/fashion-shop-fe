@@ -21,14 +21,13 @@ export default function ProductCardComponent({ product, isAdmin }) {
         </div>
       </Link>
       <div className="mt-4 flex justify-between">
-        <div>
+        <div className="w-10">
           <h3 className="text-sm text-gray-700">
             <Link to={`/details/${product._id}`}>
               <span aria-hidden="true" className="absolute inset-0" />
               {product.title}
             </Link>
           </h3>
-          <p className="mt-1 text-sm text-gray-500">{product.description}</p>
         </div>
         <p className="text-sm font-medium text-gray-900">
           &#163; {product.price["$numberDecimal"]}

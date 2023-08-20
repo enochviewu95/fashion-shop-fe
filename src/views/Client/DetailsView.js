@@ -95,7 +95,7 @@ export default function DetailsView() {
       <div className="pt-6">
         <div className="mx-auto px-4 grid-cols-1 mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-10 lg:px-3">
           {/* Image gallery */}
-          <div className="w-[40rem] h-[60rem] sm:overflow-hidden sm:rounded-lg">
+          <div className="h-[60rem] sm:overflow-hidden sm:rounded-lg">
             <img
               src={product.imageUrl}
               alt={product.title}
@@ -111,11 +111,11 @@ export default function DetailsView() {
               <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
                 {product.title}
               </h1>
+              <p className="text-base text-gray-900">{product.description}</p>
             </div>
 
             {/* Options */}
-            <div className="mt-4 lg:row-span-3 lg:border-b lg:border-gray-200 lg:mt-0 lg:pb-8">
-              <h2 className="sr-only">Product information</h2>
+            <div className="lg:row-span-3 lg:border-b lg:border-gray-200 lg:mt-10 lg:pb-8">
               <p className="text-3xl tracking-tight text-gray-900">
                 &#163; {product.price["$numberDecimal"]}
               </p>
@@ -282,41 +282,8 @@ export default function DetailsView() {
             </div>
 
             <div className="py-10 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pt-6">
-              {/* Description and details */}
-              <div>
-                <h3 className="sr-only">Description</h3>
-
-                <div className="space-y-6">
-                  <p className="text-base text-gray-900">
-                    {product.description}
-                  </p>
-                </div>
-              </div>
-
               <div className="mt-10">
-                <h3 className="text-sm font-medium text-gray-900">
-                  Highlights
-                </h3>
-
-                <div className="mt-4">
-                  <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
-                    {dummyProduct.highlights.map((highlight) => (
-                      <li key={highlight} className="text-gray-400">
-                        <span className="text-gray-600">{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mt-10">
-                <h2 className="text-sm font-medium text-gray-900">Details</h2>
-
-                <div className="mt-4 space-y-6">
-                  <p className="text-sm text-gray-600">
-                    {dummyProduct.details}
-                  </p>
-                </div>
+                <p dangerouslySetInnerHTML={{ __html: product.details }}></p>
               </div>
             </div>
           </div>
