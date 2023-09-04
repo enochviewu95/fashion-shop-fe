@@ -1,9 +1,10 @@
-import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import unaMano from "../../assets/logo/una_mano.png";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../../context/themeContext";
 import swal from "sweetalert";
-import { saveData } from "../../services/apis";
+import { useSignupMutation } from "../../redux/services/auth";
+import LoadingComponent from "../../components/widgets/LoadingComponent";
 
 export default function Signup() {
   const [firstName, setFirstName] = useState("");
@@ -11,7 +12,9 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [setLoading] = useOutletContext()
+  const [userInfo, setUserInfo] = useState(new FormData());
+  const [skip, setSkip] = useState(true);
+  const [signup, { isFetching }] = useSignupMutation(userInfo, { skip });
 
   const {
     buttonBackground,
@@ -20,10 +23,9 @@ export default function Signup() {
     secondaryTextColor,
   } = useContext(ThemeContext);
 
-
   const navigate = useNavigate();
 
-  const signup = (event) => {
+  const register = async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
@@ -34,32 +36,37 @@ export default function Signup() {
         icon: "warning",
         button: "Okay",
       });
-      return
+      return;
     }
 
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("firstname", firstName);
-    formData.append("lastname", lastName);
-    formData.append("email", email);
-    formData.append("password", password);
+    userInfo.set("firstname", firstName);
+    userInfo.set("lastname", lastName);
+    userInfo.set("email", email);
+    userInfo.set("password", password);
+    setSkip(false);
 
-
-    saveData("/auth/signup",formData)
-    .then(response=>{
-      setLoading(false)
-      navigate(`/auth`)
-    }).catch(err=>{
-      console.log('Error',err)
-    })
-    
+    try {
+      const response = await signup(userInfo);
+      navigate("/auth");
+    } catch (err) {
+      console.log("Error", err);
+    }
   };
+
+  if (isFetching) {
+    return <LoadingComponent />;
+  }
 
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img className="mx-auto w-40" src={unaMano} alt="Your Company" loading="lazy" />
+          <img
+            className="mx-auto w-40"
+            src={unaMano}
+            alt="Your Company"
+            loading="lazy"
+          />
           <h2 className="mt-2 text-center text-3xl font-bold leading-9 tracking-tight text-gray-900">
             Register an account
           </h2>
@@ -69,7 +76,7 @@ export default function Signup() {
             className="space-y-6"
             action="#"
             method="POST"
-            onSubmit={signup}
+            onSubmit={register}
           >
             <div>
               <label
@@ -171,7 +178,7 @@ export default function Signup() {
             <div>
               <button
                 type="submit"
-               className={`group relative flex w-full justify-center rounded-md ${buttonBackground} py-2 px-3 text-sm font-semibold text-white hover:${buttonHoverBackground} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
+                className={`group relative flex w-full justify-center rounded-md ${buttonBackground} py-2 px-3 text-sm font-semibold text-white hover:${buttonHoverBackground} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
               >
                 Sign up
               </button>

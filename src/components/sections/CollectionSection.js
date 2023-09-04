@@ -1,15 +1,11 @@
 import { useContext } from "react";
 import { ThemeContext } from "../../context/themeContext";
-import { useSelector } from "react-redux";
 import SwiperComponent from "../widgets/SwiperComponent";
 import { SwiperSlide } from "swiper/react";
 import CategoryCardComponent from "../widgets/CategoryCardComponent";
-import { shopData } from "../../redux/shopSlice";
 
-export default function CollectionSection() {
+export default function CollectionSection({collections}) {
   const { deepBackground } = useContext(ThemeContext);
-  const collectionData = useSelector(shopData);
-  const collections = collectionData.collection;
 
   return collections.length > 0 ? (
     <section className={deepBackground}>

@@ -11,7 +11,7 @@ import CollectionReducer from "./collectionSlice";
 import ProductReducer from "./productSlice";
 import ShopReducer from "./shopSlice";
 import UserReducer from "./userSlice";
-import { fashionShopApi } from "./rtkQuery";
+import { fashionShopApi } from "./services/api";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
 const persitConfig = {

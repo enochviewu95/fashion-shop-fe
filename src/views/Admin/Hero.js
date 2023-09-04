@@ -8,11 +8,13 @@ import swal from "sweetalert";
 import { updateData } from "../../services/apis";
 
 export default function Hero({ pageTitle, isAdmin }) {
+ 
   const [setTitle, setLoading] = useOutletContext();
   const dispatch = useDispatch();
   const banners = useSelector(bannerList);
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
   const [selectedHero, setSelectedHero] = useState("");
+
 
   useEffect(() => {
     setTitle(pageTitle);

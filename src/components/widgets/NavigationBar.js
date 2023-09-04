@@ -8,9 +8,9 @@ import { EllipsisVerticalIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import UnaMano from "../../assets/logo/una_mano.png";
 import { ThemeContext } from "../../context/themeContext";
 import { useAuth } from "../../context/auth";
-import { saveData } from "../../services/apis";
-import { useDispatch } from "react-redux";
-import { logoutUserAsync } from "../../redux/userSlice";
+import { dialogAlert } from "../../utils/DialogAlert";
+import LoadingComponent from "../widgets/LoadingComponent";
+import { useLogoutMutation } from "../../redux/services/auth";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -22,24 +22,25 @@ export default function NavigationBar({ setLoading }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { primaryBackground, primaryTextColor, secondaryTextColor } =
     useContext(ThemeContext);
+
+  const [logout, { isLoading }] = useLogoutMutation();
+
   const auth = useAuth();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const logout = (event) => {
+  const signout = async (event) => {
     event.preventDefault();
-    setLoading(true);
-    saveData("/auth/logout")
-      .then((response) => {
-        if (response) {
-          dispatch(logoutUserAsync());
-          navigate("/auth");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      await logout();
+      navigate("/auth");
+    } catch (err) {
+      dialogAlert("Logout unsuccessful", err);
+    }
   };
+
+  if (isLoading) {
+    <LoadingComponent />;
+  }
 
   return (
     <header className={`relative z-40 h-20 ${primaryBackground}`}>
@@ -51,7 +52,7 @@ export default function NavigationBar({ setLoading }) {
           <Link to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <div className=" mix-blend-luminosity rounded-full overflow-hidden">
-              <img className="w-24" src={UnaMano} alt="logo" loading="lazy"/>
+              <img className="w-24" src={UnaMano} alt="logo" loading="lazy" />
             </div>
           </Link>
         </div>
@@ -87,7 +88,7 @@ export default function NavigationBar({ setLoading }) {
           ) : (
             <Link
               className={`text-sm font-semibold leading-6 ${primaryTextColor}`}
-              onClick={logout}
+              onClick={signout}
             >
               Sign Out
             </Link>
@@ -150,7 +151,7 @@ export default function NavigationBar({ setLoading }) {
                 ) : (
                   <Link
                     className={`text-sm font-semibold leading-6 ${primaryTextColor}`}
-                    onClick={logout}
+                    onClick={signout}
                   >
                     Sign Out
                   </Link>

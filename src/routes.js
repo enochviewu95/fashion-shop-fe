@@ -4,13 +4,9 @@ import App from "./App";
 import Client from "./layouts/Client";
 import Admin from "./layouts/Admin";
 
-import HomepageView from "./views/Client/HomepageView";
-import AboutUsView from "./views/Client/AboutUsView";
-import ContactUsView from "./views/Client/ContactUsView";
 import DashboardView from "./views/Admin/DashboardView";
 
 import PageNotFound from "./views/PageNotFound";
-import Login from "./views/Authentications/Login"
 import AboutUs from "./views/Admin/AboutUs";
 import ContactUs from "./views/Admin/ContactUs";
 import Hero from "./views/Admin/Hero";
@@ -22,11 +18,20 @@ import AddCategory from "./views/Admin/AddCategory";
 import AddCollection from "./views/Admin/AddCollection";
 import AddProduct from "./views/Admin/AddProduct";
 import Authentications from "./layouts/Authentications";
-import Signup from "./views/Authentications/Signup";
-import ResetPassword from "./views/Authentications/ResetPassword";
-import PasswordReset from "./views/Authentications/PasswordReset";
-import DetailsView from "./views/Client/DetailsView";
-import ProductListView from "./views/Client/ProductListView";
+import { SuspenseSection } from "./lazyload/SuspenseSection";
+import {
+  ClientAboutUs,
+  ClientContactUs,
+  ClientDetails,
+  ClientHomepage,
+  ClientProductList,
+} from "./lazyload/ClientPage";
+import {
+  AuthLogin,
+  AuthPasswordReset,
+  AuthResetPassword,
+  AuthSignup,
+} from "./lazyload/AuthPage";
 
 export const Routes = createBrowserRouter([
   {
@@ -40,23 +45,43 @@ export const Routes = createBrowserRouter([
         children: [
           {
             path: "/",
-            element: <HomepageView />,
+            element: (
+              <SuspenseSection>
+                <ClientHomepage />
+              </SuspenseSection>
+            ),
           },
           {
             path: "/about-us",
-            element: <AboutUsView />,
+            element: (
+              <SuspenseSection>
+                <ClientAboutUs />
+              </SuspenseSection>
+            ),
           },
           {
             path: "/contact-us",
-            element: <ContactUsView />,
+            element: (
+              <SuspenseSection>
+                <ClientContactUs />
+              </SuspenseSection>
+            ),
           },
           {
-            path:"/details/:id",
-            element: <DetailsView/>
+            path: "/details/:id",
+            element: (
+              <SuspenseSection>
+                <ClientDetails />
+              </SuspenseSection>
+            ),
           },
           {
-            path:"/list/:type",
-            element: <ProductListView/>
+            path: "/list/:type",
+            element: (
+              <SuspenseSection>
+                <ClientProductList />
+              </SuspenseSection>
+            ),
           },
         ],
       },
@@ -72,7 +97,6 @@ export const Routes = createBrowserRouter([
           {
             path: "/admin/home/hero",
             element: <Hero pageTitle="Hero" isAdmin="true" />,
-            
           },
           {
             path: "/admin/home/hero/add-hero",
@@ -132,29 +156,45 @@ export const Routes = createBrowserRouter([
         path: "/auth",
         element: <Authentications />,
         errorElement: <PageNotFound />,
-        children:[
+        children: [
           {
             path: "/auth/",
-            element:<Login/>
+            element: (
+              <SuspenseSection>
+                <AuthLogin />
+              </SuspenseSection>
+            ),
           },
           {
             path: "/auth/signup",
-            element: <Signup />,
+            element: (
+              <SuspenseSection>
+                <AuthSignup />
+              </SuspenseSection>
+            ),
           },
           {
-            path:"/auth/forgot-password",
-            element: <ResetPassword/>
+            path: "/auth/forgot-password",
+            element: (
+              <SuspenseSection>
+                <AuthResetPassword />
+              </SuspenseSection>
+            ),
           },
           {
-            path:"/auth/reset/",
-            element: <PasswordReset/>
-          }
-        ]
+            path: "/auth/reset/",
+            element: (
+              <SuspenseSection>
+                <AuthPasswordReset />
+              </SuspenseSection>
+            ),
+          },
+        ],
       },
       {
-        path:"/pagenotfound",
-        element: <PageNotFound/>
-      }
+        path: "/pagenotfound",
+        element: <PageNotFound />,
+      },
     ],
   },
 ]);

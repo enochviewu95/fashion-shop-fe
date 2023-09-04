@@ -3,18 +3,11 @@ import { ThemeContext } from "../../context/themeContext";
 import ProductCardComponent from "../widgets/ProductCardComponent";
 import SwiperComponent from "../widgets/SwiperComponent";
 import { SwiperSlide } from "swiper/react";
-import { useSelector } from "react-redux";
-import { shopData } from "../../redux/shopSlice";
 import { Transition } from "@headlessui/react";
 import useOnScreen from "../../hooks/useOnScreen";
 
-export default function ProductSection() {
-  const { deepBackground } = useContext(ThemeContext);
-
-  const productsData = useSelector(shopData)
-  const products = productsData.product;
-
-  
+export default function ProductSection({products}) {
+  const { deepBackground } = useContext(ThemeContext);  
   const ref = useRef(null);
   const isVisible = useOnScreen(ref);
   

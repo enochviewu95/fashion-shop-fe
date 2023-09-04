@@ -1,15 +1,11 @@
 import { useContext } from "react"
 import { ThemeContext } from "../../context/themeContext"
-import { shopData } from "../../redux/shopSlice"
-import { useSelector } from "react-redux"
 
 
 
-export default function StatsSection({ gridArrangement = "row", background = true }) {
+export default function StatsSection({ gridArrangement = "row", background = true, statistics }) {
     
     const {lightBackground} = useContext(ThemeContext)
-    const statisticsData = useSelector(shopData)
-    const statistics = statisticsData.statistics
     const stats = [
         { id: 1, name: 'Products made', value: statistics.products },
         { id: 2, name: 'Catalogs for you', value: statistics.catalogs },

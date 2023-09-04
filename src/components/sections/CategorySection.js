@@ -6,14 +6,10 @@ import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { useSelector } from "react-redux";
 import SwiperComponent from "../widgets/SwiperComponent";
-import { shopData } from "../../redux/shopSlice";
 
-export default function CategorySection() {
+export default function CategorySection({categories}) {
   const { lightBackground } = useContext(ThemeContext);
-  const categoriesData = useSelector(shopData);
-  const categories = categoriesData.category;
 
   return categories.length > 0 ? (
     <section className={lightBackground}>
