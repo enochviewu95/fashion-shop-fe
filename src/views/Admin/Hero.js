@@ -1,28 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useOutletContext } from "react-router-dom";
-import { bannerList, getBannersAsync } from "../../redux/bannerSlice";
-import HeroSection from "../../components/sections/HeroSection";
 import { ThemeContext } from "../../context/themeContext";
 import swal from "sweetalert";
 import { updateData } from "../../services/apis";
+import { useGetBannersQuery } from "../../redux/services/banner";
+import LoadingComponent from "../../components/widgets/LoadingComponent";
+import { EditBannerComponent } from "../../components/widgets/EditBannerComponent";
 
 export default function Hero({ pageTitle, isAdmin }) {
- 
-  const [setTitle, setLoading] = useOutletContext();
-  const dispatch = useDispatch();
-  const banners = useSelector(bannerList);
+  const [setTitle] = useOutletContext();
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
   const [selectedHero, setSelectedHero] = useState("");
-
+  const { data: banners, isFetching } = useGetBannersQuery();
 
   useEffect(() => {
     setTitle(pageTitle);
-    dispatch(getBannersAsync("admin/api/get-banners"));
-    if (bannerList.length > 0) {
-      setLoading(false);
-    }
-  }, [dispatch, pageTitle, setLoading, setTitle]);
+  }, [pageTitle, setTitle]);
+
+  if (isFetching) {
+    return <LoadingComponent />;
+  }
+
+  console.log("Image url", banners);
 
   const updateSelectedBanner = (event) => {
     event.preventDefault();
@@ -79,9 +78,8 @@ export default function Hero({ pageTitle, isAdmin }) {
                   }
                 >
                   <label htmlFor={banner._id}>
-                    <HeroSection
-                      hero={banner}
-                      isAdmin="true"
+                    <EditBannerComponent
+                      banner={banner}
                       selectedHero={selectedHero}
                     />
                   </label>

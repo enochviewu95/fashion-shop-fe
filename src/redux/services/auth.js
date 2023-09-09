@@ -10,25 +10,18 @@ const authApi = fashionShopApi.injectEndpoints({
           body: payload,
         };
       },
-      invalidatesTags: ["User"],
     }),
 
     signin: build.query({
       query: () => {
         return { url: "auth/login" };
       },
-      providesTags: ["User"]
     }),
 
     logout: build.mutation({
       query: () => {
         return { url: "auth/logout", method: "POST" };
       },
-      invalidatesTags: ["User"],
-    }),
-
-    google: build.query({
-      query: () => ({ url: "auth/google" }),
     }),
 
     signup: build.mutation({
@@ -36,7 +29,7 @@ const authApi = fashionShopApi.injectEndpoints({
         return {
           url: "/auth/signup",
           method: "POST",
-          body: payload ,
+          body: payload,
         };
       },
     }),
@@ -66,7 +59,6 @@ export const {
   useLoginMutation,
   useLogoutMutation,
   useSigninQuery,
-  useGoogleQuery,
   useSignupMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,

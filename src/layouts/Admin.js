@@ -5,18 +5,15 @@ import { Navigate, Outlet } from "react-router-dom";
 import { ThemeContext } from "../context/themeContext";
 import SideNavigationSlider from "../components/widgets/SideNavigationSlider";
 import SideNavigationLinks from "../components/widgets/SideNavigationLinks";
-import LoadingComponent from "../components/widgets/LoadingComponent";
 import Navbar from "../components/widgets/Navbar";
-import { useAuth } from "../context/auth";
 import swal from "sweetalert"
+import { useAuth } from "../hooks/useAuth";
 
 export default function Admin() {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("Dashboard");
 
   const { lightBackground } = useContext(ThemeContext);
-  const [loading, setLoading] = useState(true);
-
   const auth = useAuth();
 
   if(auth.user.role !== "admin"){
@@ -28,16 +25,15 @@ export default function Admin() {
       <>
         <div>
           <div className="fixed inset-x-0 z-50">
-            <Navbar setLoading={setLoading} />
+            <Navbar/>
           </div>
           <SideNavigationSlider
-            setLoading={setLoading}
             open={open}
             setOpen={setOpen}
           />
           <div className="flex">
             <div className="hidden lg:flex lg:mr-72">
-              <SideNavigationLinks setLoading={setLoading}/>
+              <SideNavigationLinks/>
             </div>
             <div className={`w-full min-h-screen  ${lightBackground} overflow-y-auto mt-16`}>
               <header className="bg-white shadow flex lg:hidden">
@@ -56,12 +52,11 @@ export default function Admin() {
                 </div>
               </header>
               <main className="pt-6 px-4 lg:px-8">
-                <Outlet context={[setTitle, setLoading]} />
+                <Outlet context={[setTitle]} />
               </main>
             </div>
           </div>
         </div>
-        <LoadingComponent isLoading={loading} />
       </>
     ) : (
       <Navigate to="/" replace />

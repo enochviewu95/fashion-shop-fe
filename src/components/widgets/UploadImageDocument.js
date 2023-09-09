@@ -2,13 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import CardComponent from "../../components/widgets/CardComponent";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ThemeContext } from "../../context/themeContext";
-import { saveData, getData } from "../../services/apis";
+import { getData } from "../../services/apis";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import { useSelector } from "react-redux";
-import { shopData } from "../../redux/shopSlice";
+import { dialogAlert } from "../../utils/DialogAlert";
 
 export default function UploadImageDocument({
   url,
@@ -17,6 +16,7 @@ export default function UploadImageDocument({
   redirectUrl,
   itemId,
   editUrl,
+  queryFunc,
   categories,
 }) {
   const [image, setBannerImage] = useState(null);
@@ -163,40 +163,45 @@ export default function UploadImageDocument({
     setBannerImage(null);
   };
 
-  const submitForm = (event) => {
+  const submitForm = async (event) => {
     event.preventDefault();
 
     const formData = new FormData();
     formData.append("image", image);
     formType === "product" && formData.append("price", price);
     formType === "product" && formData.append("details", details);
-    console.log('My category', category)
+    console.log("My category", category);
     formType === "product" && formData.append("category", category);
     formData.append("title", title);
     formData.append("description", description);
     formData.append("selected", selected);
 
-    swal({
-      title: "Are you sure?",
-      text: "Do you want to save this item?",
-      icon: "info",
-      buttons: true,
-      dangerMode: false,
-    }).then((willSave) => {
+    try {
+      const willSave = await swal({
+        title: "Are you sure?",
+        text: "Do you want to save this item?",
+        icon: "info",
+        buttons: true,
+        dangerMode: false,
+      });
       if (willSave) {
-        saveData(url, formData).then((response) => {
-          swal("Saved Successfully", {
+        try {
+          await queryFunc(formData);
+          await swal("Saved Successfully", {
             icon: "success",
-          }).then(() => {
-            navigate(`/admin/home/${redirectUrl}`);
           });
-        });
+          navigate(`/admin/home/${redirectUrl}`);
+        } catch (error) {
+          dialogAlert({ msg: error });
+        }
       } else {
         swal("Unable to save", {
           icon: "info",
         });
       }
-    });
+    } catch (error) {
+      dialogAlert({ msg: error });
+    }
   };
 
   return (
@@ -319,7 +324,7 @@ export default function UploadImageDocument({
                       </label>
                       <div className="mt-2.5 w-full">
                         <select
-                          onChange={(event)=>setCategory(event.target.value)}
+                          onChange={(event) => setCategory(event.target.value)}
                           value={category}
                           id="category"
                           className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

@@ -2,23 +2,26 @@ import React, { useContext, useEffect } from "react";
 import CategoryCardComponent from "../../components/widgets/CategoryCardComponent";
 import { Link, useOutletContext } from "react-router-dom";
 import { ThemeContext } from "../../context/themeContext";
-import { useDispatch, useSelector } from "react-redux";
-import { categoryList, getCategoriesAsync } from "../../redux/categorySlice";
+import {
+  useDeleteCategoryMutation,
+  useGetCategoriesQuery,
+} from "../../redux/services/category";
+import LoadingComponent from "../../components/widgets/LoadingComponent";
 
 export default function Categories({ pageTitle }) {
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
-  const [setTitle, setLoading] = useOutletContext();
-  const dispatch = useDispatch();
-  const categories = useSelector(categoryList);
+  const [setTitle] = useOutletContext();
+  const { isLoading, data: categories } = useGetCategoriesQuery();
+  const [deleteCategory, { isFetching }] = useDeleteCategoryMutation();
 
   useEffect(() => {
     setTitle(pageTitle);
-    dispatch(getCategoriesAsync("admin/api/get-categories"));
-    if(categoryList.length > 0){
-      setLoading(false)
-    }
-  }, [ dispatch, pageTitle, setTitle, setLoading]);
-  
+  }, [pageTitle, setTitle]);
+
+  if (isLoading || isFetching) {
+    return <LoadingComponent />;
+  }
+
   return (
     <div>
       <div className="my-5">
@@ -31,7 +34,13 @@ export default function Categories({ pageTitle }) {
       </div>
       <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
         {categories.map((category) => (
-          <CategoryCardComponent key={category._id} item={category} isAdmin={true} isCategory={true}/>
+          <CategoryCardComponent
+            key={category._id}
+            item={category}
+            isAdmin={true}
+            isCategory={true}
+            deleteFunc={deleteCategory}
+          />
         ))}
       </div>
     </div>

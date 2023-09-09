@@ -3,7 +3,12 @@ import DeleteItemsComponent from "./DeleteItemsComponent";
 import { Link } from "react-router-dom";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
-export default function CategoryCardComponent({ item, isAdmin, isCategory }) {
+export default function CategoryCardComponent({
+  item,
+  isAdmin,
+  isCategory,
+  deleteFunc,
+}) {
   const categoryImageUrl =
     process.env.REACT_APP_BASE_URL + item.imageUrl.replace(/\\/g, "/");
 
@@ -43,7 +48,7 @@ export default function CategoryCardComponent({ item, isAdmin, isCategory }) {
           <DeleteItemsComponent
             isAdmin={isAdmin}
             itemId={item._id}
-            deleteUrl="admin/api/delete-category"
+            deleteFunc={deleteFunc}
           />
         </div>
       ) : (
@@ -57,7 +62,7 @@ export default function CategoryCardComponent({ item, isAdmin, isCategory }) {
           <DeleteItemsComponent
             isAdmin={isAdmin}
             itemId={item._id}
-            deleteUrl="admin/api/delete-collection"
+            deleteFunc={deleteFunc}
           />
         </div>
       )}

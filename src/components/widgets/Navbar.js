@@ -7,10 +7,10 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import UnaMano from "../../assets/logo/una_mano.png";
 import { ThemeContext } from "../../context/themeContext";
-import { useAuth } from "../../context/auth";
-import { useLogoutMutation, useSigninQuery } from "../../redux/services/auth";
+import { useLogoutMutation } from "../../redux/services/auth";
 import { dialogAlert } from "../../utils/DialogAlert";
 import LoadingComponent from "../widgets/LoadingComponent";
+import { useAuth } from "../../hooks/useAuth";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -22,29 +22,28 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar({ setLoading }) {
+export default function Navbar() {
   const { primaryBackground } = useContext(ThemeContext);
   const navigate = useNavigate();
 
   const [logout, { isLoading }] = useLogoutMutation();
-  const {data:auth, isLoading: loadingAvatar} = useSigninQuery();
+  const auth = useAuth();
 
+  console.log('auth', auth)
 
-   const signout = async (event) => {
+  const signout = async (event) => {
     event.preventDefault();
     try {
       await logout();
-      navigate("/auth",{ replace: true });
+      navigate("/auth", { replace: true });
     } catch (err) {
       dialogAlert("Logout unsuccessful", err);
     }
   };
 
-  
-  if (isLoading || loadingAvatar) {
+  if (isLoading) {
     return <LoadingComponent />;
   }
-
 
   return (
     <header className="z-50 relative ">
@@ -120,7 +119,6 @@ export default function Navbar({ setLoading }) {
                 </div>
                 {auth.status !== "failed" ? (
                   <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
                       <div>

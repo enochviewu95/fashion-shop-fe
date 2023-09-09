@@ -1,22 +1,24 @@
 import React, { useEffect } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
 import UploadImageDocument from "../../components/widgets/UploadImageDocument";
-import { useDispatch, useSelector } from "react-redux";
-import { categoryList, getCategoriesAsync } from "../../redux/categorySlice";
+import { useGetCategoriesQuery } from "../../redux/services/category";
+import LoadingComponent from "../../components/widgets/LoadingComponent";
+import { useAddProductMutation } from "../../redux/services/product";
 
 export default function AddProduct({ pageTitle }) {
-  const [setTitle, setLoading] = useOutletContext();
+  const [setTitle] = useOutletContext();
   const { id } = useParams();
-  const dispatch = useDispatch();
-  const categories = useSelector(categoryList);
+  const { data: categories, isLoading } = useGetCategoriesQuery();
+  const [addProduct] = useAddProductMutation();
 
   useEffect(() => {
     setTitle(pageTitle);
-    dispatch(getCategoriesAsync("admin/api/get-categories"));
-    if(categoryList.length > 0){
-      setLoading(false)
-    }
-  }, [dispatch, pageTitle, setLoading, setTitle]);
+  }, [pageTitle, setTitle]);
+
+  if (isLoading) {
+    return <LoadingComponent />;
+  }
+
   return id ? (
     <UploadImageDocument
       url={`admin/api/edit-product/${id}`}
@@ -31,6 +33,7 @@ export default function AddProduct({ pageTitle }) {
       url="admin/api/add-product"
       formType="product"
       redirectUrl="products"
+      queryFunc={addProduct}
       categories={categories}
     />
   );

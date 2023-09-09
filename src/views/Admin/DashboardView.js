@@ -5,12 +5,11 @@ import CardComponent from "../../components/widgets/CardComponent";
 import GraphComponent from "../../components/widgets/GraphComponent";
 
 export default function DashboardView({ pageTitle }) {
-  const [setTitle, setLoading] = useOutletContext();
+  const [setTitle] = useOutletContext();
 
   useEffect(() => {
     setTitle(pageTitle);
-    setLoading(false);
-  }, [pageTitle, setLoading, setTitle]);
+  }, [pageTitle, setTitle]);
 
   return (
     <>

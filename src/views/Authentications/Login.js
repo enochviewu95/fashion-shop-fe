@@ -13,11 +13,7 @@ import LoadingComponent from "../../components/widgets/LoadingComponent";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [credential, setCredential] = useState(new FormData());
-  const [skip, setSkip] = useState(true);
-  const [login, { isLoading }] = useLoginMutation(credential, {
-    skip,
-  });
+  const [login, { data, isLoading }] = useLoginMutation();
 
   const {
     buttonBackground,
@@ -29,11 +25,12 @@ export default function Login() {
 
   const signIn = async (event) => {
     event.preventDefault();
-    credential.set("email", email);
-    credential.set("password", password);
-    setSkip(false);
+    const formState = new FormData();
+    formState.set("email", email);
+    formState.set("password", password);
+
     try {
-      const response = await login(credential);
+      const response = await login(formState);
       if (response.status === "failed") {
         dialogAlert("Credential Incorrect");
         return;
@@ -53,6 +50,8 @@ export default function Login() {
   if (isLoading) {
     return <LoadingComponent />;
   }
+
+  console.log("Data", data);
 
   return (
     <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -128,7 +127,7 @@ export default function Login() {
             </button>
           </div>
         </form>
-        <button
+        {/* <button
           onClick={googleLogin}
           className={`group relative text-white flex w-full justify-center rounded-md bg-blue-400 hover:bg-blue-600 hover:shadow-lg py-2 px-3 text-sm font-semibold hover:${buttonHoverBackground} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
         >
@@ -141,7 +140,7 @@ export default function Login() {
             />
           </span>
           Google Sign In
-        </button>
+        </button> */}
         <p className="mt-10 text-center text-sm text-gray-500">
           Not a member?{" "}
           <Link

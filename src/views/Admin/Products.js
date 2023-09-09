@@ -1,23 +1,23 @@
 import React, { useContext, useEffect } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import { ThemeContext } from "../../context/themeContext";
-import { useDispatch, useSelector } from "react-redux";
 import ProductCardComponent from "../../components/widgets/ProductCardComponent";
-import { getProductAsync, productList } from "../../redux/productSlice";
+import { useDeleteProductMutation, useGetProductsQuery } from "../../redux/services/product";
+import LoadingComponent from "../../components/widgets/LoadingComponent";
 
 export default function Products({ pageTitle }) {
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
-  const [setTitle, setLoading] = useOutletContext();
-  const dispatch = useDispatch();
-  const products = useSelector(productList);
+  const [setTitle] = useOutletContext();
+  const { data: products, isLoading } = useGetProductsQuery();
+  const [deleteProduct, {isFetching}] = useDeleteProductMutation();
 
   useEffect(() => {
     setTitle(pageTitle);
-    dispatch(getProductAsync("admin/api/get-products"));
-    if (productList.length > 0) {
-      setLoading(false);
-    }
-  }, [dispatch, pageTitle, setLoading, setTitle]);
+  }, [pageTitle, setTitle]);
+
+  if (isLoading || isFetching) {
+    return <LoadingComponent />;
+  }
 
   return (
     <div>
@@ -35,6 +35,7 @@ export default function Products({ pageTitle }) {
               <ProductCardComponent
                 key={product._id}
                 product={product}
+                deleteFunc={deleteProduct}
                 isAdmin="true"
               />
             ))

@@ -1,43 +1,46 @@
 import React from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import swal from "sweetalert";
-import { deleteData } from "../../services/apis";
+import { dialogAlert } from "../../utils/DialogAlert";
 
 export default function DeleteItemsComponent({
   isAdmin,
   itemId,
-  deleteUrl,
+  deleteFunc = null,
   disableDelete,
 }) {
   const deleteItem = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    const url = deleteUrl + "/" + itemId;
-    deleteAlert(url);
+    deleteAlert();
   };
 
-  const deleteAlert = (url) => {
-    swal({
-      title: "Are you sure?",
-      text: "Once deleted, you will not be able to recover this file!",
-      icon: "warning",
-      buttons: true,
-      dangerMode: true,
-    }).then((willDelete) => {
+  const deleteAlert = async () => {
+    try {
+      const willDelete = await swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      });
       if (willDelete) {
-        deleteData(url).then(() => {
+        try {
+          await deleteFunc(itemId);
           swal("Delete Successful", {
             icon: "success",
-          }).then(() => {
-            window.location.reload();
           });
-        });
+        } catch (error) {
+          dialogAlert({ msg: error });
+        }
       } else {
         swal("Delete Unsuccessful", {
           icon: "warning",
         });
       }
-    });
+    } catch (error) {
+      dialogAlert({ msg: error });
+    }
   };
 
   return isAdmin ? (

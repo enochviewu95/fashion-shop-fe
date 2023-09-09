@@ -7,12 +7,10 @@ const bannerApi = fashionShopApi.injectEndpoints({
         return {
           url: "admin/api/add-banner",
           method: "POST",
-          body: { payload },
+          body: payload ,
         };
       },
-      transformResponse: (response, meta, arg) => response.data,
-      transformErrorResponse: (response, meta, arg) => response.status,
-      invalidatesTags: ["Banner"],
+      invalidatesTags: ["Banners"],
     }),
     getBanners: build.query({
       query: () => ({ url: "admin/api/get-banners" }),

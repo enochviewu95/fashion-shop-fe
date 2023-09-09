@@ -2,7 +2,7 @@ import React from "react";
 import DeleteItemsComponent from "./DeleteItemsComponent";
 import { Link } from "react-router-dom";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
-export default function ProductCardComponent({ product, isAdmin }) {
+export default function ProductCardComponent({ product, isAdmin, deleteFunc }) {
   const productImageUrl =
     process.env.REACT_APP_BASE_URL + product.imageUrl.replace(/\\/g, "/");
 
@@ -42,7 +42,7 @@ export default function ProductCardComponent({ product, isAdmin }) {
       <DeleteItemsComponent
         isAdmin={isAdmin}
         itemId={product._id}
-        deleteUrl="admin/api/delete-product"
+        deleteFunc={deleteFunc}
       />
     </article>
   );

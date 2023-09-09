@@ -1,29 +1,23 @@
 import React, { useContext, useEffect } from "react";
 import { ThemeContext } from "../../context/themeContext";
-import {
-  Link,
-  useOutletContext,
-} from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  collectionList,
-  getCollectionAsync,
-} from "../../redux/collectionSlice";
+import { Link, useOutletContext } from "react-router-dom";
 import CategoryCardComponent from "../../components/widgets/CategoryCardComponent";
+import { useDeleteCollectionMutation, useGetCollectionsQuery } from "../../redux/services/collection";
+import LoadingComponent from "../../components/widgets/LoadingComponent";
 
 export default function Collections({ pageTitle }) {
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
-  const [setTitle, setLoading] = useOutletContext();
-  const dispatch = useDispatch();
-  const collections = useSelector(collectionList);
+  const [setTitle] = useOutletContext();
+  const { isLoading, data: collections } = useGetCollectionsQuery();
+  const [deleteCollection, {isFetching}] = useDeleteCollectionMutation();
 
   useEffect(() => {
     setTitle(pageTitle);
-    dispatch(getCollectionAsync("admin/api/get-collections"));
-    if (collectionList.length > 0) {
-      setLoading(false);
-    }
-  }, [dispatch, pageTitle, setLoading, setTitle]);
+  }, [pageTitle, setTitle]);
+
+  if (isLoading || isFetching) {
+    return <LoadingComponent />;
+  }
 
   return (
     <div>
@@ -32,7 +26,7 @@ export default function Collections({ pageTitle }) {
           to="/admin/home/collections/add-collection"
           className={`${buttonBackground} px-3 py-2 hover:${buttonHoverBackground} text-white my-5 rounded-lg shadow-sm`}
         >
-          Add Category
+          Add Collection
         </Link>
       </div>
       <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
@@ -42,11 +36,12 @@ export default function Collections({ pageTitle }) {
                 key={collection._id}
                 item={collection}
                 isAdmin={true}
+                deleteFunc= {deleteCollection}
                 isCategory={false}
               />
             ))
           : ""}
       </div>
     </div>
-  )
+  );
 }
