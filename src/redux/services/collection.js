@@ -12,9 +12,25 @@ const collectionApi = fashionShopApi.injectEndpoints({
       },
       invalidatesTags: ["Collections", "Shop"],
     }),
+    getCollection: build.query({
+      query: (id) => ({ url: `admin/api/get-collection/${id}` }),
+    }),
     getCollections: build.query({
       query: () => ({ url: "admin/api/get-collections" }),
       providesTags: ["Collections"],
+    }),
+    updateCollection: build.mutation({
+      query: ({ id, payload }) => {
+        return {
+          url: `admin/api/edit-collection/${id}`,
+          method: "PUT",
+          body: payload,
+        };
+      },
+      invalidatesTags: (collection) => [
+        { type: "Collections", id: collection.id },
+        { type: "Shop" },
+      ],
     }),
     deleteCollection: build.mutation({
       query: (collectionId) => {
@@ -35,4 +51,6 @@ export const {
   useGetCollectionsQuery,
   useAddCollectionMutation,
   useDeleteCollectionMutation,
+  useGetCollectionQuery,
+  useUpdateCollectionMutation
 } = collectionApi;

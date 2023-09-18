@@ -13,7 +13,7 @@ import LoadingComponent from "../../components/widgets/LoadingComponent";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [login, { data, isLoading }] = useLoginMutation();
+  const [login, {isLoading }] = useLoginMutation();
 
   const {
     buttonBackground,
@@ -31,8 +31,9 @@ export default function Login() {
 
     try {
       const response = await login(formState);
-      if (response.status === "failed") {
-        dialogAlert("Credential Incorrect");
+      console.log('Response',response);
+      if (response.data.status === "failed") {
+        dialogAlert(response.data.msg);
         return;
       }
       navigate(`/`);
@@ -51,7 +52,6 @@ export default function Login() {
     return <LoadingComponent />;
   }
 
-  console.log("Data", data);
 
   return (
     <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

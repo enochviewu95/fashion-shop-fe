@@ -3,7 +3,10 @@ import { Link, useOutletContext } from "react-router-dom";
 import { ThemeContext } from "../../context/themeContext";
 import swal from "sweetalert";
 import { updateData } from "../../services/apis";
-import { useGetBannersQuery } from "../../redux/services/banner";
+import {
+  useGetBannersQuery,
+  useUpdateSelectedMutation,
+} from "../../redux/services/banner";
 import LoadingComponent from "../../components/widgets/LoadingComponent";
 import { EditBannerComponent } from "../../components/widgets/EditBannerComponent";
 
@@ -12,42 +15,41 @@ export default function Hero({ pageTitle, isAdmin }) {
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
   const [selectedHero, setSelectedHero] = useState("");
   const { data: banners, isFetching } = useGetBannersQuery();
+  const [updateSelected, { isLoading, data }] = useUpdateSelectedMutation();
 
   useEffect(() => {
     setTitle(pageTitle);
   }, [pageTitle, setTitle]);
 
-  if (isFetching) {
-    return <LoadingComponent />;
+  if (isFetching || isLoading) {
+    <LoadingComponent />;
   }
-
-  console.log("Image url", banners);
-
-  const updateSelectedBanner = (event) => {
+  const updateSelectedBanner = async (event) => {
     event.preventDefault();
     event.stopPropagation();
-    swal({
-      title: "Are you sure?",
-      text: "Do you want to update?",
-      icon: "info",
-      buttons: true,
-      dangerMode: false,
-    }).then((willUpdate) => {
+    try {
+      const willUpdate = await swal({
+        title: "Are you sure?",
+        text: "Do you want to update?",
+        icon: "info",
+        buttons: true,
+        dangerMode: false,
+      });
+
       if (willUpdate) {
-        updateData(`/admin/api/update-selected/${selectedHero}`).then(() => {
+        try {
+          await updateSelected({ selectedHero });
+          console.log("DAta,", data);
           swal("Updated Successfully", {
             icon: "success",
-          }).then(() => {
-            console.log("Saving data");
-            window.location.reload();
           });
-        });
+        } catch (error) {}
       } else {
         swal("Unable to save", {
           icon: "info",
         });
       }
-    });
+    } catch (error) {}
   };
 
   return (

@@ -7,7 +7,7 @@ const bannerApi = fashionShopApi.injectEndpoints({
         return {
           url: "admin/api/add-banner",
           method: "POST",
-          body: payload ,
+          body: payload,
         };
       },
       invalidatesTags: ["Banners"],
@@ -17,18 +17,26 @@ const bannerApi = fashionShopApi.injectEndpoints({
       providesTags: ["Banners"],
     }),
     getBanner: build.query({
-      query: (bannerId) => `admin/api/get-banner/${bannerId}`,
-      providesTags: ["Banners"],
+      query: (id) => ({ url: `admin/api/get-banner/${id}` }),
     }),
     updateBanner: build.mutation({
-      query(bannerId, payload) {
+      query({ id, payload }) {
         return {
-          url: `admin/api/edit-banner/${bannerId}`,
+          url: `admin/api/edit-banner/${id}`,
           method: "PUT",
-          body: { payload },
+          body: payload,
         };
       },
-      invalidatesTags: (banner) => [{ type: "Banners", id: banner.id }],
+      invalidatesTags: (banner) => ["Shop", { type: "Banners", id: banner.id }],
+    }),
+    updateSelected: build.mutation({
+      query({ selectedHero }) {
+        return {
+          url: `/admin/api/update-selected/${selectedHero}`,
+          method: "PUT",
+        };
+      },
+      invalidatesTags: (banner) => ["Shop", { type: "Banners", id: banner.id }],
     }),
     deleteBanner: build.mutation({
       query(bannerId) {
@@ -48,4 +56,5 @@ export const {
   useGetBannerQuery,
   useUpdateBannerMutation,
   useDeleteBannerMutation,
+  useUpdateSelectedMutation,
 } = bannerApi;

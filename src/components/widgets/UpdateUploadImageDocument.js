@@ -2,29 +2,34 @@ import React, { useContext, useEffect, useState } from "react";
 import CardComponent from "../../components/widgets/CardComponent";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ThemeContext } from "../../context/themeContext";
-import { getData } from "../../services/apis";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { dialogAlert } from "../../utils/DialogAlert";
 
-export default function UploadImageDocument({
+export default function UpdateUploadImageDocument({
   dataType,
   formType,
   redirectUrl,
   queryFunc,
   categories,
+  queryResult,
 }) {
+  console.log("result", queryResult);
+
   const [image, setBannerImage] = useState(null);
-  const [imageUrl, setBannerImageUrl] = useState("");
-  const [title, setBannerTitle] = useState("");
-  const [price, setPrice] = useState(0.0);
-  const [selected, setSelected] = useState(false);
-  const [description, setBannerDescription] = useState("");
-  const [details, setDetails] = useState("");
-  const [category, setCategory] = useState("");
-  const [item, setItem] = useState(null);
+  const [imageUrl, setBannerImageUrl] = useState(
+    process.env.REACT_APP_BASE_URL + queryResult.imageUrl.replace(/\\/g, "/")
+  );
+  const [title, setBannerTitle] = useState(queryResult.title);
+  const [price, setPrice] = useState(
+    formType === "product" ? queryResult.price["$numberDecimal"] : 0.0
+  );
+  const [selected, setSelected] = useState(queryResult.isSelected);
+  const [description, setBannerDescription] = useState(queryResult.description);
+  const [details, setDetails] = useState(queryResult.details);
+  const [category, setCategory] = useState(queryResult.category);
   const navigate = useNavigate();
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
 
@@ -56,7 +61,6 @@ export default function UploadImageDocument({
     "link",
     "image",
   ];
-
 
   /**
    * The function prevents default behavior and stops event propagation for a drag enter event.
@@ -146,11 +150,11 @@ export default function UploadImageDocument({
     event.preventDefault();
 
     const formData = new FormData();
-    formData.append("image", image);
     formType === "product" && formData.append("price", price);
     formType === "product" && formData.append("details", details);
-    console.log("My category", category);
     formType === "product" && formData.append("category", category);
+
+    formData.append("image", image);
     formData.append("title", title);
     formData.append("description", description);
     formType === "hero" && formData.append("selected", selected);
@@ -165,7 +169,9 @@ export default function UploadImageDocument({
       });
       if (willSave) {
         try {
-          await queryFunc(formData);
+          const id = queryResult._id;
+          const payload = formData;
+          await queryFunc({ id, payload });
           await swal("Saved Successfully", {
             icon: "success",
           });
@@ -183,11 +189,14 @@ export default function UploadImageDocument({
     }
   };
 
+  useEffect(() => {
+    displayPreviewController();
+  });
 
   return (
     <form
       onSubmit={submitForm}
-      method="post"
+      method="put"
       encType="multipart/form-data"
       className="w-full"
     >
@@ -346,21 +355,12 @@ export default function UploadImageDocument({
                 </div>
               </div>
               <div className="mt-10">
-                {item ? (
-                  <button
-                    type="submit"
-                    className={`block w-full rounded-md ${buttonBackground} px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:${buttonHoverBackground} `}
-                  >
-                    Update
-                  </button>
-                ) : (
-                  <button
-                    type="submit"
-                    className={`block w-full rounded-md ${buttonBackground} px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:${buttonHoverBackground} `}
-                  >
-                    Save
-                  </button>
-                )}
+                <button
+                  type="submit"
+                  className={`block w-full rounded-md ${buttonBackground} px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:${buttonHoverBackground} `}
+                >
+                  Update
+                </button>
               </div>
             </div>
           </CardComponent>

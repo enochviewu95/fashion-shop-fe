@@ -92,7 +92,9 @@ export const Routes = createBrowserRouter([
         children: [
           {
             path: "/admin/",
-            element: <DashboardView pageTitle="Dashboard" />,
+            element:  <SuspenseSection>
+            <DashboardView />
+          </SuspenseSection>,
           },
           {
             path: "/admin/home/hero",
@@ -141,14 +143,6 @@ export const Routes = createBrowserRouter([
           {
             path: "/admin/home/collections/edit-collection/:id",
             element: <AddCollection pageTitle="Collections" />,
-          },
-          {
-            path: "/admin/about-us",
-            element: <AboutUs pageTitle="About Us" />,
-          },
-          {
-            path: "/admin/contact-us",
-            element: <ContactUs pageTitle="Contact Us" />,
           },
         ],
       },

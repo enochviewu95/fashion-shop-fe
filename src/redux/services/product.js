@@ -7,15 +7,35 @@ const productApi = fashionShopApi.injectEndpoints({
         return {
           url: "/admin/api/add-product",
           method: "POST",
-          body: payload ,
+          body: payload,
         };
       },
-      invalidatesTags: ["Products","Shop"],
+      invalidatesTags: ["Products", "Shop"],
     }),
+
+    getProduct: build.query({
+      query: (id) => ({ url: `admin/api/get-product/${id}` }),
+    }),
+
     getProducts: build.query({
       query: () => ({ url: "admin/api/get-products" }),
       providesTags: ["Products"],
     }),
+
+    updateProduct: build.mutation({
+      query: ({ id, payload }) => {
+        return {
+          url: `admin/api/edit-product/${id}`,
+          method: "PUT",
+          body: payload,
+        };
+      },
+      invalidatesTags: (product) => [
+        { type: "Products", id: product.id },
+        { type: "Shop" },
+      ],
+    }),
+
     deleteProduct: build.mutation({
       query: (productId) => {
         return {
@@ -35,4 +55,6 @@ export const {
   useAddProductMutation,
   useDeleteProductMutation,
   useGetProductsQuery,
+  useGetProductQuery,
+  useUpdateProductMutation,
 } = productApi;

@@ -19,7 +19,7 @@ export default function Categories({ pageTitle }) {
   }, [pageTitle, setTitle]);
 
   if (isLoading || isFetching) {
-    return <LoadingComponent />;
+   return <LoadingComponent />;
   }
 
   return (

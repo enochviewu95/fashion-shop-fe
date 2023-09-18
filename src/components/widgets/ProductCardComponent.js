@@ -21,7 +21,7 @@ export default function ProductCardComponent({ product, isAdmin, deleteFunc }) {
         </div>
       </Link>
       <div className="mt-4 flex justify-between">
-        <div className="w-10">
+        <div className="w-10 lg:w-fit">
           <h3 className="text-sm text-gray-700">
             <Link to={`/details/${product._id}`}>
               <span aria-hidden="true" className="absolute inset-0" />
