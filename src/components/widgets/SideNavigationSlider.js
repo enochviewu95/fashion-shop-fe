@@ -4,7 +4,7 @@ import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import UnaMano from "../../assets/logo/una_mano.png";
 
-export default function SideNavigationSlider({open, setOpen, setLoading}) {
+export default function SideNavigationSlider({open, setOpen}) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={setOpen}>

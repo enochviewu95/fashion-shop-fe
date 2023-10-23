@@ -2,20 +2,23 @@ import React, { useContext, useEffect } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import { ThemeContext } from "../../context/themeContext";
 import ProductCardComponent from "../../components/widgets/ProductCardComponent";
-import { useDeleteProductMutation, useGetProductsQuery } from "../../redux/services/product";
+import {
+  useDeleteProductMutation,
+  useGetProductsQuery,
+} from "../../redux/services/product";
 import LoadingComponent from "../../components/widgets/LoadingComponent";
 
 export default function Products({ pageTitle }) {
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
   const [setTitle] = useOutletContext();
   const { data: products, isLoading } = useGetProductsQuery();
-  const [deleteProduct, {isFetching}] = useDeleteProductMutation();
+  const [deleteProduct] = useDeleteProductMutation();
 
   useEffect(() => {
     setTitle(pageTitle);
   }, [pageTitle, setTitle]);
 
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return <LoadingComponent />;
   }
 

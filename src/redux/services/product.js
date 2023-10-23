@@ -36,6 +36,10 @@ const productApi = fashionShopApi.injectEndpoints({
       ],
     }),
 
+    getProductDetails: build.query({
+      query: (id) =>({url: `shop/api/get-product/${id}`})
+    }),
+
     deleteProduct: build.mutation({
       query: (productId) => {
         return {
@@ -55,6 +59,7 @@ export const {
   useAddProductMutation,
   useDeleteProductMutation,
   useGetProductsQuery,
+  useGetProductDetailsQuery,
   useGetProductQuery,
   useUpdateProductMutation,
 } = productApi;

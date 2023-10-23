@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import DeleteItemsComponent from "./DeleteItemsComponent";
 import { Link } from "react-router-dom";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
+import ProductQuickviews from "./ProductQuickviews";
+
+
 export default function ProductCardComponent({ product, isAdmin, deleteFunc }) {
   const productImageUrl =
     process.env.REACT_APP_BASE_URL + product.imageUrl.replace(/\\/g, "/");
 
+    const [open, setOpen] = useState(false);
+
   return (
     <article className="group relative py-5">
-      <Link to={`/details/${product._id}`}>
+      <div onClick={()=> setOpen(true)}>
         <div className="min-h-80 h-52 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
           <img
             src={productImageUrl}
@@ -19,14 +24,14 @@ export default function ProductCardComponent({ product, isAdmin, deleteFunc }) {
             loading="lazy"
           />
         </div>
-      </Link>
+      </div>
       <div className="mt-4 flex justify-between">
         <div className="w-10 lg:w-fit">
           <h3 className="text-sm text-gray-700">
-            <Link to={`/details/${product._id}`}>
+            <div  onClick={()=> setOpen(true)}>
               <span aria-hidden="true" className="absolute inset-0" />
               {product.title}
-            </Link>
+            </div>
           </h3>
         </div>
         <p className="text-sm font-medium text-gray-900">
@@ -44,6 +49,7 @@ export default function ProductCardComponent({ product, isAdmin, deleteFunc }) {
         itemId={product._id}
         deleteFunc={deleteFunc}
       />
+      <ProductQuickviews open={open} setOpen={setOpen} productId={product._id} />
     </article>
   );
 }
