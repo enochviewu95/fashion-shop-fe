@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import CardComponent from "../../components/widgets/CardComponent";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ThemeContext } from "../../context/themeContext";
-import { getData } from "../../services/apis";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
