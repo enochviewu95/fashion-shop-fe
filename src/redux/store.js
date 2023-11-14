@@ -22,7 +22,9 @@ const persistedReducer = persistReducer(persitConfig, rootReducers);
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(fashionShopApi.middleware),
+    getDefaultMiddleware({ serializableCheck: false }).concat(
+      fashionShopApi.middleware
+    ),
 });
 
 setupListeners(store.dispatch);

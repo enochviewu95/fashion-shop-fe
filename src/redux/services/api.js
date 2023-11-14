@@ -16,7 +16,8 @@ export const fashionShopApi = createApi({
     "Products",
     "Collections",
     "Shop",
-    "User"
+    "User",
+    "Dashboard"
   ],
   endpoints: () => ({}),
 });

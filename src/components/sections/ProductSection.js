@@ -13,9 +13,13 @@ export default function ProductSection({ products, filter }) {
   let productItems = [];
 
   if (filter) {
-    productItems = products.filter(
-      (product) => product.category.title.toLowerCase() === filter.toLowerCase()
-    );
+    productItems = products.filter((product) => {
+      console.log("Proudct section", product.category);
+      return (
+        product.category != null &&
+        product.category.title.toLowerCase() === filter.toLowerCase()
+      );
+    });
   } else {
     productItems = products;
   }

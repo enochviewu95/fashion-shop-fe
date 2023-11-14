@@ -95,8 +95,8 @@ export default function Navbar() {
                           {item.name}
                         </NavLink>
                       ))}
-                      {auth.status !== "failed" ? (
-                        auth.user.role === "admin" ? (
+                      {auth.msg === "success" ? (
+                        auth.response.role === "admin" ? (
                           <NavLink
                             key="Dashboard"
                             to="/admin"
@@ -117,7 +117,7 @@ export default function Navbar() {
                     </div>
                   </div>
                 </div>
-                {auth.status !== "failed" ? (
+                {auth.msg === "success" ? (
                   <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
@@ -127,7 +127,7 @@ export default function Navbar() {
                           <img
                             className="h-8 w-8 rounded-full"
                             src={`https://ui-avatars.com/api/?name=${
-                              auth.user.firstname + auth.user.lastname
+                              auth.response.firstname + auth.response.lastname
                             }`}
                             alt="avatar"
                             loading="lazy"
@@ -146,11 +146,13 @@ export default function Navbar() {
                         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right overflow-hidden rounded-md bg-white pb-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                           <div className="bg-gray-200">
                             <p className="block px-4 py-2 text-sm text-gray-700">
-                              {auth.user.firstname + " " + auth.user.lastname}
+                              {auth.response.firstname +
+                                " " +
+                                auth.response.lastname}
                             </p>
 
                             <p className="block px-4 py-2 text-sm text-gray-700">
-                              {auth.user.email}
+                              {auth.response.email}
                             </p>
                           </div>
 
@@ -214,8 +216,8 @@ export default function Navbar() {
                     {item.name}
                   </Disclosure.Button>
                 ))}
-                {auth.status !== "failed" ? (
-                  auth.user.role === "admin" ? (
+                {auth.msg === "success" ? (
+                  auth.response.role === "admin" ? (
                     <Disclosure.Button
                       key="Dashboard"
                       as="a"

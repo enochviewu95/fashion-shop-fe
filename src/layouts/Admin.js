@@ -16,26 +16,25 @@ export default function Admin() {
   const { lightBackground } = useContext(ThemeContext);
   const auth = useAuth();
 
-  if(auth.user.role !== "admin"){
+  if (auth.response.role !== "admin") {
     swal("Sorry", "The page is reserved for administrators only", "info");
   }
 
-  return auth.status !== "failed" ? (
-    auth.user.role === "admin" ? (
+  return auth.msg !== "failed" ? (
+    auth.response.role === "admin" ? (
       <>
         <div>
           <div className="fixed inset-x-0 z-50">
-            <Navbar/>
+            <Navbar />
           </div>
-          <SideNavigationSlider
-            open={open}
-            setOpen={setOpen}
-          />
+          <SideNavigationSlider open={open} setOpen={setOpen} />
           <div className="flex">
             <div className="hidden lg:flex lg:mr-72">
-              <SideNavigationLinks/>
+              <SideNavigationLinks />
             </div>
-            <div className={`w-full min-h-screen  ${lightBackground} overflow-y-auto mt-16`}>
+            <div
+              className={`w-full min-h-screen  ${lightBackground} overflow-y-auto mt-16 pb-32`}
+            >
               <header className="bg-white shadow flex lg:hidden">
                 <div className="max-w-7xl px-2 py-6 sm:px-6 lg:px-8 flex">
                   <button

@@ -32,8 +32,10 @@ export default function Categories({ pageTitle }) {
           Add Category
         </Link>
       </div>
+      {
+     categories != null && categories.msg === "success" ?
       <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
-        {categories.map((category) => (
+        {categories.response.map((category) => (
           <CategoryCardComponent
             key={category._id}
             item={category}
@@ -42,7 +44,10 @@ export default function Categories({ pageTitle }) {
             deleteFunc={deleteCategory}
           />
         ))}
-      </div>
+          </div>
+          :""
+      }
+ 
     </div>
   );
 }

@@ -32,7 +32,7 @@ export default function AddHero({ pageTitle }) {
       redirectUrl="hero"
       formType='hero'
       queryFunc={updateBanner}
-      queryResult={data}
+      queryResult={data.response}
     />
   ) : (
     <UploadImageDocument

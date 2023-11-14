@@ -30,7 +30,7 @@ export default function AddCategory({ pageTitle }) {
     <UpdateUploadImageDocument
       redirectUrl="categories"
       queryFunc={updateCategory}
-      queryResult={data}
+      queryResult={data.response}
     />
   ) : (
     <UploadImageDocument

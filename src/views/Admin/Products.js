@@ -33,8 +33,8 @@ export default function Products({ pageTitle }) {
         </Link>
       </div>
       <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
-        {products.length > 0
-          ? products.map((product) => (
+        {products.response.length > 0
+          ? products.response.map((product) => (
               <ProductCardComponent
                 key={product._id}
                 product={product}

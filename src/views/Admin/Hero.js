@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import { ThemeContext } from "../../context/themeContext";
 import swal from "sweetalert";
-import { updateData } from "../../services/apis";
 import {
   useGetBannersQuery,
   useUpdateSelectedMutation,
@@ -22,8 +21,10 @@ export default function Hero({ pageTitle, isAdmin }) {
   }, [pageTitle, setTitle]);
 
   if (isFetching || isLoading) {
-    <LoadingComponent />;
+    return <LoadingComponent />;
   }
+
+  console.log("Banner data", banners);
   const updateSelectedBanner = async (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -69,8 +70,8 @@ export default function Hero({ pageTitle, isAdmin }) {
             Apply Changes
           </button>
         </div>
-        {banners
-          ? banners.map((banner) => (
+        {banners && banners.msg === "success"
+          ? banners.response.map((banner) => (
               <div key={banner._id}>
                 <div
                   className={

@@ -5,9 +5,8 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     profile: {
-      status: "failed",
-      msg: "",
-      user: {
+      msg: "failed",
+      response: {
         email: "",
         firstname: "",
         lastname: "",
@@ -26,9 +25,8 @@ const authSlice = createSlice({
       )
       .addMatcher(fashionShopApi.endpoints.logout.matchFulfilled, (state) => {
         state.profile = {
-          status: "failed",
-          msg: "",
-          user: {
+          msg: "failed",
+          response: {
             email: "",
             firstname: "",
             lastname: "",

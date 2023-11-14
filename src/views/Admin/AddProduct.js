@@ -31,13 +31,16 @@ export default function AddProduct({ pageTitle }) {
     return <LoadingComponent />;
   }
 
+  console.log("This is a list of categories",categories)
+
+
   return id ? (
     <UpdateUploadImageDocument
       redirectUrl="products"
       formType="product"
       queryFunc={updateProduct}
-      queryResult={data}
-      categories={categories}
+      queryResult={data.response}
+      categories={categories.response}
     />
   ) : (
     <UploadImageDocument
@@ -45,7 +48,7 @@ export default function AddProduct({ pageTitle }) {
       formType="product"
       redirectUrl="products"
       queryFunc={addProduct}
-      categories={categories}
+      categories={categories.response}
     />
   );
 }
