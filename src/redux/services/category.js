@@ -10,18 +10,18 @@ const categoryApi = fashionShopApi.injectEndpoints({
           body: payload,
         };
       },
-      invalidatesTags: ["Categories", "Shop"],
+      invalidatesTags: ["Categories", "Shop", "Dashboard"],
     }),
 
     getCategory: build.query({
-      query: (id) => ({url: `admin/api/get-category/${id}`})
+      query: (id) => ({ url: `admin/api/get-category/${id}` }),
     }),
 
     getCategories: build.query({
-      query: () => ({ url: "admin/api/get-categories", }),
+      query: () => ({ url: "admin/api/get-categories" }),
       providesTags: ["Categories"],
     }),
-    
+
     updateCategory: build.mutation({
       query: ({ id, payload }) => {
         return {
@@ -33,6 +33,7 @@ const categoryApi = fashionShopApi.injectEndpoints({
       invalidatesTags: (category) => [
         { type: "Categories", id: category.id },
         { type: "Shop" },
+        "Dashboard",
       ],
     }),
     deleteCategory: build.mutation({
@@ -45,6 +46,7 @@ const categoryApi = fashionShopApi.injectEndpoints({
       invalidatesTags: (category) => [
         { type: "Categories", id: category.id },
         { type: "Shop" },
+        "Dashboard",
       ],
     }),
   }),

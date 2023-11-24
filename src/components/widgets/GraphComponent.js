@@ -10,10 +10,9 @@ import {
   BarElement,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { faker } from '@faker-js/faker';
+import { faker } from "@faker-js/faker";
 
-
-const GraphComponent = () => {
+const GraphComponent = ({ dataLabels, dataValues }) => {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -26,50 +25,34 @@ const GraphComponent = () => {
 
   const options = {
     responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Chart.js Line Chart",
-      },
-    },
+    indexAxis: "y",
+    display: false,
   };
 
-  const labels = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
-
   const data = {
-    labels,
+    labels: dataLabels,
     datasets: [
       {
-        label: "Dataset 1",
-        data: labels.map(() =>
+        barThickness: 15,
+        data: dataLabels.map(() =>
           faker.datatype.number({ min: 0, max: 1000 })
         ),
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
-      {
-        label: "Dataset 2",
-        data: labels.map(() =>
-          faker.datatype.number({ min: 0, max: 1000 })
-        ),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.5)",
-      },
     ],
   };
 
-  return <Bar options={options} data={data} />;
+  return (
+    <div className="flex flex-col rounded-2xl text-gray-500 bg-gray-50 shadow-lg p-6">
+      <h1 className="font-medium text-gray-500 ">Lorem Ipsum</h1>
+      <p>
+        Id labore et veniam adipisicing voluptate veniam sint duis eu et
+        pariatur. Nostrud Lorem nisi et voluptate minim esse elit ut duis cillum
+      </p>
+      <Bar options={options} data={data} />
+    </div>
+  );
 };
 
 export default GraphComponent;

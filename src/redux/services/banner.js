@@ -10,7 +10,7 @@ const bannerApi = fashionShopApi.injectEndpoints({
           body: payload,
         };
       },
-      invalidatesTags: ["Banners"],
+      invalidatesTags: ["Banners", "Dashboard"],
     }),
     getBanners: build.query({
       query: () => ({ url: "admin/api/get-banners" }),
@@ -27,7 +27,11 @@ const bannerApi = fashionShopApi.injectEndpoints({
           body: payload,
         };
       },
-      invalidatesTags: (banner) => ["Shop", { type: "Banners", id: banner.id }],
+      invalidatesTags: (banner) => [
+        "Shop",
+        { type: "Banners", id: banner.id },
+        "Dashboard",
+      ],
     }),
     updateSelected: build.mutation({
       query({ selectedHero }) {
@@ -36,7 +40,11 @@ const bannerApi = fashionShopApi.injectEndpoints({
           method: "PUT",
         };
       },
-      invalidatesTags: (banner) => ["Shop", { type: "Banners", id: banner.id }],
+      invalidatesTags: (banner) => [
+        "Shop",
+        "Dashboard",
+        { type: "Banners", id: banner.id },
+      ],
     }),
     deleteBanner: build.mutation({
       query(bannerId) {
@@ -45,7 +53,10 @@ const bannerApi = fashionShopApi.injectEndpoints({
           method: "DELETE",
         };
       },
-      invalidatesTags: (banner) => [{ type: "Banners", id: banner.id }],
+      invalidatesTags: (banner) => [
+        "Dashboard",
+        { type: "Banners", id: banner.id },
+      ],
     }),
   }),
 });

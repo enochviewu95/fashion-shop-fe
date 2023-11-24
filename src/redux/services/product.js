@@ -10,7 +10,7 @@ const productApi = fashionShopApi.injectEndpoints({
           body: payload,
         };
       },
-      invalidatesTags: ["Products", "Shop"],
+      invalidatesTags: ["Products", "Shop", "Dashboard", "CategoryProducts"],
     }),
 
     getProduct: build.query({
@@ -33,11 +33,13 @@ const productApi = fashionShopApi.injectEndpoints({
       invalidatesTags: (product) => [
         { type: "Products", id: product.id },
         { type: "Shop" },
+        "Dashboard",
+        "CategoryProducts",
       ],
     }),
 
     getProductDetails: build.query({
-      query: (id) =>({url: `shop/api/get-product/${id}`})
+      query: (id) => ({ url: `shop/api/get-product/${id}` }),
     }),
 
     deleteProduct: build.mutation({
@@ -50,6 +52,8 @@ const productApi = fashionShopApi.injectEndpoints({
       invalidatesTags: (product) => [
         { type: "Products", id: product.id },
         { type: "Shop" },
+        "Dashboard",
+        "CategoryProducts",
       ],
     }),
   }),

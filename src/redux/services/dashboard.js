@@ -4,7 +4,7 @@ const dashboardApi = fashionShopApi.injectEndpoints({
   endpoints: (build) => ({
     getDashboard: build.query({
       query: () => "admin/api/get-dashboard",
-    //   providesTags: ["Dashboard"],
+      providesTags: ["Dashboard"],
     }),
   }),
 });

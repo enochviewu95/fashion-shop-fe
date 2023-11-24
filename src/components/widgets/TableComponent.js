@@ -5,7 +5,7 @@ function TableComponent({ tableData }) {
   const { tableBackground, borderColor } = useContext(ThemeContext);
 
   return (
-    <div>
+    <div className="mb-5">
       <div className="overflow-y-scroll h-72 px-5">
         <table className="table-auto w-full h-10 border-separate border-spacing-x-0 border-spacing-y-2 divide-y divide-gray-200 rounded-lg">
           <thead className={`${tableBackground}`}>
