@@ -11,3 +11,7 @@ export const ClientHomepage = lazy(() =>
 export const ClientProductList = lazy(() =>
   import("../views/Client/ProductListView")
 );
+
+export const ClientFavorite = lazy(() =>
+  import("../views/Client/FavoriteView.js")
+);

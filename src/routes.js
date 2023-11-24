@@ -21,6 +21,7 @@ import {
   ClientAboutUs,
   ClientContactUs,
   ClientDetails,
+  ClientFavorite,
   ClientHomepage,
   ClientProductList,
 } from "./lazyload/ClientPage";
@@ -66,6 +67,14 @@ export const Routes = createBrowserRouter([
             ),
           },
           {
+            path: "/favorites",
+            element: (
+              <SuspenseSection>
+                <ClientFavorite/>
+              </SuspenseSection>
+            ),
+          },
+          {
             path: "/details/:id",
             element: (
               <SuspenseSection>
@@ -90,9 +99,11 @@ export const Routes = createBrowserRouter([
         children: [
           {
             path: "/admin/",
-            element:  <SuspenseSection>
-            <DashboardView />
-          </SuspenseSection>,
+            element: (
+              <SuspenseSection>
+                <DashboardView />
+              </SuspenseSection>
+            ),
           },
           {
             path: "/admin/home/hero",
