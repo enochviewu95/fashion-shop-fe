@@ -11,8 +11,6 @@ import {
 import ProductCardComponent from "../../components/widgets/ProductCardComponent";
 import LoadingComponent from "../../components/widgets/LoadingComponent";
 import {
-  useLocation,
-  useNavigate,
   useParams,
   useSearchParams,
 } from "react-router-dom";
@@ -113,6 +111,7 @@ export default function ProductListView() {
     searchParamsUpdate.delete("price");
     searchParamsUpdate.delete("sort");
     setSearchParams(searchParamsUpdate);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading) {
