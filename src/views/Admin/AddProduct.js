@@ -17,22 +17,36 @@ export default function AddProduct({ pageTitle }) {
   const [setTitle] = useOutletContext();
   const { id } = useParams();
   const { data: categories, isLoading } = useGetCategoriesQuery();
-  const [updateProduct] = useUpdateProductMutation();
+  const [
+    updateProduct,
+    {
+      data: updateProductResponse,
+      error: updateProductError,
+      isLoading: isUpdatingProduct,
+    },
+  ] = useUpdateProductMutation();
   const { data, isLoading: fetchingData } = useGetProductQuery(id, {
     skip: !id ? true : false,
   });
-  const [addProduct] = useAddProductMutation();
+  const [
+    addProduct,
+    {
+      data: addProductResponse,
+      error: addProductError,
+      isLoading: isAddingProduct,
+    },
+  ] = useAddProductMutation();
 
   useEffect(() => {
     setTitle(pageTitle);
   }, [pageTitle, setTitle]);
 
-  if (isLoading || fetchingData) {
+  if (isLoading || fetchingData || isAddingProduct || isUpdatingProduct) {
     return <LoadingComponent />;
   }
 
-  console.log("This is a list of categories",categories)
-
+  console.log("This is a list of categories", categories);
+  console.log("This is the response ", addProductError);
 
   return id ? (
     <UpdateUploadImageDocument
@@ -41,6 +55,8 @@ export default function AddProduct({ pageTitle }) {
       queryFunc={updateProduct}
       queryResult={data.response}
       categories={categories.response}
+      response={updateProductResponse}
+      error={updateProductError}
     />
   ) : (
     <UploadImageDocument
@@ -48,6 +64,8 @@ export default function AddProduct({ pageTitle }) {
       formType="product"
       redirectUrl="products"
       queryFunc={addProduct}
+      response={addProductResponse}
+      error={addProductError}
       categories={categories.response}
     />
   );

@@ -15,6 +15,8 @@ export default function UpdateUploadImageDocument({
   queryFunc,
   categories,
   queryResult,
+  response = null,
+  error = null,
 }) {
   console.log("result", queryResult);
 
@@ -168,16 +170,20 @@ export default function UpdateUploadImageDocument({
         dangerMode: false,
       });
       if (willSave) {
-        try {
-          const id = queryResult._id;
-          const payload = formData;
-          await queryFunc({ id, payload });
+        const id = queryResult._id;
+        const payload = formData;
+        await queryFunc({ id, payload });
+        if (response != null && response.msg === "success") {
           await swal("Saved Successfully", {
             icon: "success",
           });
           navigate(`/admin/home/${redirectUrl}`);
-        } catch (error) {
-          dialogAlert({ msg: error });
+        } else if (error != null) {
+          console.log("Error", error);
+          const errorDetails = new Error();
+          errorDetails.message = "Please check empty fields";
+          errorDetails.name = error.data.msg;
+          throw errorDetails;
         }
       } else {
         swal("Unable to save", {
@@ -185,7 +191,11 @@ export default function UpdateUploadImageDocument({
         });
       }
     } catch (error) {
-      dialogAlert({ msg: error });
+      console.log("Dialog error message", error);
+      dialogAlert({
+        title: error.name.toUpperCase(),
+        msg: error.message,
+      });
     }
   };
 

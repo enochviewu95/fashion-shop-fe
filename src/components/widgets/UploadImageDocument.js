@@ -14,6 +14,8 @@ export default function UploadImageDocument({
   redirectUrl,
   queryFunc,
   categories,
+  response = null,
+  error = null,
 }) {
   const [image, setBannerImage] = useState(null);
   const [imageUrl, setBannerImageUrl] = useState("");
@@ -55,7 +57,6 @@ export default function UploadImageDocument({
     "link",
     "image",
   ];
-
 
   /**
    * The function prevents default behavior and stops event propagation for a drag enter event.
@@ -163,14 +164,19 @@ export default function UploadImageDocument({
         dangerMode: false,
       });
       if (willSave) {
-        try {
-          await queryFunc(formData);
+        await queryFunc(formData);
+        console.log("upload image document response", response);
+        if (response != null && response.msg === "success") {
           await swal("Saved Successfully", {
             icon: "success",
           });
           navigate(`/admin/home/${redirectUrl}`);
-        } catch (error) {
-          dialogAlert({ msg: error });
+        } else if (error != null) {
+          console.log("Error", error);
+          const errorDetails = new Error();
+          errorDetails.message = "Please check empty fields";
+          errorDetails.name = error.data.msg;
+          throw errorDetails;
         }
       } else {
         swal("Unable to save", {
@@ -178,10 +184,13 @@ export default function UploadImageDocument({
         });
       }
     } catch (error) {
-      dialogAlert({ msg: error });
+      console.log("Dialog error message", error);
+      dialogAlert({
+        title: error.name.toUpperCase(),
+        msg: error.message,
+      });
     }
   };
-
 
   return (
     <form
