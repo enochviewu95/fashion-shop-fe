@@ -61,8 +61,9 @@ export default function SideNavigationLinks() {
             </NavLink>
           </li>
           <li>
+            {/* pathname: `/list/${item._id}`, search:"" */}
             <NavLink
-              to="/admin/home/products"
+              to={{ pathname: "/admin/home/products", search: "" }}
               className={({ isActive }) =>
                 isActive
                   ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"

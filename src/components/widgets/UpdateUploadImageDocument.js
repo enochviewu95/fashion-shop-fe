@@ -18,7 +18,6 @@ export default function UpdateUploadImageDocument({
   response = null,
   error = null,
 }) {
-  console.log("result", queryResult);
 
   const [image, setBannerImage] = useState(null);
   const [imageUrl, setBannerImageUrl] = useState(
@@ -179,7 +178,6 @@ export default function UpdateUploadImageDocument({
           });
           navigate(`/admin/home/${redirectUrl}`);
         } else if (error != null) {
-          console.log("Error", error);
           const errorDetails = new Error();
           errorDetails.message = "Please check empty fields";
           errorDetails.name = error.data.msg;
@@ -191,7 +189,6 @@ export default function UpdateUploadImageDocument({
         });
       }
     } catch (error) {
-      console.log("Dialog error message", error);
       dialogAlert({
         title: error.name.toUpperCase(),
         msg: error.message,

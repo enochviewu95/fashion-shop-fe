@@ -30,8 +30,8 @@ export default function Collections({ pageTitle }) {
         </Link>
       </div>
       <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
-        {collections.length > 0
-          ? collections.map((collection) => (
+        {collections.response.length > 0
+          ? collections.response.map((collection) => (
               <CategoryCardComponent
                 key={collection._id}
                 item={collection}

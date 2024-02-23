@@ -10,16 +10,11 @@ import {
 } from "@heroicons/react/20/solid";
 import ProductCardComponent from "../../components/widgets/ProductCardComponent";
 import LoadingComponent from "../../components/widgets/LoadingComponent";
-import {
-  useParams,
-  useSearchParams,
-} from "react-router-dom";
-import { useLazyGetCategoryProductsQuery } from "../../redux/services/shop";
-import * as _ from "lodash";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useGetCategoryProductsQuery } from "../../redux/services/shop";
+import Pagination from "../../components/widgets/Pagination";
 
 const sortOptions = [
-  // { name: "Most Popular", href: "#", current: true },
-  // { name: "Best Rating", href: "#", current: false },
   { name: "Newest", href: "#", current: false, value: { createdAt: -1 } },
   {
     name: "Price: Low to High",
@@ -63,56 +58,54 @@ function classNames(...classes) {
 }
 
 export default function ProductListView() {
-  const { type } = useParams();
+  const { id } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
   const [priceState, setPriceState] = useState([]);
-  const [getCategoryProducts, { data: products, isLoading }] =
-    useLazyGetCategoryProductsQuery({ type });
+  const [skipState, setSkipState] = useState(true);
+  const [sortState, setSortParam] = useState({ createdAt: -1 });
+  const [pageNum, setPageNum] = useState(1);
+  const { data: products, isLoading } = useGetCategoryProductsQuery(
+    { id, searchParams },
+    {
+      refetchOnMountOrArgChange: true,
+      skip: skipState,
+    }
+  );
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  const updatePriceParam = (event, checkboxValue) => {
-    const searchId = event.target.name;
-
-    const updatedSearchParams = new URLSearchParams(searchParams);
-    if (_.some(priceState, checkboxValue)) {
-      const updatedState = priceState.filter(
-        (value) => !_.isEqual(value, checkboxValue)
+  const updatePriceParam = (checkboxValue) => {
+    setPriceState((prices) => {
+      const value = [...prices];
+      const index = value.findIndex(
+        (previousValue) =>
+          previousValue.max === checkboxValue.max &&
+          previousValue.min === checkboxValue.min
       );
-      if (updatedState.length === 0) {
-        updatedSearchParams.delete(searchId);
+      if (index === -1) {
+        value.push(checkboxValue);
       } else {
-        const priceQueryDataStringify = JSON.stringify(updatedState);
-        updatedSearchParams.set(searchId, priceQueryDataStringify);
+        value.splice(index, 1);
       }
-      setPriceState(updatedState);
+      setSkipState(true);
+      return value;
+    });
+  };
+
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(searchParams);
+    const pageNumberStringify = JSON.stringify(pageNum);
+    const sortedValueStringify = JSON.stringify(sortState);
+    if (priceState.length !== 0) {
+      const priceQueryData = JSON.stringify(priceState);
+      urlSearchParams.set("prices", priceQueryData);
     } else {
-      const priceQueryData = [...priceState, checkboxValue];
-      const priceQueryDataStringify = JSON.stringify(priceQueryData);
-
-      updatedSearchParams.set(searchId, priceQueryDataStringify);
-      setPriceState([...priceState, checkboxValue]);
+      urlSearchParams.delete("prices");
     }
-    setSearchParams(updatedSearchParams);
-  };
-
-  const sortParams = (sortValue) => {
-    const sortSearchParams = new URLSearchParams(searchParams);
-    const sortedValueStringify = JSON.stringify(sortValue);
-    sortSearchParams.set("sort", sortedValueStringify);
-    setSearchParams(sortSearchParams);
-  };
-
-  useEffect(() => {
-    getCategoryProducts({ type, searchParams });
-  }, [getCategoryProducts, searchParams, type]);
-
-  useEffect(() => {
-    const searchParamsUpdate = new URLSearchParams(searchParams);
-    searchParamsUpdate.delete("price");
-    searchParamsUpdate.delete("sort");
-    setSearchParams(searchParamsUpdate);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    urlSearchParams.set("sort", sortedValueStringify);
+    urlSearchParams.set("page", pageNumberStringify);
+    setSearchParams(urlSearchParams);
+    setSkipState(false);
+  }, [pageNum, priceState, searchParams, setSearchParams, sortState]);
 
   if (isLoading) {
     return <LoadingComponent />;
@@ -206,8 +199,8 @@ export default function ProductListView() {
                                     name={price.id}
                                     type="checkbox"
                                     value={option.value}
-                                    onChange={(event) =>
-                                      updatePriceParam(event, option.value)
+                                    onChange={() =>
+                                      updatePriceParam(option.value)
                                     }
                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                   />
@@ -264,7 +257,7 @@ export default function ProductListView() {
                         <Menu.Item
                           key={option.name}
                           onClick={() => {
-                            sortParams(option.value);
+                            setSortParam(option.value);
                           }}
                         >
                           {({ active }) => (
@@ -353,9 +346,7 @@ export default function ProductListView() {
                                 name={price.id}
                                 type="checkbox"
                                 value={option.value}
-                                onChange={(event) =>
-                                  updatePriceParam(event, option.value)
-                                }
+                                onChange={() => updatePriceParam(option.value)}
                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                               />
                               <label
@@ -376,8 +367,8 @@ export default function ProductListView() {
               {/* Product grid */}
               <div className="lg:col-span-3">
                 <div className="grid grid-cols-3 gap-3">
-                  {products.response.length > 0
-                    ? products.response.map((product) => (
+                  {products.response.items.length > 0
+                    ? products.response.items.map((product) => (
                         <ProductCardComponent
                           key={product._id}
                           product={product}
@@ -389,6 +380,12 @@ export default function ProductListView() {
             </div>
           </section>
         </main>
+        <Pagination
+          pageNum={pageNum}
+          setSkipState={setSkipState}
+          setPageNum={setPageNum}
+          pageDetails={products.response.pageDetails}
+        />
       </div>
     </div>
   ) : (

@@ -8,13 +8,11 @@ export default function ProductSection({ products, filter }) {
   const { deepBackground } = useContext(ThemeContext);
   const ref = useRef(null);
   let productItems = [];
-
   if (filter) {
     productItems = products.filter((product) => {
-      console.log("Proudct section", product.category);
       return (
-        product.category != null &&
-        product.category.title.toLowerCase() === filter.toLowerCase()
+        product.title != null &&
+        product.title.toLowerCase() === filter.toLowerCase()
       );
     });
   } else {
@@ -29,7 +27,7 @@ export default function ProductSection({ products, filter }) {
       >
         <div className="mt-16 hidden lg:flex">
           <SwiperComponent screenType="large">
-            {productItems.map((product) => (
+            {productItems[0].items.map((product) => (
               <SwiperSlide key={product._id}>
                 <ProductCardComponent product={product} />
               </SwiperSlide>
@@ -38,7 +36,7 @@ export default function ProductSection({ products, filter }) {
         </div>
         <div className="mt-16 lg:hidden">
           <SwiperComponent screenType="small">
-            {productItems.map((product) => (
+            {productItems[0].items.map((product) => (
               <SwiperSlide key={product._id}>
                 <ProductCardComponent product={product} />
               </SwiperSlide>

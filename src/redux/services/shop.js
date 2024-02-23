@@ -8,10 +8,10 @@ const shopApi = fashionShopApi.injectEndpoints({
     }),
 
     getCategoryProducts: build.query({
-      query: (params) => {
-        console.log("Search query", params);
+      query: ({id, searchParams}) => {
+        console.log("Search query", );
         return {
-          url: `shop/api/get-category-product/${params.type}?${params.searchParams}`,
+          url: `shop/api/get-category-product/${id}?${searchParams}`,
           method: "GET",
         };
       },
@@ -20,4 +20,4 @@ const shopApi = fashionShopApi.injectEndpoints({
   }),
 });
 
-export const { useGetShopQuery, useLazyGetCategoryProductsQuery } = shopApi;
+export const { useGetShopQuery, useGetCategoryProductsQuery } = shopApi;

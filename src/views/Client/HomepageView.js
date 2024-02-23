@@ -21,7 +21,6 @@ export default function HomepageView() {
   const { banner, category, collection, product, statistics } = data;
 
 
-
   return (
     <>
       <HeroSection banner={banner} />

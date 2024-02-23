@@ -26,11 +26,12 @@ export default function AddCollection({ pageTitle }) {
     return <LoadingComponent />;
   }
 
+  console.log("Collection data",data.response)
   return id ? (
     <UpdateUploadImageDocument
     redirectUrl="collections"
     queryFunc={updateCollection}
-    queryResult={data}
+    queryResult={data.response}
   />
   ) : (
     <UploadImageDocument

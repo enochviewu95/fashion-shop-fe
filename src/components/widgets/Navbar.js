@@ -29,8 +29,6 @@ export default function Navbar() {
   const [logout, { isLoading }] = useLogoutMutation();
   const auth = useAuth();
 
-  console.log('auth', auth)
-
   const signout = async (event) => {
     event.preventDefault();
     try {

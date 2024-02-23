@@ -149,7 +149,6 @@ export default function UploadImageDocument({
     formData.append("image", image);
     formType === "product" && formData.append("price", price);
     formType === "product" && formData.append("details", details);
-    console.log("My category", category);
     formType === "product" && formData.append("category", category);
     formData.append("title", title);
     formData.append("description", description);
@@ -165,14 +164,12 @@ export default function UploadImageDocument({
       });
       if (willSave) {
         await queryFunc(formData);
-        console.log("upload image document response", response);
         if (response != null && response.msg === "success") {
           await swal("Saved Successfully", {
             icon: "success",
           });
           navigate(`/admin/home/${redirectUrl}`);
         } else if (error != null) {
-          console.log("Error", error);
           const errorDetails = new Error();
           errorDetails.message = "Please check empty fields";
           errorDetails.name = error.data.msg;
@@ -184,7 +181,6 @@ export default function UploadImageDocument({
         });
       }
     } catch (error) {
-      console.log("Dialog error message", error);
       dialogAlert({
         title: error.name.toUpperCase(),
         msg: error.message,
