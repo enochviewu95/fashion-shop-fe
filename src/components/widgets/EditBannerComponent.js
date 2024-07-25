@@ -6,12 +6,11 @@ import { useDeleteBannerMutation } from "../../redux/services/banner";
 import LoadingComponent from "./LoadingComponent";
 
 export const EditBannerComponent = ({ banner, selectedHero }) => {
-  const bannerUrl =
-    process.env.REACT_APP_BASE_URL + banner.imageUrl.replace(/\\/g, "/");
+  const bannerUrl = banner.imageUrl
 
-  const [deleteBanner, { isFetching }] = useDeleteBannerMutation();
+  const [deleteBanner, { isLoading }] = useDeleteBannerMutation();
 
-  if (isFetching) {
+  if (isLoading) {
     return <LoadingComponent />;
   }
 

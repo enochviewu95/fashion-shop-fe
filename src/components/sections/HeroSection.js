@@ -2,8 +2,9 @@ import { Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
 export default function HeroSection({ banner }) {
-  const bannerUrl =
-    process.env.REACT_APP_BASE_URL + banner.imageUrl.replace(/\\/g, "/");
+  if (!banner) {
+    return;
+  }
 
   /***********************Animated Ui**********************/
   return (
@@ -18,7 +19,7 @@ export default function HeroSection({ banner }) {
           <div className="absolute w-full aspect-w-7 aspect-h-10 lg:aspect-h-3">
             <img
               className="w-full h-full object-cover object-center filter brightness-50"
-              src={bannerUrl}
+              src={banner.imageUrl}
               alt={banner.title}
               width={1280}
               height={848}

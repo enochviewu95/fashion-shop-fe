@@ -13,7 +13,7 @@ export default function AddHero({ pageTitle }) {
   const [setTitle] = useOutletContext();
   const { id } = useParams();
   const [addBanner, { isLoading }] = useAddBannerMutation();
-  const [updateBanner] = useUpdateBannerMutation();
+  const [updateBanner, { isLoading: isUpdating }] = useUpdateBannerMutation();
   const { data, isLoading: fetchingData } = useGetBannerQuery(id, {
     skip: !id ? true : false,
   });
@@ -22,7 +22,7 @@ export default function AddHero({ pageTitle }) {
     setTitle(pageTitle);
   }, [pageTitle, setTitle]);
 
-  if (isLoading || fetchingData) {
+  if (isLoading || fetchingData || isUpdating) {
     return <LoadingComponent />;
   }
 
@@ -30,7 +30,7 @@ export default function AddHero({ pageTitle }) {
     <UpdateUploadImageDocument
       dataType="hero"
       redirectUrl="hero"
-      formType='hero'
+      formType="hero"
       queryFunc={updateBanner}
       queryResult={data.response}
     />

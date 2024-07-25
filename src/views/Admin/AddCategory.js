@@ -28,12 +28,14 @@ export default function AddCategory({ pageTitle }) {
 
   return id ? (
     <UpdateUploadImageDocument
+      dataType="hero"
       redirectUrl="categories"
       queryFunc={updateCategory}
       queryResult={data.response}
     />
   ) : (
     <UploadImageDocument
+     dataType="hero"
       url="/admin/api/add-category"
       queryFunc={addCategory}
       redirectUrl="categories"

@@ -20,43 +20,27 @@ export default function HomepageView() {
 
   const { banner, category, collection, product, statistics } = data;
 
-
   return (
     <>
       <HeroSection banner={banner} />
 
       <CategorySection categories={category} />
-      <PromoSectionAlternate
-        heading={details[0].heading}
-        text={details[0].text}
-        imgSrc={details[0].imgSrc}
-        promoimg={details[0].promoimg}
-      />
-      <ProductSection products={product} filter="jackets" />
-      
-      <PromoSectionAlternate
-        heading={details[1].heading}
-        text={details[1].text}
-        imgSrc={details[1].imgSrc}
-        promoimg={details[1].promoimg}
-      />
-      <ProductSection products={product} filter="casual"/>
+      {category.map((categoryData, index) => {
+        if (index > 3) {
+          return "";
+        }
 
-      <PromoSectionAlternate
-        heading={details[2].heading}
-        text={details[2].text}
-        imgSrc={details[2].imgSrc}
-        promoimg={details[2].promoimg}
-      />
-      <ProductSection products={product} filter="gowns"/>
-
-      <PromoSectionAlternate
-        heading={details[3].heading}
-        text={details[3].text}
-        imgSrc={details[3].imgSrc}
-        promoimg={details[3].promoimg}
-      />
-      <ProductSection products={product} filter="shirt"/>
+        return (
+          <>
+            <PromoSectionAlternate
+              heading={categoryData.title}
+              text={categoryData.description}
+              imgSrc={categoryData.imageUrl}
+            />
+            <ProductSection products={product} filter={categoryData.title} />
+          </>
+        );
+      })}
 
       <PromoSection
         heading={details[7].heading}
@@ -65,31 +49,23 @@ export default function HomepageView() {
         promoimg={details[7].promoimg}
       />
       <CollectionSection collections={collection} />
-      
 
-      <PromoSectionAlternate
-        heading={details[4].heading}
-        text={details[4].text}
-        imgSrc={details[4].imgSrc}
-        promoimg={details[4].promoimg}
-      />
-      <ProductSection products={product} filter="dresses"/>
+      {category.map((categoryData, index) => {
+        if (index > 3) {
+          return (
+            <>
+              <PromoSectionAlternate
+                heading={categoryData.title}
+                text={categoryData.description}
+                imgSrc={categoryData.imageUrl}
+              />
+              <ProductSection products={product} filter={categoryData.title} />
+            </>
+          );
+        }
 
-      <PromoSectionAlternate
-        heading={details[5].heading}
-        text={details[5].text}
-        imgSrc={details[5].imgSrc}
-        promoimg={details[5].promoimg}
-      />
-      <ProductSection products={product} filter="engagement gowns"/>
-
-      <PromoSectionAlternate
-        heading={details[6].heading}
-        text={details[6].text}
-        imgSrc={details[6].imgSrc}
-        promoimg={details[6].promoimg}
-      />
-      <ProductSection products={product} filter="wedding gowns" />
+        return "";
+      })}
 
       <StatsSection statistics={statistics} />
     </>

@@ -15,14 +15,10 @@ export default function UpdateUploadImageDocument({
   queryFunc,
   categories,
   queryResult,
-  response = null,
   error = null,
 }) {
-
   const [image, setBannerImage] = useState(null);
-  const [imageUrl, setBannerImageUrl] = useState(
-    process.env.REACT_APP_BASE_URL + queryResult.imageUrl.replace(/\\/g, "/")
-  );
+  const [imageUrl, setBannerImageUrl] = useState(queryResult.imageUrl);
   const [title, setBannerTitle] = useState(queryResult.title);
   const [price, setPrice] = useState(
     formType === "product" ? queryResult.price["$numberDecimal"] : 0.0
@@ -171,12 +167,16 @@ export default function UpdateUploadImageDocument({
       if (willSave) {
         const id = queryResult._id;
         const payload = formData;
-        await queryFunc({ id, payload });
-        if (response != null && response.msg === "success") {
+        const updateResponse = await queryFunc({ id, payload });
+        if (
+          updateResponse != null &&
+          updateResponse.data &&
+          updateResponse.data.msg === "success"
+        ) {
           await swal("Saved Successfully", {
             icon: "success",
           });
-          navigate(`/admin/home/${redirectUrl}`);
+          navigate(`/admin/home/${redirectUrl}`, { replace: true });
         } else if (error != null) {
           const errorDetails = new Error();
           errorDetails.message = "Please check empty fields";

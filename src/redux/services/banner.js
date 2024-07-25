@@ -13,7 +13,9 @@ const bannerApi = fashionShopApi.injectEndpoints({
       invalidatesTags: ["Banners", "Dashboard"],
     }),
     getBanners: build.query({
-      query: () => ({ url: "admin/api/get-banners" }),
+      query: ({ page = 1, limit = 1 }) => ({
+        url: `admin/api/get-banners?page=${page}&limit=${limit}`,
+      }),
       providesTags: ["Banners"],
     }),
     getBanner: build.query({

@@ -5,8 +5,6 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import ProductQuickviews from "./ProductQuickviews";
 
 export default function ProductCardComponent({ product, isAdmin, deleteFunc }) {
-  const productImageUrl =
-    process.env.REACT_APP_BASE_URL + product.imageUrl.replace(/\\/g, "/");
 
   const [open, setOpen] = useState(false);
 
@@ -15,7 +13,7 @@ export default function ProductCardComponent({ product, isAdmin, deleteFunc }) {
       <div onClick={() => setOpen(true)}>
         <div className="min-h-80 h-52 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
           <img
-            src={productImageUrl}
+            src={product.imageUrl}
             alt={product.title}
             width={274}
             height={320}

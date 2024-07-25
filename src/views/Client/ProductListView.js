@@ -380,12 +380,12 @@ export default function ProductListView() {
             </div>
           </section>
         </main>
-        <Pagination
+        {/* <Pagination
           pageNum={pageNum}
           setSkipState={setSkipState}
           setPageNum={setPageNum}
           pageDetails={products.response.pageDetails}
-        />
+        /> */}
       </div>
     </div>
   ) : (

@@ -18,7 +18,9 @@ const categoryApi = fashionShopApi.injectEndpoints({
     }),
 
     getCategories: build.query({
-      query: () => ({ url: "admin/api/get-categories" }),
+      query: ({ page = 1, limit = 1 }) => ({
+        url: `admin/api/get-categories?page=${page}&limit=${limit}`,
+      }),
       providesTags: ["Categories"],
     }),
 

@@ -11,7 +11,7 @@ export default function SideNavigationLinks() {
             <div className="flex items-center flex-row">
               <div className="rounded-full overflow-hidden">
                 <img
-                  className="w-24 mix-blend-luminosity "
+                  className="w-12 mix-blend-luminosity "
                   src={UnaMano}
                   alt="logo"
                   loading="lazy"

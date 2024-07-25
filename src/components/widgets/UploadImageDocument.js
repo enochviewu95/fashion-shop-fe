@@ -163,17 +163,23 @@ export default function UploadImageDocument({
         dangerMode: false,
       });
       if (willSave) {
-        await queryFunc(formData);
-        if (response != null && response.msg === "success") {
+        const addResponse = await queryFunc(formData);
+        console.log('Add response',addResponse)
+        if (
+          addResponse != null &&
+          addResponse.data &&
+          addResponse.data.msg === "success"
+        )  {
           await swal("Saved Successfully", {
             icon: "success",
           });
           navigate(`/admin/home/${redirectUrl}`);
         } else if (error != null) {
-          const errorDetails = new Error();
-          errorDetails.message = "Please check empty fields";
-          errorDetails.name = error.data.msg;
-          throw errorDetails;
+          // const errorDetails = new Error();
+          // errorDetails.message = "Please check empty fields";
+          // errorDetails.name = error.data.msg;
+          // throw errorDetails;
+          swal("Please check empty fields",{icon:"warning"})
         }
       } else {
         swal("Unable to save", {

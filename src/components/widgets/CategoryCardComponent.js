@@ -9,8 +9,7 @@ export default function CategoryCardComponent({
   isCategory,
   deleteFunc,
 }) {
-  const categoryImageUrl =
-    process.env.REACT_APP_BASE_URL + item.imageUrl.replace(/\\/g, "/");
+  const categoryImageUrl = item.imageUrl;
 
   return (
     <article className="group relative py-5 ">
