@@ -121,6 +121,7 @@ export default function Hero({ pageTitle, isAdmin }) {
           currentPage={banners.currentPage}
           totalPages={banners.totalPages}
           totalDocument={banners.totalDocument}
+          resultsPerPage={banners.resultsPerPage}
           setPageNum = {setPage}
         />
       </div>

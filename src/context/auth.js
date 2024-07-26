@@ -1,25 +1,25 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { getData } from "../services/apis";
+import { createContext, useContext } from "react";
+import { useSigninQuery } from "../redux/services/auth";
 
-export const authContext = createContext();
+export const authContext = createContext({
+  userInfo: null,
+  loading: true,
+  error: null,
+});
 
 export function useAuth() {
   return useContext(authContext);
 }
 
 export function ProvideAuth({ children }) {
-  const [userInfo, setUserInfo] = useState(null);
-
-  const fetchLogin = async () => {
-    const response = await getData("auth/login");
-    if (response) {
-      setUserInfo(response);
-    }
+  const { data: userInfo, isLoading, error } = useSigninQuery();
+  const contextValue = {
+    userInfo,
+    isLoading,
+    error,
   };
-  useEffect(() => {
-    fetchLogin();
-  }, []);
+
   return (
-    <authContext.Provider value={userInfo}>{children}</authContext.Provider>
+    <authContext.Provider value={contextValue}>{children}</authContext.Provider>
   );
 }

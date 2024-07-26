@@ -28,7 +28,7 @@ export default function CategoryCardComponent({
       <div>
         <h3 className="mt-6 text-sm text-gray-900">
           <Link to={{ pathname: `/list/${item._id}`, search: "" }}>
-            <span className="absolute inset-0" />
+            <span className="absolute" />
             {item.title}
           </Link>
         </h3>

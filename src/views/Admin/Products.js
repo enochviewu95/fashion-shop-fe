@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useOutletContext, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useOutletContext, useSearchParams } from "react-router-dom";
 import { ThemeContext } from "../../context/themeContext";
 import ProductCardComponent from "../../components/widgets/ProductCardComponent";
 import {
@@ -14,24 +14,29 @@ export default function Products({ pageTitle }) {
   const [setTitle] = useOutletContext();
   const [searchParams, setSearchParams] = useSearchParams();
   const [skipState, setSkipState] = useState(false);
-  const { data: products, isLoading } = useGetProductsQuery(searchParams, {
-    refetchOnMountOrArgChange: true,
-    skip: skipState,
-  });
+
   const [deleteProduct] = useDeleteProductMutation();
-  const [pageNum, setPageNum] = useState(1);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const currentPage = parseInt(query.get("page")) || 1;
+  const limit = 8;
+  const [page, setPage] = useState(currentPage);
+  const { data: products, isLoading } = useGetProductsQuery({
+    page,
+    limit,
+  });
+
+  useEffect(() => {
+    navigate(`/admin/home/products?page=${page}`, { replace: true });
+  }, [page, navigate]);
+
 
   useEffect(() => {
     setTitle(pageTitle);
   }, [pageTitle, setTitle]);
 
-  useEffect(() => {
-    const urlSearchParams = new URLSearchParams(searchParams);
-    const pageNumberStringify = JSON.stringify(pageNum);
-    urlSearchParams.set("page", pageNumberStringify);
-    setSearchParams(urlSearchParams);
-    setSkipState(false);
-  }, [pageNum, searchParams, setSearchParams]);
 
   if (isLoading) {
     return <LoadingComponent />;
@@ -59,12 +64,13 @@ export default function Products({ pageTitle }) {
             ))
           : ""}
       </div>
-      {/* <Pagination
-        pageNum={pageNum}
-        setSkipState={setSkipState}
-        setPageNum={setPageNum}
-        pageDetails={products.pageDetails}
-      /> */}
+      <Pagination
+        currentPage={products.currentPage}
+        totalPages={products.totalPages}
+        totalDocument={products.totalDocument}
+        resultsPerPage={products.resultsPerPage}
+        setPageNum={setPage}
+      />
     </div>
   );
 }

@@ -25,8 +25,8 @@ export default function Admin() {
   return auth.msg !== "failed" ? (
     auth.response.role === "admin" ? (
       <>
-        <PerfectScrollbar className="absolute w-screen z-50">
-          <div>
+        <PerfectScrollbar className="absolute w-screen">
+          <div className={`${lightBackground}`}>
             <div className="fixed inset-x-0 z-50">
               <Navbar />
             </div>
@@ -36,7 +36,7 @@ export default function Admin() {
                 <SideNavigationLinks />
               </div>
               <div
-                className={`w-full min-h-screen  ${lightBackground} overflow-y-auto mt-16 pb-32`}
+                className={`w-full min-h-screen overflow-y-auto mt-16 pb-32`}
               >
                 <header className="bg-white shadow flex lg:hidden">
                   <div className="max-w-7xl px-2 py-6 sm:px-6 lg:px-8 flex">

@@ -5,6 +5,7 @@ import TrustedBrandSection from "../../components/sections/TrustedBrandSection";
 import { ThemeContext } from "../../context/themeContext";
 import { useGetShopQuery } from "../../redux/services/shop";
 import LoadingComponent from "../../components/widgets/LoadingComponent";
+import ErrorSection from "../../components/sections/ErrorSection";
 
 export default function AboutUsView() {
   const background = false;
@@ -15,12 +16,12 @@ export default function AboutUsView() {
 
   const { data, isLoading, error } = useGetShopQuery();
 
-  if (error) {
-    throw error;
-  }
-
   if (isLoading) {
     return <LoadingComponent />;
+  }
+
+  if (error) {
+    return <ErrorSection />;
   }
 
   const { statistics } = data;

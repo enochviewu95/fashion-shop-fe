@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { dialogAlert } from "../../utils/DialogAlert";
+import he from 'he';
 
 export default function UpdateUploadImageDocument({
   dataType,
@@ -381,7 +382,7 @@ export default function UpdateUploadImageDocument({
               formats={formats}
               className="h-96 mb-5"
               theme="snow"
-              value={details}
+              value={he.decode(details)}
               onChange={setDetails}
             />
           </div>

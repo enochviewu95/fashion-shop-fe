@@ -26,7 +26,7 @@ export default function AddCollection({ pageTitle }) {
     return <LoadingComponent />;
   }
 
-  console.log("Collection data",data.response)
+  console.log("Collection data",data)
   return id ? (
     <UpdateUploadImageDocument
     redirectUrl="collections"

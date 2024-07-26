@@ -10,12 +10,17 @@ import LoadingComponent from "../../components/widgets/LoadingComponent";
 import PromoSectionAlternate from "../../components/sections/PromoSectionAlternate";
 import { details } from "../../data/promos_banner";
 import { useGetShopQuery } from "../../redux/services/shop";
+import ErrorSection from "../../components/sections/ErrorSection";
 
 export default function HomepageView() {
-  const { data, isLoading } = useGetShopQuery();
+  const { data, error, isLoading } = useGetShopQuery();
 
   if (isLoading) {
     return <LoadingComponent />;
+  }
+
+  if (error) {
+    return <ErrorSection/>;
   }
 
   const { banner, category, collection, product, statistics } = data;

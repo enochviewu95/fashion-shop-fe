@@ -21,7 +21,7 @@ const ErrorSection = () => {
             Go back home
           </Link>
           <Link
-            href="/contact-us"
+            to="/contact-us"
             className="text-sm font-semibold text-amber-900"
           >
             Contact support <span aria-hidden="true">&rarr;</span>

@@ -52,7 +52,7 @@ export default function Categories({ pageTitle }) {
         </Link>
       </div>
       {categories != null && categories.msg === "success" ? (
-        <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6 h-[60rem]">
+        <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
           {categories.response.map((category) => (
             <CategoryCardComponent
               key={category._id}
@@ -70,6 +70,7 @@ export default function Categories({ pageTitle }) {
         currentPage={categories.currentPage}
         totalPages={categories.totalPages}
         totalDocument={categories.totalDocument}
+        resultsPerPage={categories.resultsPerPage}
         setPageNum={setPage}
       />
     </div>

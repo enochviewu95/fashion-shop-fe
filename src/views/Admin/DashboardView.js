@@ -5,12 +5,13 @@ import TileComponent from "../../components/widgets/TileComponent";
 import { useGetDashboardQuery } from "../../redux/services/dashboard";
 import LoadingComponent from "../../components/widgets/LoadingComponent";
 import GraphComponent from "../../components/widgets/GraphComponent";
+import ErrorSection from "../../components/sections/ErrorSection";
 
 export default function DashboardView({ pageTitle }) {
   const [setTitle] = useOutletContext();
-  const { data, isFetching } = useGetDashboardQuery();
+  const { data, isFetching, error } = useGetDashboardQuery();
 
-    const labels = ["Products","Categories", "Users","Collections"];
+  const labels = ["Products", "Categories", "Users", "Collections"];
 
   useEffect(() => {
     setTitle(pageTitle);
@@ -20,7 +21,11 @@ export default function DashboardView({ pageTitle }) {
     return <LoadingComponent />;
   }
 
-  console.log('Dashboard data', data);
+  if (error) {
+    return <ErrorSection/>
+  }
+
+  console.log("Dashboard data", data);
 
   return data != null && data.msg === "success" ? (
     <>

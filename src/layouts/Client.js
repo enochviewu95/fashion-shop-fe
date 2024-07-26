@@ -7,7 +7,7 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 export default function Client() {
   return (
     <>
-      <PerfectScrollbar className="absolute w-screen z-50">
+      <PerfectScrollbar className="absolute w-screen">
         <Navbar />
         <div className="min-h-screen">
           <Outlet />

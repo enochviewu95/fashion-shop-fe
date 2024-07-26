@@ -18,8 +18,8 @@ const productApi = fashionShopApi.injectEndpoints({
     }),
 
     getProducts: build.query({
-      query: (searchParams) => ({
-        url: `admin/api/get-products?${searchParams}`,
+      query: ({page=1, limit=1}) => ({
+        url: `admin/api/get-products?page=${page}&limit=${limit}`,
       }),
       providesTags: ["Products"],
     }),

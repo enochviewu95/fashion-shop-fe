@@ -23,6 +23,12 @@ const authSlice = createSlice({
           state.profile = payload;
         }
       )
+      .addMatcher(
+        fashionShopApi.endpoints.signin.matchFulfilled,
+        (state, { payload }) => {
+          state.profile = payload;
+        }
+      )
       .addMatcher(fashionShopApi.endpoints.logout.matchFulfilled, (state) => {
         state.profile = {
           msg: "failed",
