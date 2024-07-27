@@ -10,33 +10,25 @@ import {
 } from "@heroicons/react/20/solid";
 import ProductCardComponent from "../../components/widgets/ProductCardComponent";
 import LoadingComponent from "../../components/widgets/LoadingComponent";
-import { useParams, useSearchParams } from "react-router-dom";
-import { useGetCategoryProductsQuery } from "../../redux/services/shop";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  useGetCategoryProductsQuery,
+  useGetCollectionProductsQuery,
+} from "../../redux/services/shop";
 import Pagination from "../../components/widgets/Pagination";
 
 const sortOptions = [
-  { name: "Newest", href: "#", current: false, value: { createdAt: -1 } },
-  {
-    name: "Price: Low to High",
-    href: "#",
-    current: false,
-    value: { price: 1 },
-  },
-  {
-    name: "Price: High to Low",
-    href: "#",
-    current: false,
-    value: { price: -1 },
-  },
+  { name: "Newest", value: "desc" },
+  { name: "Oldest", value: "asc" },
 ];
 
-const price = {
+const priceFilter = {
   id: "price",
   name: "Price",
   options: [
     {
       value: { min: 1, max: 10 },
-      label: "Min $1.00 - Max $10.0",
+      label: "Min $1.00 - Max $10.00",
       checked: false,
     },
     {
@@ -58,58 +50,63 @@ function classNames(...classes) {
 }
 
 export default function ProductListView() {
-  const { id } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [priceState, setPriceState] = useState([]);
-  const [skipState, setSkipState] = useState(true);
-  const [sortState, setSortParam] = useState({ createdAt: -1 });
-  const [pageNum, setPageNum] = useState(1);
-  const { data: products, isLoading } = useGetCategoryProductsQuery(
-    { id, searchParams },
-    {
-      refetchOnMountOrArgChange: true,
-      skip: skipState,
-    }
-  );
+  const { id, type } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const currentPage = parseInt(query.get("page")) || 1;
+  const currentQuery = query.get("price") || "";
+  const currentSort = query.get("created_at") || "asc";
+  const limit = 8;
+
+  const [createdAt, setCreatedAt] = useState(currentSort);
+  const [price, setPrice] = useState(currentQuery);
+
+  const [page, setPage] = useState(currentPage);
+  const { data: categories, isLoading: fetchingProducts } =
+    useGetCategoryProductsQuery(
+      {
+        id,
+        page,
+        limit,
+        createdAt,
+        price,
+      },
+      { skip: type === "collection" }
+    );
+
+  const { data: collections, isLoading: fetchingCollections } =
+    useGetCollectionProductsQuery(
+      {
+        id,
+        page,
+        limit,
+        createdAt,
+        price,
+      },
+      { skip: type === "category" }
+    );
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  const updatePriceParam = (checkboxValue) => {
-    setPriceState((prices) => {
-      const value = [...prices];
-      const index = value.findIndex(
-        (previousValue) =>
-          previousValue.max === checkboxValue.max &&
-          previousValue.min === checkboxValue.min
-      );
-      if (index === -1) {
-        value.push(checkboxValue);
-      } else {
-        value.splice(index, 1);
-      }
-      setSkipState(true);
-      return value;
-    });
+  const handleResetFilter = (event) => {
+    event.preventDefault();
+    setPrice("");
+    setCreatedAt("asc");
   };
 
   useEffect(() => {
-    const urlSearchParams = new URLSearchParams(searchParams);
-    const pageNumberStringify = JSON.stringify(pageNum);
-    const sortedValueStringify = JSON.stringify(sortState);
-    if (priceState.length !== 0) {
-      const priceQueryData = JSON.stringify(priceState);
-      urlSearchParams.set("prices", priceQueryData);
-    } else {
-      urlSearchParams.delete("prices");
-    }
-    urlSearchParams.set("sort", sortedValueStringify);
-    urlSearchParams.set("page", pageNumberStringify);
-    setSearchParams(urlSearchParams);
-    setSkipState(false);
-  }, [pageNum, priceState, searchParams, setSearchParams, sortState]);
+    navigate(
+      `/list/${type}/${id}?page=${page}&created_at=${createdAt}&price=${price}`,
+      { replace: true }
+    );
+  }, [page, navigate, id, createdAt, price, type]);
 
-  if (isLoading) {
+  if (fetchingProducts || fetchingCollections) {
     return <LoadingComponent />;
   }
+
+  let products = type === "category" ? categories : collections;
 
   return products != null && products.msg === "success" ? (
     <div className="bg-white">
@@ -162,7 +159,7 @@ export default function ProductListView() {
                   <form className="mt-4 border-t border-gray-200">
                     <Disclosure
                       as="div"
-                      key={price.id}
+                      key={priceFilter.id}
                       className="border-t border-gray-200 px-4 py-6"
                     >
                       {({ open }) => (
@@ -170,7 +167,7 @@ export default function ProductListView() {
                           <h3 className="-mx-2 -my-3 flow-root">
                             <Disclosure.Button className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
                               <span className="font-medium text-gray-900">
-                                {price.name}
+                                {priceFilter.name}
                               </span>
                               <span className="ml-6 flex items-center">
                                 {open ? (
@@ -189,23 +186,27 @@ export default function ProductListView() {
                           </h3>
                           <Disclosure.Panel className="pt-6">
                             <div className="space-y-6">
-                              {price.options.map((option, optionIdx) => (
+                              {priceFilter.options.map((option, optionIdx) => (
                                 <div
                                   key={optionIdx + "pricesFilters"}
                                   className="flex items-center"
                                 >
                                   <input
                                     id={`filter-mobile-${price.id}-${optionIdx}`}
-                                    name={price.id}
-                                    type="checkbox"
+                                    name={priceFilter.id}
+                                    type="radio"
                                     value={option.value}
-                                    onChange={() =>
-                                      updatePriceParam(option.value)
+                                    checked={
+                                      JSON.stringify(option.value) === price
                                     }
+                                    onChange={() => {
+                                      setPrice(JSON.stringify(option.value));
+                                      setMobileFiltersOpen(false);
+                                    }}
                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                   />
                                   <label
-                                    htmlFor={`filter-mobile-${price.id}-${optionIdx}`}
+                                    htmlFor={`filter-mobile-${priceFilter.id}-${optionIdx}`}
                                     className="ml-3 min-w-0 flex-1 text-gray-500"
                                   >
                                     {option.label}
@@ -213,6 +214,12 @@ export default function ProductListView() {
                                 </div>
                               ))}
                             </div>
+                            <button
+                              onClick={handleResetFilter}
+                              className="btn text-sm py-1 px-2 rounded-lg ring-2 ring-zinc-700 mt-4"
+                            >
+                              Clear
+                            </button>
                           </Disclosure.Panel>
                         </>
                       )}
@@ -227,7 +234,7 @@ export default function ProductListView() {
         <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
             <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-              Products
+              {type === "category" ? "Products" : "Collections"}
             </h1>
 
             <div className="flex items-center">
@@ -257,23 +264,20 @@ export default function ProductListView() {
                         <Menu.Item
                           key={option.name}
                           onClick={() => {
-                            setSortParam(option.value);
+                            setCreatedAt(option.value);
                           }}
                         >
-                          {({ active }) => (
-                            <a
-                              href={option.href}
-                              className={classNames(
-                                option.current
-                                  ? "font-medium text-gray-900"
-                                  : "text-gray-500",
-                                active ? "bg-gray-100" : "",
-                                "block px-4 py-2 text-sm"
-                              )}
-                            >
-                              {option.name}
-                            </a>
-                          )}
+                          <button
+                            className={classNames(
+                              createdAt === option.value
+                                ? "font-medium text-gray-900 "
+                                : "text-gray-500",
+                              createdAt === option.value ? "bg-gray-100" : "",
+                              "block px-4 py-2 text-sm text-start w-full"
+                            )}
+                          >
+                            {option.name}
+                          </button>
                         </Menu.Item>
                       ))}
                     </div>
@@ -299,9 +303,9 @@ export default function ProductListView() {
             </div>
           </div>
 
-          <section aria-labelledby="products-heading" className="pb-24 pt-6">
+          <section aria-labelledby="products-heading" className="pb-6 pt-6">
             <h2 id="products-heading" className="sr-only">
-              Products
+              {type === "category" ? "Products" : "Collections"}
             </h2>
 
             <div className="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
@@ -309,7 +313,7 @@ export default function ProductListView() {
               <form className="hidden lg:block">
                 <Disclosure
                   as="div"
-                  key={price.id}
+                  key={priceFilter.id}
                   className="border-b border-gray-200 py-6"
                 >
                   {({ open }) => (
@@ -317,7 +321,7 @@ export default function ProductListView() {
                       <h3 className="-my-3 flow-root">
                         <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
                           <span className="font-medium text-gray-900">
-                            {price.name}
+                            {priceFilter.name}
                           </span>
                           <span className="ml-6 flex items-center">
                             {open ? (
@@ -336,21 +340,24 @@ export default function ProductListView() {
                       </h3>
                       <Disclosure.Panel className="pt-6">
                         <div className="space-y-4">
-                          {price.options.map((option, optionIdx) => (
+                          {priceFilter.options.map((option, optionIdx) => (
                             <div
                               key={optionIdx + "pricesFilters"}
                               className="flex items-center"
                             >
                               <input
                                 id={`filter-${price.id}-${optionIdx}`}
-                                name={price.id}
-                                type="checkbox"
+                                name={priceFilter.id}
+                                type="radio"
                                 value={option.value}
-                                onChange={() => updatePriceParam(option.value)}
+                                checked={JSON.stringify(option.value) === price}
+                                onChange={() =>
+                                  setPrice(JSON.stringify(option.value))
+                                }
                                 className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                               />
                               <label
-                                htmlFor={`filter-${price.id}-${optionIdx}`}
+                                htmlFor={`filter-${priceFilter.id}-${optionIdx}`}
                                 className="ml-3 text-sm text-gray-600"
                               >
                                 {option.label}
@@ -358,6 +365,12 @@ export default function ProductListView() {
                             </div>
                           ))}
                         </div>
+                        <button
+                          onClick={handleResetFilter}
+                          className="btn text-sm py-1 px-2 rounded-lg ring-2 ring-zinc-700 mt-4"
+                        >
+                          Clear
+                        </button>
                       </Disclosure.Panel>
                     </>
                   )}
@@ -365,10 +378,10 @@ export default function ProductListView() {
               </form>
 
               {/* Product grid */}
-              <div className="lg:col-span-3">
-                <div className="grid grid-cols-3 gap-3">
-                  {products.response.items.length > 0
-                    ? products.response.items.map((product) => (
+              <div className="lg:col-span-3 h-[50vh] max-h-screen">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-3">
+                  {products.response.length > 0
+                    ? products.response.map((product) => (
                         <ProductCardComponent
                           key={product._id}
                           product={product}
@@ -380,12 +393,13 @@ export default function ProductListView() {
             </div>
           </section>
         </main>
-        {/* <Pagination
-          pageNum={pageNum}
-          setSkipState={setSkipState}
-          setPageNum={setPageNum}
-          pageDetails={products.response.pageDetails}
-        /> */}
+        <Pagination
+          currentPage={products.currentPage}
+          totalPages={products.totalPages}
+          totalDocument={products.totalDocument}
+          resultsPerPage={products.resultsPerPage}
+          setPageNum={setPage}
+        />
       </div>
     </div>
   ) : (

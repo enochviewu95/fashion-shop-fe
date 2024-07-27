@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { useState } from "react";
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { ThemeContext } from "../context/themeContext";
 import SideNavigationSlider from "../components/widgets/SideNavigationSlider";
 import SideNavigationLinks from "../components/widgets/SideNavigationLinks";
@@ -15,6 +15,16 @@ export default function Admin() {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("Dashboard");
 
+  const location = useLocation();
+  const [scrollEl, setScrollEl] = useState();
+
+  useLayoutEffect(() => {
+    if (scrollEl) {
+      scrollEl.scrollTop = 0;
+      scrollEl.scrollLeft = 0;
+    }
+  }, [location.pathname, scrollEl]);
+
   const { lightBackground } = useContext(ThemeContext);
   const auth = useAuth();
 
@@ -25,7 +35,10 @@ export default function Admin() {
   return auth.msg !== "failed" ? (
     auth.response.role === "admin" ? (
       <>
-        <PerfectScrollbar className="absolute w-screen">
+        <PerfectScrollbar
+          containerRef={setScrollEl}
+          className="absolute w-screen"
+        >
           <div className={`${lightBackground}`}>
             <div className="fixed inset-x-0 z-50">
               <Navbar />

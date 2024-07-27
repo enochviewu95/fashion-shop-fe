@@ -7,13 +7,14 @@ export default function CategoryCardComponent({
   item,
   isAdmin,
   isCategory,
+  dataType = "category",
   deleteFunc,
 }) {
   const categoryImageUrl = item.imageUrl;
 
   return (
     <article className="group relative py-5 ">
-      <Link to={{ pathname: `/list/${item._id}`, search:"" }}>
+      <Link to={{ pathname: `/list/${dataType}/${item._id}`, search: "" }}>
         <div className="relative lg:h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 h-52 lg:aspect-w-1 lg:aspect-h-1">
           <img
             src={categoryImageUrl}
@@ -27,7 +28,7 @@ export default function CategoryCardComponent({
       </Link>
       <div>
         <h3 className="mt-6 text-sm text-gray-900">
-          <Link to={{ pathname: `/list/${item._id}`, search: "" }}>
+          <Link to={{ pathname: `/list/${dataType}/${item._id}`, search: "" }}>
             <span className="absolute" />
             {item.title}
           </Link>

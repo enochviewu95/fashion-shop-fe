@@ -4,7 +4,7 @@ import SwiperComponent from "../widgets/SwiperComponent";
 import { SwiperSlide } from "swiper/react";
 import CategoryCardComponent from "../widgets/CategoryCardComponent";
 
-export default function CollectionSection({collections}) {
+export default function CollectionSection({ collections }) {
   const { deepBackground } = useContext(ThemeContext);
 
   return collections.length > 0 ? (
@@ -16,7 +16,10 @@ export default function CollectionSection({collections}) {
             <SwiperComponent screenType="large">
               {collections.map((collection) => (
                 <SwiperSlide key={collection._id}>
-                  <CategoryCardComponent item={collection} />
+                  <CategoryCardComponent
+                    dataType="collection"
+                    item={collection}
+                  />
                 </SwiperSlide>
               ))}
             </SwiperComponent>
@@ -25,7 +28,10 @@ export default function CollectionSection({collections}) {
             <SwiperComponent screenType="small">
               {collections.map((collection) => (
                 <SwiperSlide key={collection._id}>
-                  <CategoryCardComponent item={collection} />
+                  <CategoryCardComponent
+                    dataType="collection"
+                    item={collection}
+                  />
                 </SwiperSlide>
               ))}
             </SwiperComponent>

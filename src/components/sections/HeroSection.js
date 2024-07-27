@@ -2,6 +2,7 @@ import { Transition } from "@headlessui/react";
 import { Fragment } from "react";
 
 export default function HeroSection({ banner }) {
+  
   if (!banner) {
     return;
   }
@@ -22,8 +23,9 @@ export default function HeroSection({ banner }) {
               src={banner.imageUrl}
               alt={banner.title}
               width={1280}
-              height={848}
+              height={800}
               fetchpriority="high"
+              
             />
           </div>
         </Transition.Child>

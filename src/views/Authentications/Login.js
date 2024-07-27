@@ -54,7 +54,7 @@ export default function Login() {
 
 
   return (
-    <div className="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div>
           <Link to="/" reloadDocument>
@@ -65,7 +65,7 @@ export default function Login() {
               loading="lazy"
             />
           </Link>
-          <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-3 text-center text-3xl font-bold tracking-tight text-gray-900">
             Sign in to your account
           </h2>
         </div>
@@ -127,7 +127,7 @@ export default function Login() {
             </button>
           </div>
         </form>
-        {/* <button
+        <button
           onClick={googleLogin}
           className={`group relative text-white flex w-full justify-center rounded-md bg-blue-400 hover:bg-blue-600 hover:shadow-lg py-2 px-3 text-sm font-semibold hover:${buttonHoverBackground} focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`}
         >
@@ -140,7 +140,7 @@ export default function Login() {
             />
           </span>
           Google Sign In
-        </button> */}
+        </button>
         <p className="mt-10 text-center text-sm text-gray-500">
           Not a member?{" "}
           <Link

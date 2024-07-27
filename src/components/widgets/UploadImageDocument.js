@@ -14,6 +14,7 @@ export default function UploadImageDocument({
   redirectUrl,
   queryFunc,
   categories,
+  collections,
   response = null,
   error = null,
 }) {
@@ -25,6 +26,7 @@ export default function UploadImageDocument({
   const [description, setBannerDescription] = useState("");
   const [details, setDetails] = useState("");
   const [category, setCategory] = useState("");
+  const [collection, setCollection] = useState("");
   const [item, setItem] = useState(null);
   const navigate = useNavigate();
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
@@ -150,6 +152,7 @@ export default function UploadImageDocument({
     formType === "product" && formData.append("price", price);
     formType === "product" && formData.append("details", details);
     formType === "product" && formData.append("category", category);
+    formType === "product" && formData.append("collection", collection);
     formData.append("title", title);
     formData.append("description", description);
     formType === "hero" && formData.append("selected", selected);
@@ -164,12 +167,12 @@ export default function UploadImageDocument({
       });
       if (willSave) {
         const addResponse = await queryFunc(formData);
-        console.log('Add response',addResponse)
+        console.log("Add response", addResponse);
         if (
           addResponse != null &&
           addResponse.data &&
           addResponse.data.msg === "success"
-        )  {
+        ) {
           await swal("Saved Successfully", {
             icon: "success",
           });
@@ -179,7 +182,7 @@ export default function UploadImageDocument({
           // errorDetails.message = "Please check empty fields";
           // errorDetails.name = error.data.msg;
           // throw errorDetails;
-          swal("Please check empty fields",{icon:"warning"})
+          swal("Please check empty fields", { icon: "warning" });
         }
       } else {
         swal("Unable to save", {
@@ -263,25 +266,67 @@ export default function UploadImageDocument({
         </div>
         <div>
           <CardComponent>
-            <div className="h-[26rem]">
+            <div className="lg:h-[26rem]">
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                <div className="sm:col-span-2">
-                  <label
-                    htmlFor="title"
-                    className="block text-sm font-semibold leading-6 text-gray-900"
-                  >
-                    Title
-                  </label>
-                  <div className="mt-2.5">
-                    <input
-                      type="text"
-                      name="title"
-                      id="title"
-                      value={title}
-                      onChange={(event) => setBannerTitle(event.target.value)}
-                      className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
+                <div
+                  className={
+                    formType === "product"
+                      ? "sm:col-span-2 sm:gap-6 lg:grid lg:grid-cols-2 lg:gap-5"
+                      : "sm:col-span-2 "
+                  }
+                >
+                  <div className="w-full">
+                    <label
+                      htmlFor="title"
+                      className="block text-sm font-semibold leading-6 text-gray-900"
+                    >
+                      Title
+                    </label>
+                    <div className="mt-2.5">
+                      <input
+                        type="text"
+                        name="title"
+                        id="title"
+                        value={title}
+                        onChange={(event) => setBannerTitle(event.target.value)}
+                        className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
                   </div>
+                  {formType === "product" ? (
+                    <div className="w-full">
+                      <label
+                        htmlFor="collection"
+                        className="block text-sm font-semibold leading-6 text-gray-900"
+                      >
+                        Collection
+                      </label>
+                      <div className="mt-2.5 w-full">
+                        <select
+                          onChange={(event) =>
+                            setCollection(event.target.value)
+                          }
+                          value={collection}
+                          id="collection"
+                          className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        >
+                          <option value="">Choose a collection</option>
+                          {collections.map((collection) => {
+                            return (
+                              <option
+                                key={collection._id}
+                                value={collection._id}
+                              >
+                                {collection.title}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 {formType === "product" ? (
                   <div className="sm:col-span-2 sm:gap-6  lg:grid lg:grid-cols-2 lg:gap-5 ">

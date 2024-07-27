@@ -1,15 +1,39 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "../../context/themeContext";
-import { Link, useOutletContext } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useOutletContext,
+} from "react-router-dom";
 import CategoryCardComponent from "../../components/widgets/CategoryCardComponent";
-import { useDeleteCollectionMutation, useGetCollectionsQuery } from "../../redux/services/collection";
+import {
+  useDeleteCollectionMutation,
+  useGetCollectionsQuery,
+} from "../../redux/services/collection";
 import LoadingComponent from "../../components/widgets/LoadingComponent";
+import Pagination from "../../components/widgets/Pagination";
 
 export default function Collections({ pageTitle }) {
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
   const [setTitle] = useOutletContext();
-  const { isLoading, data: collections } = useGetCollectionsQuery();
-  const [deleteCollection, {isFetching}] = useDeleteCollectionMutation();
+  const [deleteCollection, { isFetching }] = useDeleteCollectionMutation();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const currentPage = parseInt(query.get("page")) || 1;
+  const limit = 8;
+  const [page, setPage] = useState(currentPage);
+
+  const { isLoading, data: collections } = useGetCollectionsQuery({
+    page,
+    limit,
+  });
+
+  useEffect(() => {
+    navigate(`/admin/home/collections?page=${page}`, { replace: true });
+  }, [page, navigate]);
 
   useEffect(() => {
     setTitle(pageTitle);
@@ -29,19 +53,29 @@ export default function Collections({ pageTitle }) {
           Add Collection
         </Link>
       </div>
-      <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
-        {collections.response.length > 0
-          ? collections.response.map((collection) => (
-              <CategoryCardComponent
-                key={collection._id}
-                item={collection}
-                isAdmin={true}
-                deleteFunc= {deleteCollection}
-                isCategory={false}
-              />
-            ))
-          : ""}
-      </div>
+      {collections != null && collections.msg === "success" ? (
+        <div className="mt-6 gap-3 lg:grid lg:grid-cols-4 lg:gap-6">
+          {collections.response.map((collection) => (
+            <CategoryCardComponent
+              key={collection._id}
+              item={collection}
+              isAdmin={true}
+               dataType="collection"
+              deleteFunc={deleteCollection}
+              isCategory={false}
+            />
+          ))}
+        </div>
+      ) : (
+        ""
+      )}
+      <Pagination
+        currentPage={collections.currentPage}
+        totalPages={collections.totalPages}
+        totalDocument={collections.totalDocument}
+        resultsPerPage={collections.resultsPerPage}
+        setPageNum={setPage}
+      />
     </div>
   );
 }

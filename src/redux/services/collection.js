@@ -16,7 +16,9 @@ const collectionApi = fashionShopApi.injectEndpoints({
       query: (id) => ({ url: `admin/api/get-collection/${id}` }),
     }),
     getCollections: build.query({
-      query: () => ({ url: "admin/api/get-collections" }),
+      query: ({ page = 1, limit = 1 }) => ({
+        url: `admin/api/get-collections?page=${page}&limit=${limit}`,
+      }),
       providesTags: ["Collections"],
     }),
     updateCollection: build.mutation({
@@ -54,5 +56,5 @@ export const {
   useAddCollectionMutation,
   useDeleteCollectionMutation,
   useGetCollectionQuery,
-  useUpdateCollectionMutation
+  useUpdateCollectionMutation,
 } = collectionApi;

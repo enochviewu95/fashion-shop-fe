@@ -8,6 +8,7 @@ import {
   useGetProductQuery,
   useUpdateProductMutation,
 } from "../../redux/services/product";
+import { useGetCollectionsQuery } from "../../redux/services/collection";
 import UpdateUploadImageDocument from "../../components/widgets/UpdateUploadImageDocument";
 
 export default function AddProduct({ pageTitle }) {
@@ -17,6 +18,8 @@ export default function AddProduct({ pageTitle }) {
     page: 1,
     limit: 1000,
   });
+  const { data: collections, isLoading: fetchingCollections } =
+    useGetCollectionsQuery({ page: 1, limit: 1000 });
   const [
     updateProduct,
     { error: updateProductError, isLoading: isUpdatingProduct },
@@ -31,7 +34,13 @@ export default function AddProduct({ pageTitle }) {
     setTitle(pageTitle);
   }, [pageTitle, setTitle]);
 
-  if (isLoading || fetchingData || isAddingProduct || isUpdatingProduct) {
+  if (
+    isLoading ||
+    fetchingData ||
+    isAddingProduct ||
+    isUpdatingProduct ||
+    fetchingCollections
+  ) {
     return <LoadingComponent />;
   }
 
@@ -45,6 +54,7 @@ export default function AddProduct({ pageTitle }) {
       queryFunc={updateProduct}
       queryResult={data.response}
       categories={categories.response}
+      collections = {collections.response}
       error={updateProductError}
     />
   ) : (
@@ -55,6 +65,7 @@ export default function AddProduct({ pageTitle }) {
       queryFunc={addProduct}
       error={addProductError}
       categories={categories.response}
+      collections = {collections.response}
     />
   );
 }

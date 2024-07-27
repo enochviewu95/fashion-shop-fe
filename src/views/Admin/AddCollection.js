@@ -16,27 +16,25 @@ export default function AddCollection({ pageTitle }) {
   const { data, isLoading: fetchingData } = useGetCollectionQuery(id, {
     skip: !id ? true : false,
   });
-  const [updateCollection] = useUpdateCollectionMutation();
+  const [updateCollection, { isLoading: updatingCollection }] =
+    useUpdateCollectionMutation();
 
   useEffect(() => {
     setTitle(pageTitle);
   }, [pageTitle, setTitle]);
 
-  if (isLoading || fetchingData) {
+  if (isLoading || fetchingData || updatingCollection) {
     return <LoadingComponent />;
   }
 
-  console.log("Collection data",data)
+  console.log("Collection data", data);
   return id ? (
     <UpdateUploadImageDocument
-    redirectUrl="collections"
-    queryFunc={updateCollection}
-    queryResult={data.response}
-  />
-  ) : (
-    <UploadImageDocument
       redirectUrl="collections"
-      queryFunc={addCollection}
+      queryFunc={updateCollection}
+      queryResult={data.response}
     />
+  ) : (
+    <UploadImageDocument redirectUrl="collections" queryFunc={addCollection} />
   );
 }

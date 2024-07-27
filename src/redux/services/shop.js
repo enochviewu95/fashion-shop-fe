@@ -8,16 +8,27 @@ const shopApi = fashionShopApi.injectEndpoints({
     }),
 
     getCategoryProducts: build.query({
-      query: ({id, searchParams}) => {
-        console.log("Search query", );
+      query: ({ id, page, limit, createdAt, price }) => {
+        console.log("Search query");
         return {
-          url: `shop/api/get-category-product/${id}?${searchParams}`,
+          url: `shop/api/get-category-product/${id}?page=${page}&limit=${limit}&created_at=${createdAt}&price=${price}`,
           method: "GET",
         };
       },
       providesTags: ["CategoryProducts"],
     }),
+
+    getCollectionProducts: build.query({
+      query: ({ id, page, limit, createdAt, price }) => {
+        console.log("Search query");
+        return {
+          url: `shop/api/get-collection-product/${id}?page=${page}&limit=${limit}&created_at=${createdAt}&price=${price}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["CollectionProducts"],
+    }),
   }),
 });
 
-export const { useGetShopQuery, useGetCategoryProductsQuery } = shopApi;
+export const { useGetShopQuery, useGetCategoryProductsQuery,useGetCollectionProductsQuery } = shopApi;

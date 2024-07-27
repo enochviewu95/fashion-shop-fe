@@ -83,7 +83,7 @@ export const Routes = createBrowserRouter([
             ),
           },
           {
-            path: "/list/:id",
+            path: "/list/:type/:id",
             element: (
               <SuspenseSection>
                 <ClientProductList />
