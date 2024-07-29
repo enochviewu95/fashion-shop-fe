@@ -14,7 +14,7 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [userInfo, setUserInfo] = useState(new FormData());
   const [skip, setSkip] = useState(true);
-  const [signup, { isFetching }] = useSignupMutation(userInfo, { skip });
+  const [signup, { isLoading }] = useSignupMutation(userInfo, { skip });
 
   const {
     buttonBackground,
@@ -47,13 +47,44 @@ export default function Signup() {
 
     try {
       const response = await signup(userInfo);
-      navigate("/auth");
+      console.log("Response", response);
+      if (
+        response !== null &&
+        response.data !== null &&
+        response.data.msg === "success"
+      ) {
+        const acceptResponse = await swal({
+          title: "Registration successful",
+          text: "You have successfully been registered",
+          icon: "success",
+          button: "Okay",
+        });
+
+        if (acceptResponse) {
+          navigate("/auth");
+          return;
+        }
+      } else if (response !== null && response.error) {
+        const error = Error();
+        error.message = response.error.data.response;
+        throw error;
+      } else {
+        const error = Error();
+        error.message = "Registration failed please try again later";
+        throw error;
+      }
     } catch (err) {
-      console.log("Error", err);
+      console.log("ERror", err);
+      swal({
+        title: "Registration failed!",
+        text: err.message,
+        icon: "warning",
+        button: "Okay",
+      });
     }
   };
 
-  if (isFetching) {
+  if (isLoading) {
     return <LoadingComponent />;
   }
 
