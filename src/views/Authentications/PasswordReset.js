@@ -2,9 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import unaMano from "../../assets/logo/una_mano.png";
 import { ThemeContext } from "../../context/themeContext";
 import {
-  Navigate,
-  useNavigate,
-  useParams,
   useSearchParams,
 } from "react-router-dom";
 import swal from "sweetalert";

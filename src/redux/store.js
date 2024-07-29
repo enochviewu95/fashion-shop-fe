@@ -1,35 +1,30 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { combineReducers } from "@reduxjs/toolkit";
 
 import { persistReducer, persistStore } from "redux-persist";
-import storage from 'redux-persist/lib/storage';
-import thunk from 'redux-thunk';
+import storage from "redux-persist/lib/storage";
 
-import BannerReducer from "./bannerSlice";
-import CategoryReducer from  "./categorySlice";
-import CollectionReducer from "./collectionSlice";
-import ProductReducer from "./productSlice";
-import ShopReducer from "./shopSlice";
-import UserReducer from "./userSlice"
+import { fashionShopApi } from "./services/api";
+import authReducer from "./authSlice";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
-const persitConfig = {
-  key: "root",
+const authConfig = {
+  key: "auth",
   storage,
 };
 
-export const rootReducers = combineReducers({
-  banners: BannerReducer,
-  categories: CategoryReducer,
-  collections: CollectionReducer,
-  products: ProductReducer,
-  shop: ShopReducer,
-  user: UserReducer
+const authPersistedReducer = persistReducer(authConfig, authReducer);
+
+export const store = configureStore({
+  reducer: {
+    auth: authPersistedReducer,
+    [fashionShopApi.reducerPath]: fashionShopApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }).concat(
+      fashionShopApi.middleware
+    ),
 });
 
-const persistedReducer = persistReducer(persitConfig, rootReducers);
-export const store = configureStore({
-  reducer: persistedReducer,
-  middleware: [thunk]
-});
+setupListeners(store.dispatch);
 
 export const persistor = persistStore(store);

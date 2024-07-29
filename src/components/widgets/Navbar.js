@@ -7,38 +7,41 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 import UnaMano from "../../assets/logo/una_mano.png";
 import { ThemeContext } from "../../context/themeContext";
-import { useAuth } from "../../context/auth";
-import { saveData } from "../../services/apis";
-import swal from "sweetalert";
+import { useLogoutMutation } from "../../redux/services/auth";
+import { dialogAlert } from "../../utils/DialogAlert";
+import LoadingComponent from "../widgets/LoadingComponent";
+import { useAuth } from "../../hooks/useAuth";
 
 const navigation = [
-  { name: "Home", href: "/fashion-shop-fe/" },
-  { name: "About Us", href: "/fashion-shop-fe/about-us" },
-  { name: "Contact Us", href: "/fashion-shop-fe/contact-us" },
+  { name: "Home", href: "/" },
+  { name: "About Us", href: "/about-us" },
+  { name: "Contact Us", href: "/contact-us" },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar({ setLoading }) {
+export default function Navbar() {
   const { primaryBackground } = useContext(ThemeContext);
-  const auth = useAuth();
   const navigate = useNavigate();
 
-  const logout = (event) => {
+  const [logout, { isLoading }] = useLogoutMutation();
+  const auth = useAuth();
+
+  const signout = async (event) => {
     event.preventDefault();
-    setLoading(true);
-    saveData("/auth/logout")
-      .then((response) => {
-        if (response) {
-          navigate("/fashion-shop-fe/auth", { replace: true });
-        }
-      })
-      .catch((err) => {
-        swal("Unable to logout at this time. Please try again later");
-      });
+    try {
+      await logout();
+      navigate("/auth", { replace: true });
+    } catch (err) {
+      dialogAlert("Logout unsuccessful", err);
+    }
   };
+
+  if (isLoading) {
+    return <LoadingComponent />;
+  }
 
   return (
     <header className="z-50 relative ">
@@ -59,19 +62,19 @@ export default function Navbar({ setLoading }) {
                   </Disclosure.Button>
                 </div>
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                  <Link to="/fashion-shop-fe">
+                  <Link to="/">
                     <div className="flex flex-shrink-0 items-center mix-blend-luminosity rounded-full">
                       <img
-                        className="block h-12 w-auto lg:hidden"
+                        className="block w-16 h-12 lg:hidden"
                         src={UnaMano}
                         alt="Una Mano"
-                        loading="lazy"
+                        fetchpriority="high"
                       />
                       <img
-                        className="hidden h-12 w-auto lg:block"
+                        className="hidden w-16 h-12 lg:block"
                         src={UnaMano}
                         alt="Una Mano"
-                        loading="lazy"
+                        fetchpriority="high"
                       />
                     </div>
                   </Link>
@@ -90,11 +93,11 @@ export default function Navbar({ setLoading }) {
                           {item.name}
                         </NavLink>
                       ))}
-                      {auth.status !== "failed" ? (
-                        auth.user.role === "admin" ? (
+                      {auth.msg === "success" ? (
+                        auth.response.role === "admin" ? (
                           <NavLink
                             key="Dashboard"
-                            to="/fashion-shop-fe/admin"
+                            to="/admin"
                             className={({ isActive }) =>
                               isActive
                                 ? "bg-amber-900 text-white rounded-md px-3 py-2 text-sm font-medium"
@@ -112,16 +115,8 @@ export default function Navbar({ setLoading }) {
                     </div>
                   </div>
                 </div>
-                {auth.status !== "failed" ? (
+                {auth.msg === "success" ? (
                   <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                    {/* <button
-                      type="button"
-                      className="rounded-full bg-amber-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button> */}
-
                     {/* Profile dropdown */}
                     <Menu as="div" className="relative ml-3">
                       <div>
@@ -130,7 +125,7 @@ export default function Navbar({ setLoading }) {
                           <img
                             className="h-8 w-8 rounded-full"
                             src={`https://ui-avatars.com/api/?name=${
-                              auth.user.firstname + auth.user.lastname
+                              auth.response.firstname + auth.response.lastname
                             }`}
                             alt="avatar"
                             loading="lazy"
@@ -149,17 +144,20 @@ export default function Navbar({ setLoading }) {
                         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right overflow-hidden rounded-md bg-white pb-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                           <div className="bg-gray-200">
                             <p className="block px-4 py-2 text-sm text-gray-700">
-                              {auth.user.firstname + " " + auth.user.lastname}
+                              {auth.response.firstname +
+                                " " +
+                                auth.response.lastname}
                             </p>
 
                             <p className="block px-4 py-2 text-sm text-gray-700">
-                              {auth.user.email}
+                              {auth.response.email}
                             </p>
                           </div>
 
                           <Menu.Item>
                             {({ active }) => (
                               <Link
+                                to={"/favorites"}
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700 border-gray-500"
@@ -173,7 +171,7 @@ export default function Navbar({ setLoading }) {
                           <Menu.Item>
                             {({ active }) => (
                               <Link
-                                onClick={logout}
+                                onClick={signout}
                                 className={classNames(
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-sm text-gray-700 border-gray-500"
@@ -190,7 +188,7 @@ export default function Navbar({ setLoading }) {
                 ) : (
                   <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <Link
-                      to="/fashion-shop-fe/auth"
+                      to="/auth"
                       className="rounded shadow bg-amber-800 py-1 px-3 text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                     >
                       Login
@@ -217,12 +215,12 @@ export default function Navbar({ setLoading }) {
                     {item.name}
                   </Disclosure.Button>
                 ))}
-                {auth.status !== "failed" ? (
-                  auth.user.role === "admin" ? (
+                {auth.msg === "success" ? (
+                  auth.response.role === "admin" ? (
                     <Disclosure.Button
                       key="Dashboard"
                       as="a"
-                      href="/fashion-shop-fe/admin"
+                      href="/admin"
                       className={({ isActive }) =>
                         isActive
                           ? "bg-amber-900 text-white block rounded-md px-3 py-2 text-base font-medium"

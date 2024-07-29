@@ -23,7 +23,7 @@ export default function ResetPassword() {
 
     saveData("/auth/reset-password", formData)
       .then((response) => {
-        navigate("/fashion-shop-fe/auth");
+        navigate("/auth");
       })
       .catch((err) => {
         //TODO: Create a sweet alert component to handle errors
@@ -78,7 +78,7 @@ export default function ResetPassword() {
         <p className="mt-6 text-center text-sm text-gray-500">
           Already registered?{" "}
           <Link
-            to="/fashion-shop-fe/auth"
+            to="/auth"
             className={`font-medium leading-6 ${primaryTextColor} hover:${secondaryTextColor}`}
           >
             Sign in

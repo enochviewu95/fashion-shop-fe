@@ -1,20 +1,22 @@
 import { Outlet } from "react-router-dom";
 import { useState } from "react";
+// import AOS from "aos";
 import { ThemeContext, themes } from "./context/themeContext";
-import LoadingComponent from "./components/widgets/LoadingComponent";
 
 import "./App.css";
-import { useAuth } from "./context/auth";
+import "aos/dist/aos.css";
 
 function App() {
   const [theme] = useState(themes.light);
-  const auth = useAuth();
-  return auth !== null ? (
+  // useEffect(() => {
+  //   AOS.init({ duration: 1000 });
+  //   AOS.refresh(); // Refresh AOS to detect new elements
+  // }, []);
+
+  return (
     <ThemeContext.Provider value={theme}>
       <Outlet />
     </ThemeContext.Provider>
-  ) : (
-    <LoadingComponent isLoading={true} />
   );
 }
 

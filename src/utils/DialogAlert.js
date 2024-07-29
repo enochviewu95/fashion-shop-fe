@@ -1,6 +1,6 @@
 import swal from "sweetalert";
 
-export const dialogAlert = ( title, msg ) => {
+export const dialogAlert = ({ title, msg }) => {
   return swal({
     title: title,
     text: msg,

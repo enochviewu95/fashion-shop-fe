@@ -1,24 +1,45 @@
 import React, { useEffect } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
 import UploadImageDocument from "../../components/widgets/UploadImageDocument";
+import {
+  useAddBannerMutation,
+  useGetBannerQuery,
+  useUpdateBannerMutation,
+} from "../../redux/services/banner";
+import LoadingComponent from "../../components/widgets/LoadingComponent";
+import UpdateUploadImageDocument from "../../components/widgets/UpdateUploadImageDocument";
 
 export default function AddHero({ pageTitle }) {
   const [setTitle] = useOutletContext();
   const { id } = useParams();
+  const [addBanner, { isLoading }] = useAddBannerMutation();
+  const [updateBanner, { isLoading: isUpdating }] = useUpdateBannerMutation();
+  const { data, isLoading: fetchingData } = useGetBannerQuery(id, {
+    skip: !id ? true : false,
+  });
 
   useEffect(() => {
     setTitle(pageTitle);
   }, [pageTitle, setTitle]);
 
+  if (isLoading || fetchingData || isUpdating) {
+    return <LoadingComponent />;
+  }
+
   return id ? (
-    <UploadImageDocument
-      url={`admin/api/edit-banner/${id}`}
+    <UpdateUploadImageDocument
       dataType="hero"
       redirectUrl="hero"
-      editUrl="admin/api/get-banner"
-      itemId={id}
+      formType="hero"
+      queryFunc={updateBanner}
+      queryResult={data.response}
     />
   ) : (
-    <UploadImageDocument url="admin/api/add-banner" dataType="hero" redirectUrl="hero" />
+    <UploadImageDocument
+      queryFunc={addBanner}
+      url="admin/api/add-banner"
+      dataType="hero"
+      redirectUrl="hero"
+    />
   );
 }

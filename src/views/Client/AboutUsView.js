@@ -3,6 +3,9 @@ import StatsSection from "../../components/sections/StatsSection";
 import TeamSection from "../../components/sections/TeamSection";
 import TrustedBrandSection from "../../components/sections/TrustedBrandSection";
 import { ThemeContext } from "../../context/themeContext";
+import { useGetShopQuery } from "../../redux/services/shop";
+import LoadingComponent from "../../components/widgets/LoadingComponent";
+import ErrorSection from "../../components/sections/ErrorSection";
 
 export default function AboutUsView() {
   const background = false;
@@ -10,6 +13,18 @@ export default function AboutUsView() {
   const padding = "py-20";
   const { startBackground, stopBackground, deepBackground } =
     useContext(ThemeContext);
+
+  const { data, isLoading, error } = useGetShopQuery();
+
+  if (isLoading) {
+    return <LoadingComponent />;
+  }
+
+  if (error) {
+    return <ErrorSection />;
+  }
+
+  const { statistics } = data;
 
   return (
     <div>
@@ -83,6 +98,7 @@ export default function AboutUsView() {
               gridArrangement={gridArrangement}
               background={background}
               padding={padding}
+              statistics={statistics}
             />
           </div>
         </div>

@@ -1,74 +1,95 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, useOutletContext } from "react-router-dom";
-import { bannerList, getBannersAsync } from "../../redux/bannerSlice";
-import HeroSection from "../../components/sections/HeroSection";
 import { ThemeContext } from "../../context/themeContext";
 import swal from "sweetalert";
-import { updateData } from "../../services/apis";
+import {
+  useGetBannersQuery,
+  useUpdateSelectedMutation,
+} from "../../redux/services/banner";
+import LoadingComponent from "../../components/widgets/LoadingComponent";
+import { EditBannerComponent } from "../../components/widgets/EditBannerComponent";
+import { useNavigate, useLocation } from "react-router-dom";
+import Pagination from "../../components/widgets/Pagination";
 
 export default function Hero({ pageTitle, isAdmin }) {
-  const [setTitle, setLoading] = useOutletContext();
-  const dispatch = useDispatch();
-  const banners = useSelector(bannerList);
+  const [setTitle] = useOutletContext();
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const currentPage = parseInt(query.get("page")) || 1;
+  const limit = 1;
+  const [page, setPage] = useState(currentPage);
   const [selectedHero, setSelectedHero] = useState("");
+  const { data: banners, isFetching } = useGetBannersQuery({ page, limit });
+  const [updateSelected, { isLoading, data }] = useUpdateSelectedMutation();
 
   useEffect(() => {
     setTitle(pageTitle);
-    dispatch(getBannersAsync("admin/api/get-banners"));
-    if (bannerList.length > 0) {
-      setLoading(false);
-    }
-  }, [dispatch, pageTitle, setLoading, setTitle]);
+  }, [pageTitle, setTitle]);
 
-  const updateSelectedBanner = (event) => {
+  useEffect(() => {
+    navigate(`/admin/home/hero?page=${page}`, { replace: true });
+  }, [page, navigate]);
+
+  if (isFetching || isLoading) {
+    return <LoadingComponent />;
+  }
+
+  const updateSelectedBanner = async (event) => {
     event.preventDefault();
     event.stopPropagation();
-    swal({
-      title: "Are you sure?",
-      text: "Do you want to update?",
-      icon: "info",
-      buttons: true,
-      dangerMode: false,
-    }).then((willUpdate) => {
+    try {
+      const willUpdate = await swal({
+        title: "Are you sure?",
+        text: "Do you want to update?",
+        icon: "info",
+        buttons: true,
+        dangerMode: false,
+      });
+
       if (willUpdate) {
-        updateData(`/admin/api/update-selected/${selectedHero}`).then(() => {
+        try {
+          await updateSelected({ selectedHero });
+          console.log("DAta,", data);
           swal("Updated Successfully", {
             icon: "success",
-          }).then(() => {
-            console.log("Saving data");
-            window.location.reload();
           });
-        });
+        } catch (error) {}
       } else {
         swal("Unable to save", {
           icon: "info",
         });
       }
-    });
+    } catch (error) {}
   };
+
+  // const handlePageChange = (newPage) => {
+  //   query.set("page", newPage);
+  //   navigate({ search: query.toString() });
+  // };
 
   return (
     <>
       <div>
-        <div className="my-5 flex">
+        <div className="flex">
           <Link
-            to="/fashion-shop-fe/admin/home/hero/add-hero"
-            className={`${buttonBackground} px-3 py-2 hover:${buttonHoverBackground} text-white my-5 rounded-lg shadow-sm`}
+            to="/admin/home/hero/add-hero"
+            className={`${buttonBackground} px-3 py-2 hover:${buttonHoverBackground} text-white rounded-lg shadow-sm`}
           >
             Add Banner
           </Link>
           <button
             onClick={updateSelectedBanner}
-            className={`${buttonBackground} px-3 py-2 hover:${buttonHoverBackground} text-white mx-5 my-5 rounded-lg shadow-sm`}
+            className={`${buttonBackground} px-3 py-2 hover:${buttonHoverBackground} text-white mx-5 rounded-lg shadow-sm`}
           >
             Apply Changes
           </button>
         </div>
-        {banners
-          ? banners.map((banner) => (
-              <div key={banner._id}>
+        {banners && banners.msg === "success"
+          ? banners.response.map((banner) => (
+              <div key={banner._id} className="h-[40rem]">
                 <div
                   className={
                     banner.isSelected && isAdmin
@@ -77,9 +98,8 @@ export default function Hero({ pageTitle, isAdmin }) {
                   }
                 >
                   <label htmlFor={banner._id}>
-                    <HeroSection
-                      hero={banner}
-                      isAdmin="true"
+                    <EditBannerComponent
+                      banner={banner}
                       selectedHero={selectedHero}
                     />
                   </label>
@@ -97,6 +117,13 @@ export default function Hero({ pageTitle, isAdmin }) {
               </div>
             ))
           : ""}
+        <Pagination
+          currentPage={banners.currentPage}
+          totalPages={banners.totalPages}
+          totalDocument={banners.totalDocument}
+          resultsPerPage={banners.resultsPerPage}
+          setPageNum = {setPage}
+        />
       </div>
     </>
   );
