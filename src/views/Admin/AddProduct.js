@@ -44,9 +44,6 @@ export default function AddProduct({ pageTitle }) {
     return <LoadingComponent />;
   }
 
-  console.log("This is a list of categories", categories);
-  console.log("This is the response ", addProductError);
-
   return id ? (
     <UpdateUploadImageDocument
       redirectUrl="products"

@@ -303,7 +303,7 @@ export default function ProductListView() {
             </div>
           </div>
 
-          <section aria-labelledby="products-heading" className="pb-6 pt-6">
+          <div aria-labelledby="products-heading" className="pb-6 pt-6">
             <h2 id="products-heading" className="sr-only">
               {type === "category" ? "Products" : "Collections"}
             </h2>
@@ -391,7 +391,7 @@ export default function ProductListView() {
                 </div>
               </div>
             </div>
-          </section>
+          </div>
         </main>
         <Pagination
           currentPage={products.currentPage}

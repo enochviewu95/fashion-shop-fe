@@ -9,7 +9,6 @@ const shopApi = fashionShopApi.injectEndpoints({
 
     getCategoryProducts: build.query({
       query: ({ id, page, limit, createdAt, price }) => {
-        console.log("Search query");
         return {
           url: `shop/api/get-category-product/${id}?page=${page}&limit=${limit}&created_at=${createdAt}&price=${price}`,
           method: "GET",
@@ -20,7 +19,6 @@ const shopApi = fashionShopApi.injectEndpoints({
 
     getCollectionProducts: build.query({
       query: ({ id, page, limit, createdAt, price }) => {
-        console.log("Search query");
         return {
           url: `shop/api/get-collection-product/${id}?page=${page}&limit=${limit}&created_at=${createdAt}&price=${price}`,
           method: "GET",

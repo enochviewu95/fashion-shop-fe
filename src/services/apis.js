@@ -49,6 +49,6 @@ export const deleteData = async (url) => {
       return data;
     })
     .catch((err) => {
-      console.log(err);
+      return null
     });
 };

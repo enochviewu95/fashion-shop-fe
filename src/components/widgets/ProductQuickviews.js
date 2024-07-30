@@ -1,14 +1,10 @@
-import { Fragment, useState } from "react";
-import { Dialog, RadioGroup, Transition } from "@headlessui/react";
+import { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { StarIcon } from "@heroicons/react/20/solid";
 import { useGetProductDetailsQuery } from "../../redux/services/product";
 import LoadingComponent from "./LoadingComponent";
 import he from 'he';
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 
 export default function ProductQuickviews({
   open = false,
@@ -28,7 +24,7 @@ export default function ProductQuickviews({
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10 rounded-lg" onClose={setOpen}>
+      <Dialog as="div" className="relative z-50 rounded-lg" onClose={setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -78,7 +74,7 @@ export default function ProductQuickviews({
                         {product.title}
                       </h2>
 
-                      <section
+                      <div
                         aria-labelledby="information-heading"
                         className="mt-2"
                       >
@@ -98,7 +94,7 @@ export default function ProductQuickviews({
                           className="mt-5 text-lg text-gray-900"
                           dangerouslySetInnerHTML={{ __html: he.decode(product.details) }}
                         ></div>
-                      </section>
+                      </div>
                     </div>
                   </div>
                 </div>

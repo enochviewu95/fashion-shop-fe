@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { dialogAlert } from "../../utils/DialogAlert";
-import he from 'he';
+import he from "he";
 
 export default function UpdateUploadImageDocument({
   dataType,
@@ -15,6 +15,7 @@ export default function UpdateUploadImageDocument({
   redirectUrl,
   queryFunc,
   categories,
+  collections,
   queryResult,
   error = null,
 }) {
@@ -25,9 +26,11 @@ export default function UpdateUploadImageDocument({
     formType === "product" ? queryResult.price["$numberDecimal"] : 0.0
   );
   const [selected, setSelected] = useState(queryResult.isSelected);
+
   const [description, setBannerDescription] = useState(queryResult.description);
   const [details, setDetails] = useState(queryResult.details);
   const [category, setCategory] = useState(queryResult.category);
+  const [collection, setCollection] = useState(queryResult.catalog);
   const navigate = useNavigate();
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
 
@@ -151,6 +154,7 @@ export default function UpdateUploadImageDocument({
     formType === "product" && formData.append("price", price);
     formType === "product" && formData.append("details", details);
     formType === "product" && formData.append("category", category);
+    formType === "product" && formData.append("collection", collection);
 
     formData.append("image", image);
     formData.append("title", title);
@@ -272,23 +276,65 @@ export default function UpdateUploadImageDocument({
           <CardComponent>
             <div className="h-[26rem]">
               <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-                <div className="sm:col-span-2">
-                  <label
-                    htmlFor="title"
-                    className="block text-sm font-semibold leading-6 text-gray-900"
-                  >
-                    Title
-                  </label>
-                  <div className="mt-2.5">
-                    <input
-                      type="text"
-                      name="title"
-                      id="title"
-                      value={title}
-                      onChange={(event) => setBannerTitle(event.target.value)}
-                      className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
+                <div
+                  className={
+                    formType === "product"
+                      ? "sm:col-span-2 sm:gap-6 lg:grid lg:grid-cols-2 lg:gap-5"
+                      : "sm:col-span-2 "
+                  }
+                >
+                  <div className="w-full">
+                    <label
+                      htmlFor="title"
+                      className="block text-sm font-semibold leading-6 text-gray-900"
+                    >
+                      Title
+                    </label>
+                    <div className="mt-2.5">
+                      <input
+                        type="text"
+                        name="title"
+                        id="title"
+                        value={title}
+                        onChange={(event) => setBannerTitle(event.target.value)}
+                        className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
                   </div>
+                  {formType === "product" ? (
+                    <div className="w-full">
+                      <label
+                        htmlFor="collection"
+                        className="block text-sm font-semibold leading-6 text-gray-900"
+                      >
+                        Collection
+                      </label>
+                      <div className="mt-2.5 w-full">
+                        <select
+                          onChange={(event) =>
+                            setCollection(event.target.value)
+                          }
+                          value={collection}
+                          id="collection"
+                          className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        >
+                          <option value="">Choose a collection</option>
+                          {collections.map((collection) => {
+                            return (
+                              <option
+                                key={collection._id}
+                                value={collection._id}
+                              >
+                                {collection.title}
+                              </option>
+                            );
+                          })}
+                        </select>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
                 {formType === "product" ? (
                   <div className="sm:col-span-2 sm:gap-6  lg:grid lg:grid-cols-2 lg:gap-5 ">

@@ -31,7 +31,6 @@ export default function Login() {
 
     try {
       const response = await login(formState);
-      console.log('Response',response);
       if (response.data.status === "failed") {
         dialogAlert(response.data.msg);
         return;

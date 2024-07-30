@@ -10,6 +10,7 @@ import LoadingComponent from "../../components/widgets/LoadingComponent";
 import { EditBannerComponent } from "../../components/widgets/EditBannerComponent";
 import { useNavigate, useLocation } from "react-router-dom";
 import Pagination from "../../components/widgets/Pagination";
+import { dialogAlert } from "../../utils/DialogAlert";
 
 export default function Hero({ pageTitle, isAdmin }) {
   const [setTitle] = useOutletContext();
@@ -23,7 +24,8 @@ export default function Hero({ pageTitle, isAdmin }) {
   const [page, setPage] = useState(currentPage);
   const [selectedHero, setSelectedHero] = useState("");
   const { data: banners, isFetching } = useGetBannersQuery({ page, limit });
-  const [updateSelected, { isLoading, data }] = useUpdateSelectedMutation();
+  const [updateSelected, { isLoading }] =
+    useUpdateSelectedMutation();
 
   useEffect(() => {
     setTitle(pageTitle);
@@ -50,19 +52,28 @@ export default function Hero({ pageTitle, isAdmin }) {
       });
 
       if (willUpdate) {
-        try {
-          await updateSelected({ selectedHero });
-          console.log("DAta,", data);
+        const response = await updateSelected({ selectedHero });
+        if (response !== null && response.data && response.data.msg === "success") {
           swal("Updated Successfully", {
             icon: "success",
           });
-        } catch (error) {}
+        } else {
+          dialogAlert({
+            title: "Unable to save",
+            msg: "Unable to update selected banner. Please try again later",
+          });
+        }
       } else {
         swal("Unable to save", {
           icon: "info",
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      dialogAlert({
+        title: error.name.toUpperCase(),
+        msg: error.message,
+      });
+    }
   };
 
   // const handlePageChange = (newPage) => {
@@ -122,7 +133,7 @@ export default function Hero({ pageTitle, isAdmin }) {
           totalPages={banners.totalPages}
           totalDocument={banners.totalDocument}
           resultsPerPage={banners.resultsPerPage}
-          setPageNum = {setPage}
+          setPageNum={setPage}
         />
       </div>
     </>

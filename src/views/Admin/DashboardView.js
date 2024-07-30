@@ -25,8 +25,6 @@ export default function DashboardView({ pageTitle }) {
     return <ErrorSection/>
   }
 
-  console.log("Dashboard data", data);
-
   return data != null && data.msg === "success" ? (
     <>
       <div className="my-3 mb-10">

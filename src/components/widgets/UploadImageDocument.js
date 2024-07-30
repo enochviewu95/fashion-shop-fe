@@ -22,12 +22,12 @@ export default function UploadImageDocument({
   const [imageUrl, setBannerImageUrl] = useState("");
   const [title, setBannerTitle] = useState("");
   const [price, setPrice] = useState(0.0);
-  const [selected, setSelected] = useState(false);
+  const [selected] = useState(false);
   const [description, setBannerDescription] = useState("");
   const [details, setDetails] = useState("");
   const [category, setCategory] = useState("");
   const [collection, setCollection] = useState("");
-  const [item, setItem] = useState(null);
+  const [item] = useState(null);
   const navigate = useNavigate();
   const { buttonBackground, buttonHoverBackground } = useContext(ThemeContext);
 
@@ -167,7 +167,6 @@ export default function UploadImageDocument({
       });
       if (willSave) {
         const addResponse = await queryFunc(formData);
-        console.log("Add response", addResponse);
         if (
           addResponse != null &&
           addResponse.data &&

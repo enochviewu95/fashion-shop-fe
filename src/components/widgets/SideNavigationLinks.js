@@ -6,7 +6,7 @@ export default function SideNavigationLinks() {
   return (
     <div className="flex h-screen flex-col bg-slate-100 py-6 shadow-xl z-50 fixed left-0 top-16 bottom-0">
       <div className="px-4 sm:px-6">
-        <div className="text-lg font-semibold leading-6 text-gray-900 py-4 border-b-2">
+        <div className="text-md font-semibold leading-6 text-gray-900 py-4 border-b-2">
           <NavLink to="/">
             <div className="flex items-center flex-row">
               <div className="rounded-full overflow-hidden">
@@ -29,8 +29,8 @@ export default function SideNavigationLinks() {
               to="/admin/"
               className={({ isActive }) =>
                 isActive
-                  ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                  : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                  ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-slate-900 bg-amber-500 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                  : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-slate-900 hover:bg-amber-500 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
               }
             >
               Dashboard
@@ -41,8 +41,8 @@ export default function SideNavigationLinks() {
               to="/admin/home/hero"
               className={({ isActive }) =>
                 isActive
-                  ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                  : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                  ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-slate-900 bg-amber-500 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                  : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-slate-900 hover:bg-amber-500 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
               }
             >
               Hero
@@ -53,8 +53,8 @@ export default function SideNavigationLinks() {
               to="/admin/home/categories"
               className={({ isActive }) =>
                 isActive
-                  ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                  : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                  ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-slate-900 bg-amber-500 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                  : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-slate-900 hover:bg-amber-500 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
               }
             >
               Categories
@@ -66,8 +66,8 @@ export default function SideNavigationLinks() {
               to={{ pathname: "/admin/home/products", search: "" }}
               className={({ isActive }) =>
                 isActive
-                  ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                  : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                  ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-slate-900 bg-amber-500 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                  : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-slate-900 hover:bg-amber-500 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
               }
             >
               Products
@@ -78,8 +78,8 @@ export default function SideNavigationLinks() {
               to="/admin/home/collections"
               className={({ isActive }) =>
                 isActive
-                  ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
-                  : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-purple-900 hover:bg-purple-200 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                  ? "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-slate-900 bg-amber-500 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
+                  : "flex w-full justify-between rounded-lg  px-4 py-4 text-left text-md font-medium text-slate-900 hover:bg-amber-500 focus:outline-none focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-opacity-75"
               }
             >
               Collections

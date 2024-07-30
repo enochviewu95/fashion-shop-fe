@@ -12,7 +12,7 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [userInfo, setUserInfo] = useState(new FormData());
+  const [userInfo] = useState(new FormData());
   const [skip, setSkip] = useState(true);
   const [signup, { isLoading }] = useSignupMutation(userInfo, { skip });
 
@@ -47,7 +47,6 @@ export default function Signup() {
 
     try {
       const response = await signup(userInfo);
-      console.log("Response", response);
       if (
         response !== null &&
         response.data !== null &&
@@ -74,7 +73,6 @@ export default function Signup() {
         throw error;
       }
     } catch (err) {
-      console.log("ERror", err);
       swal({
         title: "Registration failed!",
         text: err.message,
